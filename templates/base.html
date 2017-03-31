@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BeinGenious</title>
+	<style>
+		ul#horiz-menu li{
+			display: inline;
+		}
+
+		.error{
+			color :red;
+		}
+	</style>
+</head>
+<body>
+	<a href="/">
+		<h1>Be<em>i</em>nGenious</h1>
+	</a>
+
+	<ul id = "horiz-menu">
+		<li><a href="/catalog">Catalog</a></li>
+		<li><a href="/login?pane=signin">Sign In</a></li>
+		<li><a href="/login?pane=signup">Sign Up</a></li>
+	</ul>
+
+	{% block content %}
+	{% endblock %}
+
+</body>
+</html>

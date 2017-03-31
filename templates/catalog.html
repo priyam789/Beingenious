@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<form action = "/activities">
+<table style="width:100%">
+	<tr>
+		<td><input type = "submit" name = "category" value = "Dance"></td>
+		<td><input type = "submit" name = "category" value = "Music"></td>
+		<td><input type = "submit" name = "category" value = "Theatre"></td>
+	</tr>
+	<tr>
+		<td><input type = "submit" name = "category" value = "Literature"></td>
+		<td><input type = "submit" name = "category" value = "Quiz & Debate"></td>
+		<td><input type = "submit" name = "category" value = "Academia"></td>
+	</tr>
+</table>
+</form>
+{% endblock %}
