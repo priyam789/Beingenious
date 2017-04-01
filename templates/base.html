@@ -19,8 +19,14 @@
 
 	<ul id = "horiz-menu">
 		<li><a href="/catalog">Catalog</a></li>
+		{% if user == None %}
 		<li><a href="/login?pane=signin">Sign In</a></li>
 		<li><a href="/login?pane=signup">Sign Up</a></li>
+		{% else %}
+		<li><a href="/dashboard">Dashboard</li>
+		<li><a href="/profile">Account</li>
+		<li><a href="/logout">Logout</li>
+		{% endif %}
 	</ul>
 
 	{% block content %}

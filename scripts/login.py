@@ -1,7 +1,6 @@
 import re
 
 from base import *
-from database import *
 
 def validate_username(s):
 	user_re = re.compile(r'^[a-zA-Z0-9]{3,20}$')
@@ -44,7 +43,7 @@ class LoginPage(Handler):
 		signin = self.request.get('signin')
 		signup = self.request.get('signup')
 		if signin:
-			self.write('Signin pressed')
+			self.signin()
 		elif signup:
 			self.signup()
 
@@ -63,7 +62,7 @@ class LoginPage(Handler):
 
 		if valid_fname and valid_lname and valid_email and valid_pass and valid_verify:
 			self.register_user(fname, lname, email, password)
-			self.response.write('Signup successful')
+			self.write('Signup successful')	#TODO: mail activation and redirection
 
 		else:
 			if not valid_pass:
@@ -82,11 +81,36 @@ class LoginPage(Handler):
 		user = User(fname = fname, lname = lname, email = email, email_pw_salt = ' ')
 		user.store(password)
 
-class ActivityPage(Handler):	#will go in a separate file
+	def signin(self):
+		email = self.request.get('email')
+		password = self.request.get('password')
+
+		user_id = User.validate_email_pw(email, password)
+		if user_id == None:
+			login_error = 'Invalid email or password'
+			self.render_page(pane='signin', email=email, login_error=login_error)
+		else:
+			self.set_cookie(user_id)
+			self.write('Signin successful')	#TODO: redirect to the dashboard
+
+class LogoutPage(Handler):
+	def get(self):
+		self.set_cookie()
+		self.redirect('/')
+
+class ActivityPage(Handler):	#TODO: will go in a separate file
 	def get(self):
 		category = self.request.get('category')
 		self.write('Category detected : %s\n' %category)
 		self.write('Sorry: Page under construction')
+
+class DashboardPage(Handler):	#TODO: will go in a separate file
+	def get(self):
+		self.write('Page under construction')
+
+class ProfilePage(Handler):	#TODO: will go in a separate file
+	def get(self):
+		self.write('Page under construction')
 
 class CatalogPage(Handler):
 	def get(self):

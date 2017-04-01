@@ -8,5 +8,8 @@ app = webapp2.WSGIApplication([
 	('/', HomePage),
 	('/catalog/?', CatalogPage),
 	('/login', LoginPage),
-	('/activities/?', ActivityPage)
+	('/logout/?', LogoutPage),
+	('/activities/?', ActivityPage),
+	('/dashboard/?', DashboardPage),
+	('/profile/?', ProfilePage)
 	], debug = True)
