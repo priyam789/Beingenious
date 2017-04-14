@@ -1,6 +1,7 @@
 import re
 
 from base import *
+from mailing import *
 
 def validate_username(s):
 	user_re = re.compile(r'^[a-zA-Z0-9]{3,20}$')
@@ -61,8 +62,9 @@ class LoginPage(Handler):
 		valid_verify, verify_error = match_passwords(password, verify)
 
 		if valid_fname and valid_lname and valid_email and valid_pass and valid_verify:
-			self.register_user(fname, lname, email, password)
-			self.write('Signup successful')	#TODO: mail activation and redirection
+			verification_link = self.register_user(fname, lname, email, password)
+			activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
+			self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
 
 		else:
 			if not valid_pass:
@@ -78,8 +80,9 @@ class LoginPage(Handler):
 							verify_error=verify_error)
 
 	def register_user(self, fname, lname, email, password):
-		user = User(fname = fname, lname = lname, email = email, email_pw_salt = ' ')
-		user.store(password)
+		candidate = Candidate(fname = fname, lname = lname, email = email, email_pw_salt = ' ')
+		verification_link = candidate.store(password)
+		return verification_link
 
 	def signin(self):
 		email = self.request.get('email')
@@ -92,6 +95,16 @@ class LoginPage(Handler):
 		else:
 			self.set_cookie(user_id)
 			self.write('Signin successful')	#TODO: redirect to the dashboard
+
+class Activate(Handler):
+	def get(self):
+		link = self.request.get('link')
+		response = User.activate(link)
+		if response is not None:
+			self.write('Signup successful')
+		else:
+			self.error(404)
+			self.render('error.html', error = 'Activation link expired or Invalid activation link')
 
 class LogoutPage(Handler):
 	def get(self):
