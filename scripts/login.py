@@ -91,7 +91,7 @@ class LoginPage(Handler):
 			self.render_page(pane='signin', email=email, login_error=login_error)
 		else:
 			self.set_cookie(user_id)
-			self.write('Signin successful')	#TODO: redirect to the dashboard
+			self.redirect('/dashboard/')	#TODO: redirect to the dashboard
 
 class LogoutPage(Handler):
 	def get(self):
@@ -106,7 +106,7 @@ class ActivityPage(Handler):	#TODO: will go in a separate file
 
 class DashboardPage(Handler):	#TODO: will go in a separate file
 	def get(self):
-		self.write('Page under construction')
+		self.render('dashboard.html')
 
 class ProfilePage(Handler):	#TODO: will go in a separate file
 	def get(self):
