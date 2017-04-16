@@ -2,4 +2,10 @@
 {% block content %}
 About us
 <hr>
+{% for course_float in course_float_list %}
+	<li> {{course_float.ctitle}}</li>
+{% endfor %}
+<form action = "/create_course">
+	<input type = "submit" name = "createcourse" value = "Add a course">
+</form>
 {% endblock %}

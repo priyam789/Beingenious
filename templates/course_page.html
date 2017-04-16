@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<hr>
+<center> <h2> {{course_details.ctitle}} </h2> </center>
+Teacher : {{course_details.author}} <br>
+Overview : {{course_details.overview}} <br>
+Duration : {{course_details.date_start}} to {{course_details.date_end}}
+<form method = "post">
+	<center> 
+		<input type = "submit" value = "Join the course" name = "enroll">
+		<div class = "error">{{sign_in_error}}</div>
+	</center>
+</form>
+
+{% endblock %}
+
