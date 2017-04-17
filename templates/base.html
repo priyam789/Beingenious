@@ -23,9 +23,9 @@
 		<li><a href="/login?pane=signin">Sign In</a></li>
 		<li><a href="/login?pane=signup">Sign Up</a></li>
 		{% else %}
-		<li><a href="/dashboard">Dashboard</li>
-		<li><a href="/profile">Account</li>
-		<li><a href="/logout">Logout</li>
+		<li><a href="/dashboard">Dashboard</a></li>
+		<li><a href="/profile">Account</a>{{user.fname}}</li>
+		<li><a href="/logout">Logout</a></li>
 		{% endif %}
 	</ul>
 

@@ -4,7 +4,8 @@ import hmac
 import webapp2
 import jinja2
 
-from database import *
+from user_db import *
+from course_db import *
 
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)

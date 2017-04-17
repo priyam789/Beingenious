@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<hr>
+<h2> Fill the course Information </h2>
+	<form method = "post">
+	<table style = "width:100%">
+		<tr>
+			<td><input type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}"></td>
+		</tr>
+		<tr>
+				<td><div class = "error">{{empty_title_error}}</div></td>
+			</tr>
+		<tr>
+			<td><input type = "text" placeholder = "Overview of the course" name = "overview" value ="{{overview}}"></td>
+		</tr>
+		<tr>
+			
+			<td>Start Date <input type = "date" name = "start_date" value = "{{start_date}}"></td>
+			<td>End Date <input type = "date" name ="end_date" value = "{{end_date}}"></td>
+			<tr>
+				<td><div class = "error">{{invalid_date_error}}</div></td>
+			</tr>
+		</tr>
+		<tr>
+			<td>
+				Discipline of the subject
+				<select name = "area">
+					<option value = "Dance"> Dance </option>
+					<option value = "Music"> Music </option>
+					<option value = "Theatre"> Theatre </option>
+					<option value = "Literature"> Literature </option>
+					<option value = "Quiz & Debate"> Quiz &amp; Debate </option>
+					<option value = "Academia"> Academia </option>
+				</select>
+			</td>
+		</tr>
+		
+	</table>
+	<input type = "submit" value = "Float the course" name = "float">
+</form>
+{% endblock %}

@@ -1,5 +1,5 @@
 import re
-
+from datetime import date
 from base import *
 from mailing import *
 
@@ -111,16 +111,8 @@ class LogoutPage(Handler):
 	def get(self):
 		self.set_cookie()
 		self.redirect('/')
+	
 
-class ActivityPage(Handler):	#TODO: will go in a separate file
-	def get(self):
-		category = self.request.get('category')
-		self.write('Category detected : %s\n' %category)
-		self.write('Sorry: Page under construction')
-
-class DashboardPage(Handler):	#TODO: will go in a separate file
-	def get(self):
-		self.render('dashboard.html')
 
 class ProfilePage(Handler):	#TODO: will go in a separate file
 	def get(self):
@@ -133,3 +125,8 @@ class CatalogPage(Handler):
 class HomePage(Handler):
 	def get(self):
 		self.render('home.html')
+
+
+	
+
+
