@@ -11,6 +11,7 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), a
 
 class Handler(webapp2.RequestHandler):
 	secret = 'davinciscode'
+	cookie_delim = '|'
 	def write(self, *a, **kw):
 		self.response.write(*a, **kw)
 
@@ -26,7 +27,7 @@ class Handler(webapp2.RequestHandler):
 	def hash_cookie(s = None):
 		hash_val = ''
 		if s is not None:
-			hash_val = ''.join([s, '|', hmac.new(Handler.secret, s).hexdigest()])
+			hash_val = ''.join([s, Handler.cookie_delim, hmac.new(Handler.secret, s).hexdigest()])
 		return hash_val
 
 	@staticmethod
@@ -43,7 +44,7 @@ class Handler(webapp2.RequestHandler):
 		if cookie_user is None:
 			return None
 
-		pos = cookie_user.find('|')
+		pos = cookie_user.find(Handler.cookie_delim)
 		user_id = cookie_user[:pos]
 		if Handler.validate_cookie(user_id, cookie_user) and user_id.isdigit():
 			user_id = int(user_id)

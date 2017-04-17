@@ -26,5 +26,5 @@ def activation_mail(email, fname, lname, link):
 			Regards
 			Beingenious Team
 			""" %(fname, link)
-	html = """ <html><head></head><body> %s </body></html>"""
+	html = """ <html><head></head><body> %s </body></html>""" %(body.replace('\n', '<br>'))
 	send_mail(recipient, subject, body, html)

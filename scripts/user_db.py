@@ -4,6 +4,8 @@ import hashlib
 
 from google.appengine.ext import db
 
+DELIM = '-'
+
 def make_salt():
 	salt_length = 5
 	return ''.join(random.choice(string.letters) for _ in range(salt_length))
@@ -11,7 +13,7 @@ def make_salt():
 def hash_email_pw(email, pw, salt=None):
 	if salt is None:
 		salt = make_salt()
-	return ''.join([hashlib.sha256(email+pw+salt).hexdigest(),'|',salt])
+	return ''.join([hashlib.sha256(email+pw+salt).hexdigest(),DELIM,salt])
 
 class Candidate(db.Model):
 	fname = db.StringProperty(required = True)
@@ -31,7 +33,7 @@ class Candidate(db.Model):
 		else:
 			self.put()
 		
-		verification_link = ''.join(['/activate?link=',self.email_pw_salt])
+		verification_link = ''.join(['be-ingenious.appspot.com/activate?link=',self.email_pw_salt])
 		return verification_link
 
 	@staticmethod
@@ -44,7 +46,6 @@ class User(db.Model):
 	lname = db.StringProperty(required = True)
 	email = db.StringProperty(required = True)
 	email_pw_salt = db.StringProperty(required = True)
-	hashed_link = db.StringProperty(required = True)
 
 	@staticmethod
 	def get_by_email(email):
@@ -62,7 +63,7 @@ class User(db.Model):
 		if user == None:
 			return None
 			
-		pos = user.email_pw_salt.find('|')
+		pos = user.email_pw_salt.find(DELIM)
 		salt = user.email_pw_salt[pos+1:]
 		if hash_email_pw(email, pw, salt=salt) == user.email_pw_salt:
 			return user.key().id()
@@ -73,7 +74,7 @@ class User(db.Model):
 					lname = candidate.lname,
 					email = candidate.email,
 					email_pw_salt = candidate.email_pw_salt)
-		candidate.key.delete()
+		db.delete(candidate)
 		user.put()
 
 	@staticmethod
