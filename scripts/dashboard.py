@@ -1,6 +1,7 @@
 import re
 from datetime import date
 from base import *
+
 class DashboardPage(Handler):	#TODO: will go in a separate file
 	def get(self):
 		author = self.cookie_user()

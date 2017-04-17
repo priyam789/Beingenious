@@ -1,9 +1,11 @@
 import re
 from datetime import date
 from base import *
+
+area_code_map = {'Dance':'DAL', 'Music':'MUL', 'Theatre':'THL', 'Literature':'LIT', 'Quiz & Debate':'QDL', 'Academia':'ACL'}
 def generate_code(area):
 		total_courses = Course.get_num_courses()
-		answer = area[0]+"OL"+str(100+total_courses)
+		answer = area_code_map[area]+str(100+total_courses)
 		return answer
 
 class Add_course(Handler):
@@ -17,6 +19,7 @@ class Add_course(Handler):
 		sdate = self.request.get('start_date')
 		edate = self.request.get('end_date')
 		area = self.request.get('area')
+		level = self.request.get('level')
 		author = self.cookie_user()
 		empty_title = False
 		invalid_dates = False
@@ -41,7 +44,7 @@ class Add_course(Handler):
 			edate_arr = edate.split('-')
 			sdate_db = date(int(sdate_arr[0]),int(sdate_arr[1]),int(sdate_arr[2]))
 			edate_db = date(int(edate_arr[0]),int(edate_arr[1]),int(edate_arr[2]))
-			course = Course(ctitle = title, overview = desc, author = author.email, date_start = sdate_db, date_end = edate_db, area = area,code = course_code)
+			course = Course(ctitle = title, overview = desc, author = author.email, date_start = sdate_db, date_end = edate_db, area = area,code = course_code,level = level)
 			course.put()
 			self.write("Course added successfully")
 		else:

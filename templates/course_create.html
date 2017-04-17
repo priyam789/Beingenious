@@ -12,7 +12,7 @@
 				<td><div class = "error">{{empty_title_error}}</div></td>
 			</tr>
 		<tr>
-			<td><input type = "text" placeholder = "Overview of the course" name = "overview" value ="{{overview}}"></td>
+			<td><textarea name = "overview" rows="4" cols="50" placeholder = "Overview of the course">{{overview}}</textarea></td>
 		</tr>
 		<tr>
 			
@@ -24,7 +24,7 @@
 		</tr>
 		<tr>
 			<td>
-				Discipline of the subject
+				Course Discipline
 				<select name = "area">
 					<option value = "Dance"> Dance </option>
 					<option value = "Music"> Music </option>
@@ -35,7 +35,16 @@
 				</select>
 			</td>
 		</tr>
-		
+		<tr>
+			<td>
+				Course Level
+				<select name = "level">
+					<option value = "Beginner"> Beginner </option>
+					<option value = "Intermediate"> Intermediate </option>
+					<option value = "Advanced"> Advanced </option>
+				</select>
+			</td>
+		</tr>
 	</table>
 	<input type = "submit" value = "Float the course" name = "float">
 </form>
