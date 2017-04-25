@@ -3,8 +3,19 @@ api_version: 1
 threadsafe: true
 
 handlers:
+
+- url: /assets
+  static_dir: assets
+
+# - url: /assets/js
+#   static_dir: js
+
+# - url: /assets/images
+#   static_dir: images
+
 - url: /.*
   script: main.app
+  
 
 libraries:
 - name: jinja2

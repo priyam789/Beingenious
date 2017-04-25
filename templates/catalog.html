@@ -1,17 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
-<hr>
+<!-- <hr> -->
 <form action = "/activities">
-<table style="width:100%">
+<table class = "catalog_table">
 	<tr>
-		<td><input type = "submit" name = "category" value = "Dance"></td>
-		<td><input type = "submit" name = "category" value = "Music"></td>
-		<td><input type = "submit" name = "category" value = "Theatre"></td>
+		
+		<td class = "dance">
+			<a href="/activities?category=Dance">
+				<div class="container-dance">
+					<img src="/assets/images/dance.jpg" class = "image-dance"> 
+					<div class="overlay-dance">
+				    	<div class="text-dance">Dance </div>
+				  	</div>
+				</div>
+			</a>
+		</td>
+		<td class = "music">
+			<a href="/activities?category=Music">
+				<div class="container-music">
+					<img src="/assets/images/music.jpg" class = "image-music"> 
+					<div class="overlay-music">
+				    	<div class="text-music">Music </div>
+				  	</div>
+				</div>
+			</a>
+		</td>
+		<td class = "theatre">
+			<a href="/activities?category=Theatre">
+				<div class="container-theatre">
+					<img src="/assets/images/theatre.jpg" class = "image-theatre"> 
+					<div class="overlay-theatre">
+				    	<div class="text-theatre">Theatre </div>
+				  	</div>
+				</div>
+			</a>
+		</td>
 	</tr>
 	<tr>
-		<td><input type = "submit" name = "category" value = "Literature"></td>
-		<td><input type = "submit" name = "category" value = "Quiz & Debate"></td>
-		<td><input type = "submit" name = "category" value = "Academia"></td>
+		<td class = "literature">
+			<a href="/activities?category=Literature">
+				<div class="container-literature">
+					<img src="/assets/images/literature.jpg" class = "image-literature"> 
+					<div class="overlay-literature">
+				    	<div class="text-literature">Literature </div>
+				  	</div>
+				</div>
+			</a>
+		</td>
+		<td class = "quiz">
+			<a href="/activities?category=Quiz & Debate">
+				<div class="container-quiz">
+					<img src="/assets/images/quiz.png" class = "image-quiz"> 
+					<div class="overlay-quiz">
+				    	<div class="text-quiz">Quiz & Debate </div>
+				  	</div>
+				</div>
+			</a>
+		</td>
+		<td class = "academia">
+			<a href="/activities?category=Academia">
+				<div class="container-academia">
+					<img src="/assets/images/academia.jpg" class = "image-academia"> 
+					<div class="overlay-academia">
+				    	<div class="text-academia">Academia </div>
+				  	</div>
+				</div>
+			</a>
+		</td>
+			
+
 	</tr>
 </table>
 </form>

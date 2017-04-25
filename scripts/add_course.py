@@ -46,6 +46,7 @@ class Add_course(Handler):
 			edate_db = date(int(edate_arr[0]),int(edate_arr[1]),int(edate_arr[2]))
 			course = Course(ctitle = title, overview = desc, author = author.email, date_start = sdate_db, date_end = edate_db, area = area,code = course_code,level = level)
 			course.put()
-			self.write("Course added successfully")
+			# self.write("Course added successfully")
+			self.render('course_added.html')
 		else:
 			self.render('course_create.html',title = title,overview = desc,start_date = sdate,end_date = edate,area = area,empty_title_error = empty_title_error,invalid_date_error = invalid_date_error)
