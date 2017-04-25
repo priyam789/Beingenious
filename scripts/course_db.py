@@ -2,34 +2,39 @@ import random
 import string
 import hashlib
 
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 
-class Course(db.Model):
-	ctitle = db.StringProperty(required = True)
-	code = db.StringProperty(required = True)
-	overview = db.TextProperty()
-	author = db.StringProperty(required = True)
-	date_start = db.DateProperty(required = True)
-	date_end = db.DateProperty(required = True)
-	area = db.StringProperty(required = True)
-	level = db.StringProperty(required = True)
+class Course(ndb.Model):
+	ctitle = ndb.StringProperty(required = True)
+	code = ndb.StringProperty(required = True)
+	overview = ndb.TextProperty()
+	author = ndb.StringProperty(required = True)
+	date_start = ndb.DateProperty(required = True)
+	date_end = ndb.DateProperty(required = True)
+	area = ndb.StringProperty(required = True)
+	level = ndb.StringProperty(required = True)
+	overview_video = ndb.JsonProperty()
+
+	@staticmethod
+	def parent_key():
+		return ndb.Key('Course', 'Instructor')
 
 	@staticmethod
 	def get_category_events(category):
-		categ_event_list = db.GqlQuery("SELECT * FROM Course WHERE area = '%s'" % category).run()
+		categ_event_list = ndb.gql("SELECT * FROM Course WHERE area = '%s'" % category)
 		return categ_event_list 
 
 	@staticmethod
 	def get_courses_floated(email):
-		course_float_list = db.GqlQuery("SELECT * FROM Course WHERE author = '%s'" % email).run()
+		course_float_list = Course.query(Course.author == email, ancestor=Course.parent_key())
 		return course_float_list
 
 	@staticmethod
 	def get_num_courses():
-		total = db.GqlQuery("SELECT * FROM Course ").count()
+		total = ndb.gql("SELECT * FROM Course ").count()
 		return total
 
 	@staticmethod
 	def get_details_course(code):
-		course_para = db.GqlQuery("SELECT * FROM Course WHERE ctitle ='%s'" % code).get()
+		course_para = Course.query(Course.code == code, ancestor=Course.parent_key()).get()
 		return course_para

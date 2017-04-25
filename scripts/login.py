@@ -111,12 +111,6 @@ class LogoutPage(Handler):
 	def get(self):
 		self.set_cookie()
 		self.redirect('/')
-	
-
-
-class ProfilePage(Handler):	#TODO: will go in a separate file
-	def get(self):
-		self.write('Page under construction')
 
 class CatalogPage(Handler):
 	def get(self):

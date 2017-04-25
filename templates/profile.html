@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<table>
+	<tr>
+		<td>First Name</td>
+		<td>{{user.fname}}</td>
+	</tr>
+	<tr>
+		<td>Last Name</td>
+		<td>{{user.lname}}</td>
+	</tr>
+	<tr>
+		<td>Email ID</td>
+		<td>{{user.email}}</td>
+	</tr>
+</table>
+<a href = "/profile/change-passwd"> Change Password </a>
+{% endcontent %}
