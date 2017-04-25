@@ -7,6 +7,11 @@
 	color :red;
 }
 
+div.panel {
+    		display: none;
+    		background-color: white;
+		}
+
 /*h1 {
 	color: #ffffff;
 }
@@ -179,7 +184,7 @@ table {
     font-size: 15px;
 }
 
-.button-signin {
+.button-signin, -sign {
     background-color: #3030e7;
     color: white;
     padding: 14px 20px;
@@ -189,26 +194,26 @@ table {
     width: 100%;
 }
 
-.button-signin:hover {
+.button-signin, -sign:hover {
     opacity: 0.8;
 }
 
-.image-signin {
+.image-signin, -sign {
     text-align: center;
     margin: 24px 0 12px 0;
 }
 
-img.avatar-signin {
+img.avatar-signin, -sign {
     width: 40%;
     border-radius: 50%;
     margin: 2em;
 }
 
-.container-signin {
+.container-signin, -sign {
     padding: 16px;
 }
 
-.box-signin { /*aligned center of page*/
+.box-signin, -sign { /*aligned center of page*/
 	width:400px;
 	height: 500px;
 	margin:0 auto;
@@ -216,7 +221,7 @@ img.avatar-signin {
 	background-color: #dcdcdc;
 }
 
-.header-signin {
+.header-signin, -sign {
 	width:400px;
 	margin:0 auto;
 	text-align: center;

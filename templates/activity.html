@@ -4,6 +4,6 @@ About us
 <hr>
 <h2> {{category}}</h2>
 {% for category_event in categ_list %}
-	<li> {{category_event.ctitle}} <a href = "/courses?code={{category_event.ctitle}}"> View Course</a> </li>
+	<li> {{category_event.ctitle}} <a href = "/courses?code={{category_event.code}}"> View Course</a> </li>
 {% endfor %}
 {% endblock %}

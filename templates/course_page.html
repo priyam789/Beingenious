@@ -5,6 +5,9 @@
 Teacher : {{course_details.author}} <br>
 Overview : {{course_details.overview}} <br>
 Duration : {{course_details.date_start}} to {{course_details.date_end}}
+<video width="320" height="240" controls>
+  <source src="{{video_link}}">
+</video>
 <form method = "post">
 	<center> 
 		<input type = "submit" value = "Join the course" name = "enroll">

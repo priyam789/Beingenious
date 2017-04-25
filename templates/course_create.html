@@ -3,13 +3,13 @@
 {% block content %}
 <hr>
 <h2> Fill the course Information </h2>
-	<form method = "post">
+	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
 	<table style = "width:100%">
 		<tr>
 			<td><input type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}"></td>
 		</tr>
 		<tr>
-				<td><div class = "error">{{empty_title_error}}</div></td>
+				<td><div class = "error">{{empty_title}}</div></td>
 			</tr>
 		<tr>
 			<td><textarea name = "overview" rows="4" cols="50" placeholder = "Overview of the course">{{overview}}</textarea></td>
@@ -19,7 +19,7 @@
 			<td>Start Date <input type = "date" name = "start_date" value = "{{start_date}}"></td>
 			<td>End Date <input type = "date" name ="end_date" value = "{{end_date}}"></td>
 			<tr>
-				<td><div class = "error">{{invalid_date_error}}</div></td>
+				<td><div class = "error">{{invalid_date}}</div></td>
 			</tr>
 		</tr>
 		<tr>
@@ -45,7 +45,78 @@
 				</select>
 			</td>
 		</tr>
+		<tr>
+		<td>
+			<input type="radio" id="upload" class="accordion" name="upload" value="file">Upload Overview Video
+			<div class="panel">
+ 			 <input type="file" name="file">
+			</div>
+		</td>
+		</tr>
+
+		<tr>
+			<td>
+		<input type="radio" class="accordion" name="upload" value="link">Give video link
+		<div class="panel">
+ 		 <input name="link">
+		</div>
+			</td>
+		</tr>
 	</table>
+	<div class="error">{{file_error}}</div>
 	<input type = "submit" value = "Float the course" name = "float">
 </form>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        var panels = document.getElementsByClassName("panel");
+        var j;
+        for(j = 0; j<panels.length; j++){
+        	panels[j].style.display = "none";
+        }
+
+        var panel = this.nextElementSibling;
+        if(panel.className == "panel")
+        	panel.style.display = "block";
+
+        var form = document.getElementById("submission_form");
+        var id = this.id;
+        if(id == "upload")
+        	form.action = "{{upload_url}}";
+        else
+        	form.action = "/create_course";
+    }
+}
+function getClickedValue(){
+	var radios = document.getElementsByName("upload");
+	var i;
+	for(i = 0;i<radios.length;i++){
+		if(radios[i].checked)
+			return radios[i].value;
+	}
+	return "";
+}
+
+function submitfunc(){
+	var title = document.getElementsByName("title");
+	var form = document.getElementById("submission_form");
+	if (title == "")
+		form.action = "/create_course";
+
+	var sdate = document.getElementsByName("start_date")[0].value;
+	var edate = document.getElementsByName("end_date")[0].value;
+	if(sdate == "" || edate == "" || sdate > edate)
+		form.action = "/create_course";
+
+	var clicked = getClickedValue();
+	if(clicked != "")
+		var uploaded = document.getElementsByName(clicked)[0].value;
+		if(uploaded == "")
+			form.action = "/create_course";
+}
+
+</script>
 {% endblock %}

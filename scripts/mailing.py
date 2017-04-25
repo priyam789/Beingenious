@@ -9,11 +9,6 @@ def send_mail(recipient, subject, body, html):
 
 	message.send()
 
-	# mail.send_mail(sender = sender_address,
-	# 				to = recipient,
-	# 				subject = subject,
-	# 				body = body)
-
 def activation_mail(email, fname, lname, link):
 	recipient = "%s %s <%s>" %(fname, lname, email)
 	subject = "Beingenious account verification - Do not reply"

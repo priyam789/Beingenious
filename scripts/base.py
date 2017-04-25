@@ -2,6 +2,8 @@ import os
 import hmac
 
 import webapp2
+from google.appengine.ext import blobstore
+from google.appengine.ext.webapp import blobstore_handlers
 import jinja2
 
 from user_db import *
@@ -51,3 +53,7 @@ class Handler(webapp2.RequestHandler):
 			user_id = int(user_id)
 			user = User.get_by_id(user_id)
 			return user
+
+	def no_cache(self):
+		self.response.headers.add_header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
+		self.response.headers.add_header("Expires","0")
