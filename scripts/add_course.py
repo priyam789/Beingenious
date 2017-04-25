@@ -9,7 +9,9 @@ def generate_code(area):
 		return answer
 
 class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
-	form_fields = ['title', 'overview', 'start_date', 'end_date', 'area', 'level', 'upload', 'file', 'link']
+	form_fields = ['title', 'organization', 'overview',
+					'start_date', 'end_date', 'area', 'level',
+					'upload', 'file', 'link']
 
 	def render_form(self, **kw):
 		upload_url = blobstore.create_upload_url('/create_course')
@@ -81,18 +83,18 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		edate_arr = form_data['end_date'].split('-')
 		sdate_db = date(int(sdate_arr[0]),int(sdate_arr[1]),int(sdate_arr[2]))
 		edate_db = date(int(edate_arr[0]),int(edate_arr[1]),int(edate_arr[2]))
-		course = Course(parent = Course.parent_key(),
+		course = Course(parent = Course.parent_key(), code = course_code,
 						ctitle = form_data['title'], overview = form_data['overview'],
-						author = author.email,
+						author = author.email, organization = form_data['organization'],
 						date_start = sdate_db, date_end = edate_db,
-						area = form_data['area'], code = course_code, level = form_data['level'])
+						area = form_data['area'], level = form_data['level'])
 
 		if(form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]
-			course.overview_video = {'type':'blob', 'blob_key':str(upload.key())}
+			video_link = '/view_video/%s' %str(upload.key())
+			course.overview_video = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link}
 		elif(form_data['upload' == 'link']):
 			course.overview_video = {'type':'link', 'link':form_data['link']}
 		course.put()
 		
-		# self.redirect('/dashboard')
 		self.redirect('/courses?code=%s' %course_code)

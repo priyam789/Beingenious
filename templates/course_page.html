@@ -2,11 +2,15 @@
 {% block content %}
 <hr>
 <center> <h2> {{course_details.ctitle}} </h2> </center>
-Teacher : {{course_details.author}} <br>
+Teacher : {{course_details.get_author_name()}} <br>
+{% if course_details.organization != '' %}
+Organization : {{course_details.organization}} <br>
+{% endif %}
+
 Overview : {{course_details.overview}} <br>
 Duration : {{course_details.date_start}} to {{course_details.date_end}}
 <video width="320" height="240" controls>
-  <source src="{{video_link}}">
+  <source src="{{course_details.overview_video['link']}}">
 </video>
 <form method = "post">
 	<center> 

@@ -3,12 +3,14 @@ import string
 import hashlib
 
 from google.appengine.ext import ndb
+from user_db import *
 
 class Course(ndb.Model):
-	ctitle = ndb.StringProperty(required = True)
 	code = ndb.StringProperty(required = True)
+	ctitle = ndb.StringProperty(required = True)
 	overview = ndb.TextProperty()
 	author = ndb.StringProperty(required = True)
+	organization = ndb.StringProperty()
 	date_start = ndb.DateProperty(required = True)
 	date_end = ndb.DateProperty(required = True)
 	area = ndb.StringProperty(required = True)
@@ -38,3 +40,7 @@ class Course(ndb.Model):
 	def get_details_course(code):
 		course_para = Course.query(Course.code == code, ancestor=Course.parent_key()).get()
 		return course_para
+
+	def get_author_name(self):
+		author = User.get_by_email(self.author)
+		return ''.join([author.fname, ' ', author.lname])

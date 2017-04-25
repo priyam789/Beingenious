@@ -10,8 +10,7 @@ class CoursePage(Handler):
 		if(course_details == None):
 			self.error(404)
 		else:
-			video_link = '/view_video/%s' %course_details.overview_video['blob_key']
-			self.render('course_page.html', course_details = course_details, video_link = video_link)
+			self.render('course_page.html', course_details = course_details)
 	
 	def post(self):
 		course_code = self.request.get('code')
