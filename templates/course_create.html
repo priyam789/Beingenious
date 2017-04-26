@@ -61,7 +61,7 @@
 			<td>
 		<input type="radio" class="accordion" name="upload" value="link">Give video link
 		<div class="panel">
- 		 <input name="link">
+ 		 <input type="text" name="link">
 		</div>
 			</td>
 		</tr>
@@ -93,18 +93,9 @@ for (i = 0; i < acc.length; i++) {
         	form.action = "/create_course";
     }
 }
-function getClickedValue(){
-	var radios = document.getElementsByName("upload");
-	var i;
-	for(i = 0;i<radios.length;i++){
-		if(radios[i].checked)
-			return radios[i].value;
-	}
-	return "";
-}
 
 function submitfunc(){
-	var title = document.getElementsByName("title");
+	var title = document.getElementsByName("title")[0].value;
 	var form = document.getElementById("submission_form");
 	if (title == "")
 		form.action = "/create_course";
@@ -114,7 +105,7 @@ function submitfunc(){
 	if(sdate == "" || edate == "" || sdate > edate)
 		form.action = "/create_course";
 
-	var clicked = getClickedValue();
+	var clicked = getClickedValue("upload");
 	if(clicked != "")
 		var uploaded = document.getElementsByName(clicked)[0].value;
 		if(uploaded == "")

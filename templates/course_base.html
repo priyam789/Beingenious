@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if tag == 'initiator' %}
+<a href="/editcourse/{{course.code}}">Add Module</a><br>
+<a id="add_chapter" href="#">Add a chapter</a><br>
+{% endif %}
+
+{% for module in course.contents %}
+
+{% endfor %}
+
+{% block maincontent %}
+{% endblock %}
+
+{% endblock %}

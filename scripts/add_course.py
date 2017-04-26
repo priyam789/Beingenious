@@ -62,7 +62,7 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		if(form_data['start_date'] == '' or form_data['end_date'] == ''):
 			error['invalid_date'] = 'Both the start and end dates need to be specified'
 			error_present = True
-		elif(form_data['start_date'] >= form_data['end_date']):
+		elif(form_data['start_date'] > form_data['end_date']):
 			error['invalid_date'] = 'End date needs to exceed the start date'
 			error_present = True
 
@@ -87,14 +87,15 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 						ctitle = form_data['title'], overview = form_data['overview'],
 						author = author.email, organization = form_data['organization'],
 						date_start = sdate_db, date_end = edate_db,
-						area = form_data['area'], level = form_data['level'])
+						area = form_data['area'], level = form_data['level'],
+						contents = [])
 
 		if(form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]
 			video_link = '/view_video/%s' %str(upload.key())
 			course.overview_video = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link}
-		elif(form_data['upload' == 'link']):
+		elif(form_data['upload'] == 'link'):
 			course.overview_video = {'type':'link', 'link':form_data['link']}
 		course.put()
 		
-		self.redirect('/courses?code=%s' %course_code)
+		self.redirect('/courses?code=%s&tag=%s' %(course_code,'initiator'))

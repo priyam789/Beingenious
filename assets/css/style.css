@@ -9,8 +9,11 @@
 
 div.panel {
     		display: none;
-    		background-color: white;
 		}
+
+a#add_chapter{
+	display: none;
+}
 
 /*h1 {
 	color: #ffffff;

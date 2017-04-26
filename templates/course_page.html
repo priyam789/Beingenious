@@ -12,12 +12,12 @@ Duration : {{course_details.date_start}} to {{course_details.date_end}}
 <video width="320" height="240" controls>
   <source src="{{course_details.overview_video['link']}}">
 </video>
-<form method = "post">
-	<center> 
-		<input type = "submit" value = "Join the course" name = "enroll">
-		<div class = "error">{{sign_in_error}}</div>
-	</center>
-</form>
+
+{% if tag == 'initiator' %}
+<a href="/courses/{{course_details.code}}?tag=initiator">Add Course Materials</a>
+{% else %}
+<a href="/courses/{{course_details.code}}">Enroll in course</a>
+{% endif %}
 
 {% endblock %}
 
