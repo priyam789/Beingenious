@@ -2,7 +2,7 @@ import re
 from datetime import date
 from base import *
 
-area_code_map = {'Dance':'DAL', 'Music':'MUL', 'Theatre':'THL', 'Literature':'LIT', 'Quiz & Debate':'QDL', 'Academia':'ACL'}
+area_code_map = {'Dance':'DAL', 'Music':'MUL', 'Theatre':'THL', 'Literature':'LIT', 'Quiz and Debate':'QDL', 'Academia':'ACL'}
 def generate_code(area):
 		total_courses = Course.get_num_courses()
 		answer = area_code_map[area]+str(100+total_courses)
