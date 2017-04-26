@@ -3,24 +3,29 @@
 	<head>
 		<title>BeinGenious</title>
 
-		<link href="/assets/css/style.css" media="all" rel="stylesheet" type="text/css"/>  
+		<link href="/assets/css/style_basic.css" media="all" rel="stylesheet" type="text/css"/>  
+		<link href="/assets/css/style_sign.css" media="all" rel="stylesheet" type="text/css"/>  
+		<link href="/assets/css/style_catalog.css" media="all" rel="stylesheet" type="text/css"/>  
 		<link href='//fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
 	</head>
 <body>
 	<div class = "header">
-			<h1 class="header-heading">Be<em>i</em>nGenious</h1>
+			<h1 class="header-heading">
+				<a href = "/">Be<em>i</em>nGenious</a>
+			</h1>
 	</div>
 
 	<div class = "nav-bar">
 			<ul class = "nav">
-				<li><a href="/catalog">Catalog</a></li>
+				<li><a href = "/">Home</a></li>
+				<li><a href = "/catalog">Catalog</a></li>
 				{% if user == None %}
-				<li><a href="/login?pane=signin">Sign In</a></li>
-				<li><a href="/login?pane=signup">Sign Up</a></li>
+				<li><a href = "/login?pane=signin">Sign In</a></li>
+				<li><a href = "/login?pane=signup">Sign Up</a></li>
 				{% else %}
-				<li><a href="/dashboard">Dashboard</a></li>
-				<li><a href="/profile">Account</a>{{user.fname}}</li>
-				<li><a href="/logout">Logout</a></li>
+				<li><a href = "/dashboard">Dashboard</a></li>
+				<li><a href = "/profile">Account</a>{{user.fname}}</li>
+				<li><a href = "/logout">Logout</a></li>
 				{% endif %}
 			</ul>
 	</div>

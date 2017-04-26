@@ -8,39 +8,33 @@
 {% if pane == 'signup' %}
 <form method = "post">
     <div class = "header-signup">
-        Sign up to continue ...
+        Sign up
     </div>
     <div class = "box-signup">
-        <div class="image-signup">
-            <img src="/assets/images/user.png" alt="Avatar" class="avatar-signup">
-        </div>
+        <div class = "dummy-signup"></div>
 
         <div class="container-signup">
-            <label><b>First Name</b></label>
-            <input class = "input-signup" type="text" placeholder="First Name" name="fname" value="{{fname}}">
-            
-            <label><b>Last Name</b></label>
-            <input class = "input-signup" type="text" placeholder="Last Name" name="lname" value="{{lname}}">
-
+            <input class = "input-signup-name" type="text" placeholder="  First Name" name="fname" value="{{fname}}">
             <div class = "error">{{fname_error}}</div>
+            
+            <input class = "input-signup-name" type="text" placeholder="  Last Name" name="lname" value="{{lname}}">
+
             <div class = "error">{{lname_error}}</div>
             
-            <label><b>Email</b></label>
-            <input class = "input-signup" type="email" placeholder="Enter Email" name="email" value="{{email}}">
+            <input class = "input-signup-email" type="email" placeholder="  Enter Email" name="email" value="{{email}}">
 
             <div class = "error">{{email_error}}</div>
 
-            <label><b>Password</b></label>
-            <input class = "input-signup" type="password" placeholder="Enter Password" name="password">
+            <input class = "input-signup-password" type="password" placeholder="  Enter Password" name="password">
             
-            <label><b> Confirm Password</b></label>
-            <input class = "input-signup" type="password" placeholder="Confirm Password" name="verify">
+            <input class = "input-signup-password" type="password" placeholder="  Confirm Password" name="verify">
 
             <div class = "error">{{pass_error}}</div>
             <div class = "error">{{verify_error}}</div>
 
-                
-            <button class = "button-signup" type="submit" value = "Sign up" name = "signup">Sign up</button>
+            <div class = 'button'>    
+                <button class = "button-signup" type="submit" value = "Sign up" name = "signup">Sign up</button>
+            </div>
         <!-- <input type="checkbox" checked="checked"> Remember me -->
         </div>
 
@@ -50,39 +44,13 @@
   </div> -->
     </div>
 </form>
-<!-- <form method = "post">
-    <table style = "width:100%">
-        <tr>
-            <td><input type = "text" placeholder = "FirstName*" name = "fname" value = "{{fname}}"></td>
-            <td><input type = "text" placeholder = "LastName*" name = "lname" value = "{{lname}}"></td>
-        </tr>
-        <tr>
-            <td><div class = "error">{{fname_error}}</div></td>
-            <td><div class = "error">{{lname_error}}</div></td>
-        </tr>
-        <tr>
-            <td><input type = "email" placeholder = "Email*" name = "email" value = "{{email}}"></td>
-        </tr>
-        <tr>
-            <td><div class = "error">{{email_error}}</div></td>
-        </tr>
-        <tr>
-            <td><input type = "password" placeholder = "Password*" name = "password"></td>
-            <td><input type = "password" placeholder = "Confirm Password*" name = "verify"></td>
-        </tr>
-        <tr>
-            <td><div class = "error">{{pass_error}}</div></td>
-            <td><div class = "error">{{verify_error}}</div></td>
-        </tr>   
-    </table>
-    <input type = "submit" value = "Sign up" name = "signup">
-</form> -->
+
 {% elif pane == 'signin' %}
 
 
 <form method = "post">
     <div class = "header-signin">
-        Sign in to continue ...
+        Sign in
     </div>
     <div class = "box-signin">
         <div class="image-signin">
@@ -90,14 +58,15 @@
         </div>
 
         <div class="container-signin">
-            <!-- <label><b>Email</b></label> -->
-            <input class = "input-signin" type="email" placeholder="Email" name="email" value="{{email}}">
+            <input class = "input-signin-email" type="email" placeholder="  Email" name="email" value="{{email}}">
 
-            <!-- <label><b>Password</b></label> -->
-            <input class = "input-signin" type="password" placeholder="Password" name="password">
+            <input class = "input-signin-password" type="password" placeholder="  Password" name="password">
                 
             <div class = "error">{{login_error}}</div>
-            <button class = "button-signin" type="submit" value = "Sign in" name = "signin">Login</button>
+
+            <div class = "button">
+                <button class = "button-signin" type="submit" value = "Sign in" name = "signin">Login</button>
+            </div>
         <!-- <input type="checkbox" checked="checked"> Remember me -->
         </div>
 
