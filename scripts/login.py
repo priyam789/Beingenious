@@ -3,6 +3,9 @@ from datetime import date
 from base import *
 from mailing import *
 
+DELIM = '-'
+
+
 def validate_username(s):
 	user_re = re.compile(r'^[a-zA-Z0-9]{3,20}$')
 	if user_re.match(s) != None:
@@ -16,6 +19,16 @@ def validate_password(s):
 		return (True, '')
 	else:
 		return (False, 'Password should contain 3-20 characters')
+
+def validate_oldpass(old_pass,user):
+	old_pass_actual = user.email_pw_salt
+	email = user.email
+	pos = old_pass_actual.find(DELIM)
+	salt = old_pass_actual[pos+1:]
+	if hash_email_pw(email,old_pass,salt=salt) == old_pass_actual:
+		return (True, '')
+	else:
+		return (False, 'Old Password entered is incorrect')
 
 def validate_email(s):
 	email_re = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
@@ -137,5 +150,60 @@ class ProfilePage(Handler):
 		user.put()
 		self.redirect('/profile/')
 	
+class ChangePassword(Handler):
+	def render_form(self, **kw):
+		self.render('password.html', **kw)
+
+	def get(self):
+		success = self.request.get('success')
+		if success:
+			self.render_form(success=success)
+		else:
+			self.render_form()
+
+	def post(self):
+		user = self.cookie_user()
+		if user is None:
+			self.redirect('/login?pane=signin')
+		old_pass = self.request.get('old_pass')
+		new_pass = self.request.get('new_pass')
+		verify = self.request.get('verify')
+
+		old_pass_actual = user.email_pw_salt
+		email = user.email
+		pos = old_pass_actual.find(DELIM)
+		salt = old_pass_actual[pos+1:]
+
+		# valid_fname, fname_error = validate_username(fname)
+		# valid_lname, lname_error = validate_username(lname)
+		valid_oldpass, oldpass_error = validate_oldpass(old_pass,user)
+		valid_pass, pass_error = validate_password(new_pass)
+		valid_verify, verify_error = match_passwords(new_pass, verify)
+
+		if valid_oldpass and valid_pass and valid_verify:
+			new_salt = hash_email_pw(email,new_pass,salt)
+			user.email_pw_salt = new_salt
+			user.put()
+			message = "Password changed successfully"
+			self.redirect('/profile/change-passwd?success=1')
+			# verification_link = self.register_user(fname, lname, email, password)
+			# self.write('Link is: %s' % verification_link)
+			# activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
+			# self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
+
+		else:
+			if not valid_oldpass:
+				pass_error = ''
+				verify_error = ''
+			if not valid_pass:
+				verify_error = ''
+
+			self.render_form(oldpass_error=oldpass_error,
+							pass_error=pass_error,
+							verify_error=verify_error)
+
+
+
+		
 
 

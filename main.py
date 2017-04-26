@@ -19,7 +19,7 @@ app = webapp2.WSGIApplication([
 	('/logout/?', LogoutPage),
 	('/activities/?', ActivityPage),
 	('/dashboard/?', DashboardPage),
-	# ('/profile/change-passwd/?', ChangePassword),
+	('/profile/change-passwd/?', ChangePassword),
 	('/profile/?', ProfilePage),
 	('/create_course/?',AddCourse),
 	('/courses/(\w+)/?', CourseMainPage),
