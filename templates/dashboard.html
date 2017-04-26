@@ -11,8 +11,8 @@ About us
 </form>
 <hr>
 <h2> You are a learner </h2>
-{% for course_reg in course_reg_list %}
-	<li> {{course_reg.code}} <a href="www.google.com"> Resume Learning </a>
+{% for course in courses %}
+	<li> {{course.code}}:{{course.ctitle}} <a href="www.google.com"> Resume Learning </a>
 {% endfor %} </li>
 
 {% endblock %}

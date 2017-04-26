@@ -1,8 +1,15 @@
+function getClickedValue(name){
+	var radios = document.getElementsByName(name);
+	var i;
+	for(i = 0;i<radios.length;i++){
+		if(radios[i].checked)
+			return radios[i].value;
+	}
+	return "";
+}	
+
 function drawHead(){
 	var canvas = document.getElementById('head_canvas');
-
-
-
 	var ctx = canvas.getContext('2d');
 	ctx.font = 'italic 18px Arial';
 	ctx.textAlign = 'center';
