@@ -16,6 +16,7 @@ class Course(ndb.Model):
 	area = ndb.StringProperty(required = True)
 	level = ndb.StringProperty(required = True)
 	overview_video = ndb.JsonProperty()
+	contents = ndb.JsonProperty()
 
 	@staticmethod
 	def parent_key():
@@ -40,6 +41,11 @@ class Course(ndb.Model):
 	def get_details_course(code):
 		course_para = Course.query(Course.code == code, ancestor=Course.parent_key()).get()
 		return course_para
+
+	@staticmethod
+	def verify_author(code, email):
+		course_details = Course.query(Course.code == code, Course.author == email, ancestor=Course.parent_key()).get()
+		return course_details
 
 	def get_author_name(self):
 		author = User.get_by_email(self.author)

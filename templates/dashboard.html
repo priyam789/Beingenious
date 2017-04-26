@@ -2,10 +2,17 @@
 {% block content %}
 About us
 <hr>
+<h2> You are a teacher </h2>
 {% for course_float in course_float_list %}
-	<li> {{course_float.ctitle}}</li>
-{% endfor %}
+	<li> {{course_float.ctitle}} <a href="www.google.com"> Resume Teaching </a>
+{% endfor %} </li>
 <form action = "/create_course">
 	<input type = "submit" name = "createcourse" value = "Add a course">
 </form>
+<hr>
+<h2> You are a learner </h2>
+{% for course in courses %}
+	<li> {{course.code}}:{{course.ctitle}} <a href="www.google.com"> Resume Learning </a>
+{% endfor %} </li>
+
 {% endblock %}

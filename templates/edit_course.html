@@ -1,0 +1,86 @@
+{% extends "course_base.html" %}
+{% block maincontent %}
+<a href="/courses/{{course.code}}?tag=initiator">Go Back</a>
+<h2>Adding New Module</h2>
+
+<form action = "/editcourse/{{course.code}}" method="post" id="submission_form" onsubmit="submitfunc()">
+<table>
+	<tr>
+	<td>
+		<input type="text" name="module_name" placeholder="Name of module">
+		<div class="error">{{empty_title}}</div>
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+		<input type="text" name="subtitle" placeholder="Title of lesson">
+		<div class="error">{{empty_subtitle}}</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<input type="radio" id="upload" class = "accordion" name="upload" value="file">Upload Video
+		<div class="panel">
+ 		<input type="file" name="file">
+		</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+		<input type="radio" class = "accordion" name="upload" value="link">Video link
+		<div class="panel">
+ 		<input type="text" name="link" placeholder="link">
+		</div>
+	</td>
+	</tr>
+	<tr><td>
+	<div class="error">{{file_error}}</div>
+	</td></tr>
+</table>
+
+	<textarea name="description" placeholder="Instructor comments"></textarea>
+	<input type="submit" value="Add">
+</form>
+
+<script>
+var radios = document.getElementsByName("upload");
+var i;
+for (i = 0; i < radios.length; i++) {
+    radios[i].onclick = function(){
+	var panels = document.getElementsByClassName("panel");
+        var j;
+        for(j = 0; j<panels.length; j++){
+        	panels[j].style.display = "none";
+        }
+
+        var panel = this.nextElementSibling;
+        if(panel.className == "panel")
+        	panel.style.display = "block";
+        
+        var form = document.getElementById("submission_form");
+        var id = this.id;
+        if(id == "upload")
+        	form.action = "{{upload_url}}";
+        else
+        	form.action = "/editcourse/{{course.code}}";
+    }
+}
+
+function submitfunc(){
+	var module_name = document.getElementsByName("module_name")[0].value;
+	var title = document.getElementsByName("module_name")[0].value;
+	var form = document.getElementById("submission_form");
+	if (module_name == "" || title == "")
+		form.action = "/editcourse/{{course.code}}";
+
+	var clicked = getClickedValue("upload");
+	if(clicked != "")
+		var uploaded = document.getElementsByName(clicked)[0].value;
+		if(uploaded == "")
+			form.action = "/editcourse/{{course.code}}";
+}	
+</script>
+{% endblock %}
