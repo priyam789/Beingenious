@@ -121,6 +121,21 @@ class HomePage(Handler):
 		self.render('home.html')
 
 
+class ProfilePage(Handler):
+	def get(self):
+		# user = self.cookie_user()
+		self.render('profile.html')
+
+	def post(self):
+		fname = self.request.get('fname')
+		lname = self.request.get('lname')
+		user = self.cookie_user()
+		if fname:
+			user.fname = fname
+		if lname:
+			user.lname = lname
+		user.put()
+		self.redirect('/profile/')
 	
 
 

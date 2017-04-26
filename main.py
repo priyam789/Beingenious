@@ -19,7 +19,7 @@ app = webapp2.WSGIApplication([
 	('/activities/?', ActivityPage),
 	('/dashboard/?', DashboardPage),
 	# ('/profile/change-passwd/?', ChangePassword),
-	# ('/profile/?', ProfilePage),
+	('/profile/?', ProfilePage),
 	('/create_course/?',AddCourse),
 	('/courses/?', CoursePage),
 	('/view_video/(.*)', ServeVideo)
