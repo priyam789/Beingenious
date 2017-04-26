@@ -8,6 +8,7 @@ import jinja2
 
 from user_db import *
 from course_db import *
+from user_course_db import *
 
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)

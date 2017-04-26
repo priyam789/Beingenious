@@ -93,7 +93,7 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 			upload = self.get_uploads()[0]
 			video_link = '/view_video/%s' %str(upload.key())
 			course.overview_video = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link}
-		elif(form_data['upload' == 'link']):
+		elif(form_data['upload'] == 'link'):
 			course.overview_video = {'type':'link', 'link':form_data['link']}
 		course.put()
 		

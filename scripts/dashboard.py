@@ -7,4 +7,6 @@ class DashboardPage(Handler):	#TODO: will go in a separate file
 		author = self.cookie_user()
 		# self.write(author.email)
 		course_floated = Course.get_courses_floated(author.email)
-		self.render('dashboard.html',course_float_list = course_floated)
+		course_registered = User_Course.get_courses_reg(author.email)
+
+		self.render('dashboard.html',course_float_list = course_floated,course_reg_list = course_registered)
