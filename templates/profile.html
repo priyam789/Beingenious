@@ -1,13 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
+<script type="text/javascript">
+	function jsfunc(){
+		document.getElementById("div1").style.display = "none";
+		document.getElementById("form1").style.display = "block";
+	}
+	function jsfunc2(){
+		document.getElementById("div2").style.display = "none";
+		document.getElementById("form2").style.display = "block";
+	}
+</script>
 <table>
+	
 	<tr>
 		<td>First Name</td>
-		<td>{{user.fname}}</td>
+		<td>{{user.fname}}
+		<div id = "div1" style="display: block">
+		(<a href="#" onclick="jsfunc()">edit</a>)
+		</div>
+		<form id = "form1" action="#" method="post" style="display: none">
+		<input name="fname">
+		<input type="submit" name="submit">
+		</form>
+		</td>
 	</tr>
 	<tr>
 		<td>Last Name</td>
-		<td>{{user.lname}}</td>
+		<td>{{user.lname}}
+		<div id = "div2" style="display: block">
+		(<a href="#" onclick="jsfunc2()">edit</a>)
+		</div>
+		<form id = "form2" action="#" method="post" style="display: none">
+		<input name="lname">
+		<input type="submit" name="submit">
+		</form>
+		</td>
 	</tr>
 	<tr>
 		<td>Email ID</td>
@@ -15,4 +42,4 @@
 	</tr>
 </table>
 <a href = "/profile/change-passwd"> Change Password </a>
-{% endcontent %}
+{% endblock %}

@@ -19,9 +19,12 @@ class CourseMainPage(Handler):
 		user = self.cookie_user()
 		if user is None:
 			self.redirect('/login?pane=signin')
-		tag = self.request.get('tag', 'benefitter')
-		if (tag != 'initiator' and tag != 'benefitter'):
-			self.redirect('/courses/%s' %course_code)
-		course = Course.get_details_course(course_code)
-		self.render('course_main_page.html', course = course, tag = tag)
+		else:
+			tag = self.request.get('tag', 'benefitter')
+			if (tag != 'initiator' and tag != 'benefitter'):
+				self.redirect('/courses/%s' %course_code)
+
+			course = Course.get_details_course(course_code)
+			User_Course.enroll_user_course(user.email,course.code)
+			self.render('course_main_page.html', course = course, tag = tag)
 	
