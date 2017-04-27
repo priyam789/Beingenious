@@ -1,9 +1,10 @@
 from base import *
 
 class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
-	form_fields = ['module_name', 'subtitle', 'upload', 'file', 'link']
+	form_fields = ['module_name', 'subtitle', 'description', 'upload', 'file', 'link']
 	def render_page(self, template, course_code, **kw):
-		upload_url = blobstore.create_upload_url('/editcourse/%s' %course_code)
+		current_url = '/editcourse/%s' %course_code
+		upload_url = blobstore.create_upload_url(current_url)
 		self.render(template, upload_url = upload_url, tag='initiator', **kw)
 
 	def get(self, course_code):
@@ -72,8 +73,8 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		if(form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]
 			video_link = '/view_video/%s' %str(upload.key())
-			lesson = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link}
+			lesson = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link, 'description':form_data['description']}
 		elif(form_data['upload'] == 'link'):
-			lesson = {'type':'link', 'link':form_data['link']}
+			lesson = {'type':'link', 'link':form_data['link'], 'description':form_data['description']}
 
 		return lesson
