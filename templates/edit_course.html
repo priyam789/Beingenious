@@ -3,7 +3,7 @@
 <a href="/courses/{{course.code}}?tag=initiator">Go Back</a>
 <h2>Adding New Module</h2>
 
-<form action = "/editcourse/{{course.code}}" method="post" id="submission_form" onsubmit="submitfunc()">
+<form action = "/editcourse/{{course.code}}" method="post" id="submission_form" enctype="multipart/form-data" onsubmit="submitfunc()">
 <table>
 	<tr>
 	<td>
@@ -41,7 +41,7 @@
 	</td></tr>
 </table>
 
-	<textarea name="description" placeholder="Instructor comments"></textarea>
+	<textarea name="description" placeholder="Instructor comments">{{description}}</textarea>
 	<input type="submit" value="Add">
 </form>
 
