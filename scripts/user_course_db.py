@@ -9,20 +9,15 @@ class User_Course(ndb.Model):
 	user = ndb.StringProperty(required = True)
 	code = ndb.StringProperty(required = True)
 
-	
 	@staticmethod
 	def parent_key():
 		return ndb.Key('Course','Instructor')
-	# @staticmethod
-	# def get_category_events(category):
-	# 	categ_event_list = ndb.gql("SELECT * FROM Course WHERE area = '%s'" % category).run()
-	# 	return categ_event_list 
-
+	
 	@classmethod
 	def enroll_user_course(cls,email,code):
-		course_registration = User_Course.query(User_Course.user == email,User_Course.code == code,ancestor = User_Course.parent_key()).get()
-		if(course_registration is None):
-			user_course = cls(user = email,code = code)
+		course_registration = User_Course.query(User_Course.user == email, ancestor = User_Course.parent_key()).get()
+		if course_registration == None:
+			user_course = cls(parent = User_Course.parent_key(), user = email,code = code)
 			user_course.put()
 
 	@staticmethod
@@ -52,3 +47,4 @@ class User_Course(ndb.Model):
 	# def get_details_course(code):
 	# 	course_para = ndb.gql("SELECT * FROM Course WHERE ctitle ='%s'" % code).get()
 	# 	return course_para
+

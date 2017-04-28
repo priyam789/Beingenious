@@ -4,7 +4,7 @@ About us
 <hr>
 <h2> You are a teacher </h2>
 {% for course_float in course_float_list %}
-	<li> {{course_float.ctitle}} <a href="/courses?code={{course_float.code}}&tag=initiator"> Resume Teaching </a>
+	<li> {{course_float.ctitle}} <a href="/courses/{{course_float.code}}?tag=initiator"> Resume Teaching </a>
 {% endfor %} </li>
 <form action = "/create_course">
 	<input type = "submit" name = "createcourse" value = "Add a course">
@@ -12,7 +12,7 @@ About us
 <hr>
 <h2> You are a learner </h2>
 {% for course in courses %}
-	<li> {{course.code}}:{{course.ctitle}} <a href="/courses?code={{course.code}}"> Resume Learning </a>
+	<li> {{course.code}}:{{course.ctitle}} <a href="/courses/{{course.code}}"> Resume Learning </a>
 {% endfor %} </li>
 
 {% endblock %}

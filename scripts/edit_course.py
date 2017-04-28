@@ -28,7 +28,7 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 			render_data = dict(form_data, **error)
 			self.render_page('edit_course.html', course_code, course = course, **render_data)
 		else:
-			module_id = len(course.contents)+1
+			module_id = len(course.contents)
 			module = {'id':module_id, 'name':form_data['module_name'], 'lessons':[]}
 			lesson = self.construct_lesson(form_data)
 			module['lessons'].append(lesson)
@@ -68,13 +68,16 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 
 		return (error_present, error)
 
-	def construct_lesson(self, form_data):
-		lesson = dict()
+	def construct_lesson(self, form_data, lesson_id=0):
+		lesson = {'id': lesson_id, 'name':form_data['subtitle'], 'description': form_data['description']}
 		if(form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]
-			video_link = '/view_video/%s' %str(upload.key())
-			lesson = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link, 'description':form_data['description']}
+			lesson['type'] = 'blob'
+			lesson['blob_key'] = str(upload.key())
+			lesson['link'] = '/view_video/%s' %str(upload.key())
+
 		elif(form_data['upload'] == 'link'):
-			lesson = {'type':'link', 'link':form_data['link'], 'description':form_data['description']}
+			lesson['type'] = 'link'
+			lesson['link'] = form_data['link']
 
 		return lesson

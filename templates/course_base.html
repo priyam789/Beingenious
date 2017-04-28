@@ -8,9 +8,37 @@
 {% endif %}
 
 {% for module in course.contents %}
-
+<a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a>
+<div id="module_{{module.id}}" class="module">
+{% for lesson in module.lessons %}
+<a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a>
+{% endfor %}
+</div>
+<br>
 {% endfor %}
 
+<script type="text/javascript">
+	function moduleClick(module_id){
+		var module_divs = document.getElementsByClassName("module");
+		var i;
+		for(i = 0;i<module_divs.length;i++)
+			module_divs[i].style.display = "none";
+		document.getElementById("module_"+module_id.toString()).style.display = "block";
+	}
+</script>
+
+<script type="text/javascript">
+	function lessonClick(module_id, lesson_id){
+		var contents = {{course.contents|tojson|safe}};
+		var video = document.getElementById("video");
+		var source = document.getElementById("video_src");
+		source.src = contents[module_id]["lessons"][lesson_id]["link"];
+		video.load();
+	}
+</script>
+<br>
+
+<h2>{{course.code}}: {{course.ctitle}}</h2>
 {% block maincontent %}
 {% endblock %}
 
