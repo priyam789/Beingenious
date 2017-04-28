@@ -5,13 +5,19 @@ import webapp2
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 import jinja2
+import json
 
 from user_db import *
 from course_db import *
 from user_course_db import *
 
+def tojson(value):
+	return json.dumps(value)
+
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+jinja_env.filters['tojson'] = tojson
+
 
 class Handler(webapp2.RequestHandler):
 	secret = 'davinciscode'
