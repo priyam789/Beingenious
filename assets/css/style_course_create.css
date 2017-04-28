@@ -1,0 +1,97 @@
+.form-cc{
+    max-width: 500px;
+    padding: 20px 12px 10px 20px;
+    font: 13px Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+}
+.form-cc-heading{
+    font-weight: bold;
+    font-style: italic;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 15px;
+    padding-bottom: 3px;
+}
+.form-cc label{
+    display: block;
+    margin: 0px 0px 15px 0px;
+}
+.form-cc label > span{
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    padding-top: 8px;
+    padding-right: 50px;
+}
+.form-cc span.required{
+    color:red;
+}
+/*.form-cc .tel-number-field{
+    width: 40px;
+    text-align: center;
+}*/
+.form-cc input.inp-cc{
+    width: 48%;
+    
+}
+
+.form-cc input.inp-cc, 
+.form-cc .ta-cc, 
+ .form-cc .select-cc{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #C2C2C2;
+    box-shadow: 1px 1px 4px #EBEBEB;
+    -moz-box-shadow: 1px 1px 4px #EBEBEB;
+    -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 7px;
+    outline: none;
+}
+.form-cc .inp-cc:focus, 
+.form-cc .tel-number-field:focus, 
+.form-cc .ta-cc:focus,  
+.form-cc .select-cc:focus{
+    border: 1px solid #0C0;
+}
+.form-cc .ta-cc{
+    height:100px;
+    width: 55%;
+}
+.form-cc input[type=submit],
+.form-cc input[type=button]{
+/*.form-cc input[type=radio]{*/
+    border: none;
+    padding: 8px 15px 8px 15px;
+    background: #003636;
+    color: #fff;
+    box-shadow: 1px 1px 4px #DADADA;
+    -moz-box-shadow: 1px 1px 4px #DADADA;
+    -webkit-box-shadow: 1px 1px 4px #DADADA;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+.form-cc input[type=submit]:hover,
+.form-cc input[type=button]:hover{
+    /*background: #EA7B00;*/
+    opacity: 0.9;
+    color: #fff;
+}
+
+#x2{
+    margin-left: 170px;
+}
+
+#x1{
+    margin-left: 20px;
+}
+
+/*.radio1-cc, .radio2-cc {
+    width: 400px;
+    height: 100px;
+}
+*/

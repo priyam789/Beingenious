@@ -2,33 +2,35 @@
 
 {% block content %}
 <hr>
-<h2> Fill the course Information </h2>
+
+<div class = "form-cc">
+	<div class = "form-cc-heading"><h2> Fill the course Information </h2> </div>
 	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
-	<table style = "width:100%">
-		<tr>
-			<td><input type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}"></td>
-		</tr>
-		<tr>
-				<td><div class = "error">{{empty_title}}</div></td>
-		</tr>
-		<tr>
-			<td><input type = "text" placeholder = "Organization/Institute Name (optional)" name = "organization" value = "{{organization}}"></td>
-		</tr>
-		<tr>
-			<td><textarea name = "overview" rows="4" cols="50" placeholder = "Overview of the course">{{overview}}</textarea></td>
-		</tr>
-		<tr>
-			
-			<td>Start Date <input type = "date" name = "start_date" value = "{{start_date}}"></td>
-			<td>End Date <input type = "date" name ="end_date" value = "{{end_date}}"></td>
-			<tr>
-				<td><div class = "error">{{invalid_date}}</div></td>
-			</tr>
-		</tr>
-		<tr>
-			<td>
-				Course Discipline
-				<select name = "area">
+	<!-- <table style = "width:100%"> -->
+		<label for = "feild1"><span>Title <span class = "required">*</span></span>
+				<input class = "inp-cc" type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}">
+		</label>
+		<div class = "error">{{empty_title}}</div>
+		
+		<label for = "feild2"><span>Organization/Institute Name</span>
+			<input class = "inp-cc" type = "text" placeholder = "Organization/Institute Name (optional)" name = "organization" value = "{{organization}}">
+		</label>
+
+		<label for = "feild3"><span>Course Overview <span class = "required">*</span></span>
+			<textarea class = "ta-cc" name = "overview" rows="4" cols="50" placeholder = "Overview of the course">{{overview}}</textarea>
+		</label>
+
+		<label for = "feild4"><span>Start Date <span class = "required">*</span></span>
+				<input class = "date1-cc" type = "date" name = "start_date" value = "{{start_date}}">
+		</label>
+
+		<label for = "feild5"><span>End Date <span class = "required">*</span></span>
+			<input class = "date2-cc" type = "date" name ="end_date" value = "{{end_date}}">
+		</label>
+		<div class = "error">{{invalid_date}}</div>
+		
+		<label for = "feild6"><span>Course Discipline</span>
+				<select class = "select-cc" name = "area">
 					<option value = "Dance"> Dance </option>
 					<option value = "Music"> Music </option>
 					<option value = "Theatre"> Theatre </option>
@@ -36,39 +38,40 @@
 					<option value = "Quiz and Debate"> Quiz &amp; Debate </option>
 					<option value = "Academia"> Academia </option>
 				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Course Level
-				<select name = "level">
+		</label>
+		
+		<label for = "feild7"><span>Course Level</span>
+				<select class = "select-cc" name = "level">
 					<option value = "Beginner"> Beginner </option>
 					<option value = "Intermediate"> Intermediate </option>
 					<option value = "Advanced"> Advanced </option>
 				</select>
-			</td>
-		</tr>
-		<tr>
-		<td>
-			<input type="radio" id="upload" class="accordion" name="upload" value="file">Upload Overview Video
-			<div class="panel">
- 			 <input type="file" name="file">
-			</div>
-		</td>
-		</tr>
+		</label>
 
-		<tr>
-			<td>
-		<input type="radio" class="accordion" name="upload" value="link">Give video link
-		<div class="panel">
- 		 <input type="text" name="link">
+				
+		<label for = "feild7"><span>Video</span>
+			<div class = "radio1-cc">
+				<input type="radio" id="upload" class="accordion" name="upload" value="file">Upload Overview Video
+				<div class="panel">
+					<input id = "x1" type="file" name="file">
+				</div>
+			</div>
+		</label>
+		
+		<label for = "feild7"><span></span>
+			<div class="radio2-cc">
+				<input type="radio" class="accordion" name="upload" value="link">Give video link
+				<div class="panel">
+		 			<input id = "x2" type="text" name="link">
+				</div>
+			</div>
+		</label>
+				
+		<!-- </table> -->
+			<div class="error">{{file_error}}</div>
+			<input type = "submit" value = "Float the course" name = "float">
 		</div>
-			</td>
-		</tr>
-	</table>
-	<div class="error">{{file_error}}</div>
-	<input type = "submit" value = "Float the course" name = "float">
-</form>
+	</form>
 
 <script>
 var acc = document.getElementsByClassName("accordion");
