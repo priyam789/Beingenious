@@ -88,7 +88,7 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 						author = author.email, organization = form_data['organization'],
 						date_start = sdate_db, date_end = edate_db,
 						area = form_data['area'], level = form_data['level'],
-						contents = [])
+						contents = [],discussion = [])
 
 		if(form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]

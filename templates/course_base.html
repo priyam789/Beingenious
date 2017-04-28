@@ -4,6 +4,7 @@
 {% if tag == 'initiator' %}
 <a href="/editcourse/{{course.code}}">Add Module</a><br>
 <a id="add_chapter" href="#">Add a chapter</a><br>
+<a href="/discussion/{{course.code}}">Discussion Forum</a> <br>
 {% endif %}
 
 {% for module in course.contents %}

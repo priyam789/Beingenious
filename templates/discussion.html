@@ -1,0 +1,50 @@
+{% extends "course_base.html" %}
+{% block maincontent %}
+<center>Welcome to Discussion Forum - {{course_code}} </center>
+<script type="text/javascript">
+	function post_question(){
+		document.getElementById("post_ques").style.display = "none";
+		// document.getElementById("title").style.display = "block";
+		document.getElementById("query_form").style.display = "block";
+
+	}
+	function cancel_question(){
+		// document.getElementById("title").style.display = "none";
+		document.getElementById("query_form").style.display = "none";
+		document.getElementById("post_ques").style.display = "block";
+	}
+	
+</script>
+<div id = "post_ques" style="display:block">
+<a href="#" class = "button" onclick="post_question()">Post a Question</a>
+</div>
+
+<form id = "query_form" action = "#" method="post" style="display:none">
+	<input name="query_title" type = "text" placeholder="Title" ><br>
+<!-- </div> -->
+<!-- <div id = "query" style="display:none"> -->
+	<textarea name="query_desc" type = "text" placeholder="Enter your query"></textarea><br>
+<!-- </div> -->
+	<input type="submit" value="Post" name ="post_Q" > 
+	<div class = "error">{{error}}</div>
+	<div id = "div2" style="display: block">
+	<a href="#" onclick="cancel_question()">Cancel</a>
+	</div>
+</form>
+		<!-- <td>Last Name</td>
+		<td>{{user.lname}}
+		<div id = "div2" style="display: block">
+		(<a href="#" onclick="jsfunc2()">edit</a>)
+		</div>
+		<form id = "form2" action="#" method="post" style="display: none">
+		<input name="lname">
+		<input type="submit" name="submit">
+		</form>
+		</td>
+	</tr>
+	<tr>
+		<td>Email ID</td>
+		<td>{{user.email}}</td>
+	</tr> -->
+
+{% endblock %}
