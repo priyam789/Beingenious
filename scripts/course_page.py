@@ -32,4 +32,4 @@ class CourseMainPage(Handler):
 			User_Course.enroll_user_course(user.email,course.code)
 
 		self.render('course_main_page.html', course = course, tag = tag,
-					show_module = 1, show_lesson = 1)
+					show_module = 0, show_lesson = 0)

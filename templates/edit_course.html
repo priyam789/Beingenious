@@ -1,17 +1,25 @@
 {% extends "course_base.html" %}
+
 {% block maincontent %}
 <a href="/courses/{{course.code}}?tag=initiator">Go Back</a>
-<h2>Adding New Module</h2>
+{% if edit_module == -1 %}
+<h2 id="heading">Adding New Module</h2>
+{% else %}
+<h2 id="heading">Adding New Lesson to Module {{edit_module+1}}: {{course.contents[edit_module].name}}</h2>
+{% endif %}
 
-<form action = "/editcourse/{{course.code}}" method="post" id="submission_form" enctype="multipart/form-data" onsubmit="submitfunc()">
+<form action = "/editcourse/{{course.code}}" method="post" id="edit_form" enctype="multipart/form-data" onsubmit="submitfunc()">
 <table>
-	<tr>
+	<tr id="module_row">
+	{% if edit_module == -1 %}
 	<td>
 		<input type="text" name="module_name" placeholder="Name of module">
 		<div class="error">{{empty_title}}</div>
 	</td>
+	{% endif %}
 	</tr>
-	
+	<input type="hidden" id="edit_module" name="edit_module" value="{{edit_module|string}}">
+
 	<tr>
 	<td>
 		<input type="text" name="subtitle" placeholder="Title of lesson">
@@ -44,7 +52,9 @@
 	<textarea name="description" placeholder="Instructor comments">{{description}}</textarea>
 	<input type="submit" value="Add">
 </form>
+{% endblock %}
 
+{% block script %}
 <script>
 var radios = document.getElementsByName("upload");
 var i;
@@ -60,7 +70,7 @@ for (i = 0; i < radios.length; i++) {
         if(panel.className == "panel")
         	panel.style.display = "block";
         
-        var form = document.getElementById("submission_form");
+        var form = document.getElementById("edit_form");
         var id = this.id;
         if(id == "upload")
         	form.action = "{{upload_url}}";
@@ -70,10 +80,16 @@ for (i = 0; i < radios.length; i++) {
 }
 
 function submitfunc(){
-	var module_name = document.getElementsByName("module_name")[0].value;
-	var title = document.getElementsByName("module_name")[0].value;
-	var form = document.getElementById("submission_form");
-	if (module_name == "" || title == "")
+	var form = document.getElementById("edit_form");
+	var edit_module = document.getElementById("edit_module").value;
+	if(edit_module == -1)
+	{
+		var module_name = document.getElementsByName("module_name")[0].value;
+		if(module_name == "")
+			form.action = "/editcourse/{{course.code}}";
+	}
+	var title = document.getElementsByName("subtitle")[0].value;
+	if (title == "")
 		form.action = "/editcourse/{{course.code}}";
 
 	var clicked = getClickedValue("upload");
@@ -81,6 +97,32 @@ function submitfunc(){
 		var uploaded = document.getElementsByName(clicked)[0].value;
 		if(uploaded == "")
 			form.action = "/editcourse/{{course.code}}";
-}	
+}
+
+function moduleClick(module_id){
+		var module_divs = document.getElementsByClassName("module");
+		var i;
+		for(i = 0;i<module_divs.length;i++)
+			module_divs[i].style.display = "none";
+		document.getElementById("module_"+module_id.toString()).style.display = "block";
+		var contents = {{course.contents|tojson|safe}}
+		document.getElementById("heading").innerHTML = "Adding New Lesson to Module "+(module_id+1).toString()+": "+contents[module_id]["name"];
+		document.getElementById("edit_module").value = module_id.toString();
+		document.getElementById("module_row").innerHTML = "";
+}
+
+function addModuleClick(){
+	document.getElementById("add_module").href = "#";
+	var module_divs = document.getElementsByClassName("module");
+	var i;
+	for(i = 0;i<module_divs.length;i++)
+		module_divs[i].style.display = "none";
+	document.getElementById("heading").innerHTML = "Adding New Module";
+	document.getElementById("edit_module").value = "-1";
+	document.getElementById("module_row").innerHTML = '<tr>	<td> <input type="text" name="module_name" placeholder="Name of module"> <div class="error">{{empty_title}}</div></td></tr>';
+}
+
+function lessonClick(module_id, lesson_id){}
+
 </script>
 {% endblock %}

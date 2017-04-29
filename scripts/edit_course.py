@@ -1,7 +1,7 @@
 from base import *
 
 class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
-	form_fields = ['module_name', 'subtitle', 'description', 'upload', 'file', 'link']
+	form_fields = ['edit_module', 'module_name', 'subtitle', 'description', 'upload', 'file', 'link']
 	def render_page(self, template, course_code, **kw):
 		current_url = '/editcourse/%s' %course_code
 		upload_url = blobstore.create_upload_url(current_url)
@@ -12,8 +12,14 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		course = Course.verify_author(course_code, user.email)
 		if course is None:
 			self.redirect('/courses/%s' %course_code)
-
-		self.render_page('edit_course.html', course_code, course = course)
+		edit_module = self.request.get('module', '')
+		try:
+			edit_module = int(edit_module)
+		except:
+			edit_module = -1
+		if edit_module >= len(course.contents):
+			edit_module = -1
+		self.render_page('edit_course.html', course_code, course = course, edit_module = edit_module)
 
 	def post(self, course_code):
 		user = self.cookie_user()
@@ -27,19 +33,30 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		if error_present:
 			render_data = dict(form_data, **error)
 			self.render_page('edit_course.html', course_code, course = course, **render_data)
-		else:
+		
+		elif form_data['edit_module'] == -1:
 			module_id = len(course.contents)
 			module = {'id':module_id, 'name':form_data['module_name'], 'lessons':[]}
 			lesson = self.construct_lesson(form_data)
 			module['lessons'].append(lesson)
 			course.contents.append(module)
 			course.put()
-			self.redirect('/editcourse/%s' %course_code)
+			self.redirect('/editcourse/%s?module=%s' %(course_code, str(module_id)))
+		
+		else:
+			module = course.contents[form_data['edit_module']]
+			lesson_id = len(module['lessons'])
+			lesson = self.construct_lesson(form_data, lesson_id)
+			module['lessons'].append(lesson)
+			course.contents[form_data['edit_module']] = module
+			course.put()
+			self.redirect('/editcourse/%s?module=%s' %(course_code, form_data['edit_module']))
 
 	def get_form_data(self):
 		form_data = dict()
 		for field in EditCourse.form_fields:
 			form_data[field] = self.request.get(field, '')
+		form_data['edit_module'] = int(form_data['edit_module'])
 		return form_data
 
 	def error_check(self, form_data):
@@ -50,7 +67,7 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		error['file_error'] = ''
 		
 		#  checking for empty fields
-		if(form_data['module_name'] == ''):
+		if(form_data['edit_module'] == -1 and form_data['module_name'] == ''):
 			error['empty_title'] = 'Module name can not be left blank'
 			error_present = True
 
