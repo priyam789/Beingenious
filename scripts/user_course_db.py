@@ -8,6 +8,16 @@ from course_db import *
 class User_Course(ndb.Model):
 	user = ndb.StringProperty(required = True)
 	code = ndb.StringProperty(required = True)
+	grades = ndb.FloatProperty()
+
+	@staticmethod
+	def get_users_enrolled(code):
+		user_list = User_Course.query(User_Course.code == code)
+		user_enrolled = []
+		for user_info in user_list:
+			user_name = User.get_by_email(user_info.user)
+			user_enrolled.append(user_name)
+		return (user_enrolled,user_list)
 
 	@staticmethod
 	def parent_key():

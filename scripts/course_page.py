@@ -28,6 +28,7 @@ class CourseMainPage(Handler):
 		if course == None:
 			self.redirect('/dashboard')
 		
+		self.error(404)
 		if(tag == 'benefitter'):
 			User_Course.enroll_user_course(user.email,course.code)
 
