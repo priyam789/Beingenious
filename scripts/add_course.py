@@ -95,7 +95,13 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 			video_link = '/view_video/%s' %str(upload.key())
 			course.overview_video = {'type':'blob', 'blob_key':str(upload.key()), 'link':video_link}
 		elif(form_data['upload'] == 'link'):
-			course.overview_video = {'type':'link', 'link':form_data['link']}
+			link_to_put = form_data['link']
+			if 'youtube.com' in link_to_put:
+				# video_id = form_data['link'].split("v=")[1].substring(0,11)
+				video_id = form_data['link'].split("v=")[1]
+				link_to_put = 'https://www.youtube.com/embed/' + video_id
+
+			course.overview_video = {'type':'link', 'link':link_to_put}
 		course.put()
 		
 		self.redirect('/courses?code=%s&tag=%s' %(course_code,'initiator'))
