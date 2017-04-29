@@ -27,8 +27,7 @@ tr:nth-child(even) {
     <th>Grades</th>
   </tr>
  	{% set i = 0 %}
-	{% for users in user_namelist %}
-		{% set user_grade = user_gradelist[i]%}
+	{% for (users,user_grade) in user_namelist %}
   		<tr>
   		  <td>{{users.fname}} {{users.lname}}</td>
   		  <td>{{users.email}}</td>
