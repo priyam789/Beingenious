@@ -17,6 +17,7 @@ class Course(ndb.Model):
 	level = ndb.StringProperty(required = True)
 	overview_video = ndb.JsonProperty()
 	contents = ndb.JsonProperty()
+	discussion = ndb.JsonProperty()
 
 	@staticmethod
 	def parent_key():

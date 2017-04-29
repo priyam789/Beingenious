@@ -1,0 +1,84 @@
+{% extends "course_base.html" %}
+{% block maincontent %}
+<center>Welcome to Discussion Forum - {{course_code}} </center>
+<script type="text/javascript">
+	function post_question(){
+		document.getElementById("post_ques").style.display = "none";
+		// document.getElementById("title").style.display = "block";
+		document.getElementById("query_form").style.display = "block";
+
+	}
+	function cancel_question(){
+		// document.getElementById("title").style.display = "none";
+		document.getElementById("query_form").style.display = "none";
+		document.getElementById("post_ques").style.display = "block";
+	}
+	function post_reply(clicked_id){
+		document.getElementById("reply_form_"+clicked_id.toString()).style.display = "block";
+		document.getElementById("reply_link_"+clicked_id.toString()).style.display = "none";
+	}
+	function cancel_reply(clicked_id){
+		document.getElementById("reply_link_"+clicked_id.toString()).style.display = "block";
+		document.getElementById("reply_form_"+clicked_id.toString()).style.display = "none";
+	}
+	
+</script>
+<div id = "post_ques" style="display:block">
+<a href="#" class = "button" onclick="post_question()">Post a Question</a>
+</div>
+
+<form id = "query_form" action = "#" method="post" style="display:none">
+	<input name="query_title" type = "text" placeholder="Title" ><br>
+<!-- </div> -->
+<!-- <div id = "query" style="display:none"> -->
+	<textarea name="query_desc" type = "text" placeholder="Enter your query"></textarea><br>
+<!-- </div> -->
+	<input type="submit" value="Post" name ="post_Q" > 
+	<div class = "error">{{error}}</div>
+	<div id = "div2" style="display: block">
+	<a href="#" onclick="cancel_question()">Cancel</a>
+	</div>
+</form>
+
+<center>
+	{% for query in course.discussion %}
+		{{query.title}}<br>
+		{{query.content}} <br>
+		<a href="#" id="reply_link_{{query.query_id}}" onclick="post_reply({{query.query_id}})">Reply</a>
+		{% for reply in query.reply %}
+			<div style="display:block"> {{reply.content}} </div>
+		{% endfor %}
+		<form id = "reply_form_{{query.query_id}}" name = "reply_form" value = {{query.query_id}} action = "#" method="post2" style="display:none">
+			
+<!-- </div> -->
+<!-- <div id = "query" style="display:none"> -->
+			<textarea name="reply_desc" type = "text" placeholder="Enter your reply"></textarea><br>
+<!-- </div> -->
+			<input type="submit" value="Post the reply" name ="post_R" > 
+			
+			<div id = "cancel_{{query.query_id}}" style="display: block">
+				<a href="#" onclick="cancel_reply({{query.query_id}})">Cancel</a>
+			</div>
+		</form>
+		
+		<hr>
+	{% endfor %}
+</center>
+
+		<!-- <td>Last Name</td>
+		<td>{{user.lname}}
+		<div id = "div2" style="display: block">
+		(<a href="#" onclick="jsfunc2()">edit</a>)
+		</div>
+		<form id = "form2" action="#" method="post" style="display: none">
+		<input name="lname">
+		<input type="submit" name="submit">
+		</form>
+		</td>
+	</tr>
+	<tr>
+		<td>Email ID</td>
+		<td>{{user.email}}</td>
+	</tr> -->
+
+{% endblock %}

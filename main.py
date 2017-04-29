@@ -10,6 +10,7 @@ from add_course import *
 from course_page import *
 from edit_course import *
 from video import *
+from discussion_page import *
 
 app = webapp2.WSGIApplication([
 	('/', HomePage),
@@ -25,5 +26,6 @@ app = webapp2.WSGIApplication([
 	('/courses/(\w+)/?', CourseMainPage),
 	('/courses/?', CoursePage),
 	('/editcourse/(\w+)/?', EditCourse),
-	('/view_video/(.*)', ServeVideo)
+	('/view_video/(.*)', ServeVideo),
+	('/discussion/(\w+)/?', DiscussionPage)
 	], debug = True)

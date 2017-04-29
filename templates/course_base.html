@@ -3,7 +3,8 @@
 
 {% if tag == 'initiator' %}
 <a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a><br>
-<a id="add_chapter" href="">Add a chapter</a><br>
+<a id="add_chapter" href="#">Add a chapter</a><br>
+<a href="/discussion/{{course.code}}">Discussion Forum</a> <br>
 {% endif %}
 
 {% for module in course.contents %}

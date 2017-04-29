@@ -28,3 +28,23 @@ class User_Course(ndb.Model):
 			detail = Course.get_details_course(course_reg.code)
 			courses.append(detail)
 		return courses
+
+	@staticmethod
+	def verify_user(code, email):
+		user_course = User_Course.query(User_Course.code == code, User_Course.user == email, ancestor=User_Course.parent_key()).get()
+		if(user_course is None):
+			return user_course
+		else:
+			course_detail = Course.get_details_course(user_course.code)
+			return course_detail
+
+	# @staticmethod
+	# def get_num_courses():
+	# 	total = ndb.gql("SELECT * FROM Course ").count()
+	# 	return total
+
+	# @staticmethod
+	# def get_details_course(code):
+	# 	course_para = ndb.gql("SELECT * FROM Course WHERE ctitle ='%s'" % code).get()
+	# 	return course_para
+
