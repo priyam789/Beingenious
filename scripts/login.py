@@ -113,12 +113,54 @@ class LoginPage(Handler):
 class Activate(Handler):
 	def get(self):
 		link = self.request.get('link')
-		response = User.activate(link)
-		if response is not None:
-			self.write('Signup successful')
+		forgot = self.request.get('forgot')
+		success = self.request.get('success')
+		if success:
+			self.render('password_change.html',success = success)
+		elif forgot:
+			self.render('password_change.html',link = link)
 		else:
-			self.error(404)
-			self.render('error.html', error = 'Activation link expired or Invalid activation link')
+			response = User.activate(link)
+			if response is not None:
+				self.write('Signup successful')
+			else:
+				self.error(404)
+				self.render('error.html', error = 'Activation link expired or Invalid activation link')
+	def post(self):
+		link = self.request.get('link')
+		user = User.get_by_activation_link(link)
+		if user is None:
+			self.redirect('/login?pane=signin')
+		new_pass = self.request.get('new_pass')
+		verify = self.request.get('verify')
+
+		old_pass_actual = user.email_pw_salt
+		email = user.email
+		pos = old_pass_actual.find(DELIM)
+		salt = old_pass_actual[pos+1:]
+
+		valid_pass, pass_error = validate_password(new_pass)
+		valid_verify, verify_error = match_passwords(new_pass, verify)
+
+		if valid_pass and valid_verify:
+			new_salt = hash_email_pw(email,new_pass,salt)
+			user.email_pw_salt = new_salt
+			user.put()
+			message = "Password changed successfully"
+			self.redirect('/activate?success=1')
+			# verification_link = self.register_user(fname, lname, email, password)
+			# self.write('Link is: %s' % verification_link)
+			# activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
+			# self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
+
+		else:
+			if not valid_pass:
+				verify_error = ''
+
+			self.render('password_change.html',
+							pass_error=pass_error,
+							verify_error=verify_error)
+
 
 class LogoutPage(Handler):
 	def get(self):
@@ -201,6 +243,23 @@ class ChangePassword(Handler):
 			self.render_form(oldpass_error=oldpass_error,
 							pass_error=pass_error,
 							verify_error=verify_error)
+
+
+class ForgotPasswordPage(Handler):
+	def get(self):
+		self.render('forgot_password.html')
+	def post(self):
+		emailid = self.request.get('email')
+		user = User.get_by_email(emailid)
+		if user == None:
+			login_error = 'Sorry! This Email ID does not exist.'
+			self.render('forgot_password.html', email=emailid, email_error=login_error)
+		else:
+			verification_link = ''.join(['be-ingenious.appspot.com/activate?link=',user.email_pw_salt,'&forgot=1'])
+			self.write('Link is: %s' % verification_link)
+			# activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
+			# self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
+
 
 
 

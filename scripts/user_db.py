@@ -53,6 +53,11 @@ class User(db.Model):
 		return user
 
 	@staticmethod
+	def get_by_activation_link(link):
+		user = db.GqlQuery("SELECT * FROM User WHERE email_pw_salt = '%s'" % link).get()
+		return user
+
+	@staticmethod
 	def email_exists(email):
 		user = User.get_by_email(email)
 		return user != None
