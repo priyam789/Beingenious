@@ -8,15 +8,15 @@
 	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
 	<!-- <table style = "width:100%"> -->
 		<label for = "feild1"><span>Title <span class = "required">*</span></span>
-				<input class = "inp-cc" type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}">
+			<input class = "inp-cc" type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}">
+			<div class = "error">{{empty_title}}</div>
 		</label>
-		<div class = "error">{{empty_title}}</div>
 		
 		<label for = "feild2"><span>Organization/Institute Name</span>
 			<input class = "inp-cc" type = "text" placeholder = "Organization/Institute Name (optional)" name = "organization" value = "{{organization}}">
 		</label>
 
-		<label for = "feild3"><span>Course Overview <span class = "required">*</span></span>
+		<label for = "feild3"><span>Course Overview </span>
 			<textarea class = "ta-cc" name = "overview" rows="4" cols="50" placeholder = "Overview of the course">{{overview}}</textarea>
 		</label>
 
@@ -26,8 +26,8 @@
 
 		<label for = "feild5"><span>End Date <span class = "required">*</span></span>
 			<input class = "date2-cc" type = "date" name ="end_date" value = "{{end_date}}">
+			<div class = "error">{{invalid_date}}</div>
 		</label>
-		<div class = "error">{{invalid_date}}</div>
 		
 		<label for = "feild6"><span>Course Discipline</span>
 				<select class = "select-cc" name = "area">
