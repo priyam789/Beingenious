@@ -1,8 +1,11 @@
 import re
 from datetime import date
+from datetime import datetime
 from base import *
 
-
+def format_time(time):
+	date_string = str(time.day)+"/"+str(time.month)+"/"+str(time.year)+"   "+str(time.hour)+":"+str(time.minute)
+	return date_string
 
 class DiscussionPage(Handler):
 
@@ -20,40 +23,43 @@ class DiscussionPage(Handler):
 		self.render('discussion.html',course_code = course_code,course = course_detail)
 
 	def post(self,course_code):
-		query_title = self.request.get('query_title')
-		query_content = self.request.get('query_desc')
-		user = self.cookie_user()
-		course_details = Course.get_details_course(course_code)
-		error = ""
-		if query_title == "":
-			error = "Query cannot be posted without a title"
-			self.render('discussion.html',course_code = course_code,course = course_details,error=error)
-		else:
+		form_name = self.request.get('post_R')
+		if form_name == "Post":
+			query_title = self.request.get('query_title')
+			query_content = self.request.get('query_desc')
+			user = self.cookie_user()
+			course_details = Course.get_details_course(course_code)
+			# if query_title == "":
+			# 	error = "Query cannot be posted without a title"
+			# 	self.render('discussion.html',course_code = course_code,course = course_details,error=error)
+			# else:
+			t = datetime.now()
+			curr_time = format_time(t)
 			query_id = len(course_details.discussion)
-			single_query = self.construct_query(query_title,query_content,query_id,user)
+			single_query = self.construct_query(query_title,query_content,query_id,user,curr_time)
 			course_details.discussion.append(single_query)
 			course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details,error= error)
+			self.render('discussion.html',course_code = course_code,course = course_details)
+		else:
+			q_id = self.request.get('reply_form_hidden')
+			reply_content = self.request.get('reply_desc_'+q_id)
+			user = self.cookie_user()
+			course_details = Course.get_details_course(course_code)
+			if reply_content:
+				t = datetime.now()
+				curr_time = format_time(t)
+				reply_id = len(course_details.discussion[int(q_id)]['reply'])
+				single_reply = self.construct_reply(reply_content,reply_id,user,curr_time)
+				course_details.discussion[int(q_id)]['reply'].append(single_reply)
+				course_details.put()
+			self.render('discussion.html',course_code = course_code,course = course_details)
 	
-	def post2(self,course_code):
-		reply_content = self.request.get('reply_desc')
-		q_id = self.request.get('reply_form')
-		user = self.cookie_user()
-		course_details = Course.get_details_course(course_code)
-		error = ""
-		if reply_content:
-			reply_id = len(course_details.discussion[int(q_id)]['reply'])
-			single_reply = self.construct_reply(reply_content,reply_id,user)
-			course_details.discussion[int(q_id)]['reply'].append(single_reply)
-			course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details,error = error)
-
-	def construct_query(self,title,content,qid,user):
+	def construct_query(self,title,content,qid,user,time):
 		query = dict()
-		query = {'query_id':qid,'title':title,'content':content,'user':user.email,'reply':[]}
+		query = {'query_id':qid,'title':title,'content':content,'user':user.email,'time':time,'reply':[]}
 		return query
 
-	def construct_reply(self,content,r_id,user):
+	def construct_reply(self,content,r_id,user,time):
 		reply = dict()
-		reply = {'reply_id':r_id,'content':content,'user':user.email}
+		reply = {'reply_id':r_id,'content':content,'user':user.email,'time':time}
 		return reply

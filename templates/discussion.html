@@ -14,6 +14,16 @@
 		document.getElementById("post_ques").style.display = "block";
 	}
 	function post_reply(clicked_id){
+		var reply_forms = document.getElementsByName("reply_form");
+        var j;
+        for(j = 0; j<reply_forms.length; j++){
+        	reply_forms[j].style.display = "none";
+        }
+        var reply_links = document.getElementsByName("reply_link");
+        var j;
+        for(j = 0; j<reply_links.length; j++){
+        	reply_links[j].style.display = "block";
+        }
 		document.getElementById("reply_form_"+clicked_id.toString()).style.display = "block";
 		document.getElementById("reply_link_"+clicked_id.toString()).style.display = "none";
 	}
@@ -28,13 +38,13 @@
 </div>
 
 <form id = "query_form" action = "#" method="post" style="display:none">
-	<input name="query_title" type = "text" placeholder="Title" ><br>
+	<input name="query_title" type = "text" placeholder="Title" required oninvalid="this.setCustomValidity('Query cannot be posted without a title')"
+    oninput="setCustomValidity('')" /><br>
 <!-- </div> -->
 <!-- <div id = "query" style="display:none"> -->
 	<textarea name="query_desc" type = "text" placeholder="Enter your query"></textarea><br>
 <!-- </div> -->
-	<input type="submit" value="Post" name ="post_Q" > 
-	<div class = "error">{{error}}</div>
+	<input type="submit" value="Post" name ="post_R" > 
 	<div id = "div2" style="display: block">
 	<a href="#" onclick="cancel_question()">Cancel</a>
 	</div>
@@ -42,17 +52,16 @@
 
 <center>
 	{% for query in course.discussion %}
-		{{query.title}}<br>
-		{{query.content}} <br>
-		<a href="#" id="reply_link_{{query.query_id}}" onclick="post_reply({{query.query_id}})">Reply</a>
-		{% for reply in query.reply %}
-			<div style="display:block"> {{reply.content}} </div>
-		{% endfor %}
-		<form id = "reply_form_{{query.query_id}}" name = "reply_form" value = {{query.query_id}} action = "#" method="post2" style="display:none">
-			
+		Title : {{query.title}} <br>
+		Content : {{query.content}} <br>
+		<div align = "center"> Posted by {{query.user}} on {{query.time}} </div>
+		<a href="#" id="reply_link_{{query.query_id}}" name = "reply_link" onclick="post_reply({{query.query_id}})">Reply</a>
+		
+		<form id = "reply_form_{{query.query_id}}" name = "reply_form" action = "#" method="post" style="display:none">
+			<input type = "hidden" name = "reply_form_hidden" value = {{query.query_id}}>
 <!-- </div> -->
 <!-- <div id = "query" style="display:none"> -->
-			<textarea name="reply_desc" type = "text" placeholder="Enter your reply"></textarea><br>
+			<textarea name="reply_desc_{{query.query_id}}" type = "text" placeholder="Enter your reply"></textarea><br>
 <!-- </div> -->
 			<input type="submit" value="Post the reply" name ="post_R" > 
 			
@@ -60,7 +69,11 @@
 				<a href="#" onclick="cancel_reply({{query.query_id}})">Cancel</a>
 			</div>
 		</form>
-		
+		<div align = "right">Comments :</div>
+		{% for reply in query.reply %}
+			<div align = "right">{{reply.content}}</div>
+			<div align = "right"> Posted by {{reply.user}} on {{reply.time}} </div>
+		{% endfor %}
 		<hr>
 	{% endfor %}
 </center>
