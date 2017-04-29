@@ -22,16 +22,25 @@
 	</div>
 
 	<div class = "nav-bar" id = "top2">
-			<ul class = "nav">
+		<nav class = "primary_nav_wrap">
+			<ul>
 				<li><a href = "/">Home</a></li>
 				<li><a href = "/catalog">Catalog</a></li>
 				{% if user == None %}
 				<li><a href = "/login?pane=signin">Sign In</a></li>
 				<li><a href = "/login?pane=signup">Sign Up</a></li>
 				{% else %}
-				<li><a href = "/dashboard">Dashboard</a></li>
+				<!-- <li><a href = "/dashboard">Dashboard</a></li>
 				<li><a href = "/profile">Account</a>{{user.fname}}</li>
-				<li><a href = "/logout">Logout</a></li>
+				<li><a href = "/logout">Logout</a></li> -->
+				<li>
+					<a href = "/profile" class = "profile-link">{{user.fname}}</a>
+					<ul>
+						<li><a href = "/dashboard">Dashboard</a></li>
+						<li><a href = "/profile">Profile</a></li>
+						<li><a href = "/logout">Logout</a></li>
+					</ul>
+				</li>
 				{% endif %}
 			</ul>
 	</div>
