@@ -1,0 +1,42 @@
+
+
+.box-profile {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+
+}
+
+#table-profile {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table-profile a{
+    text-decoration: none;
+    color: black;
+}
+
+#table-profile td, #table-profile th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#table-profile tr:nth-child(even){background-color: #f2f2f2;}
+
+#table-profile tr:hover {background-color: #ddd;}
+
+#table-profile th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.change-password-profile {
+    margin: 0 auto;
+    width: 500px;
+    margin-top: 10px;
+}

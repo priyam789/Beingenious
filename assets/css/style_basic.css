@@ -41,6 +41,7 @@ body {
 .header-heading a { 
 	text-decoration: none;
 	color: white;
+	font-style: "Times New Roman";
 }
 
 .nav-bar
@@ -55,8 +56,10 @@ body {
 .primary_nav_wrap
 {
 	/*margin-top:15px;*/
+	position: relative;
 	float: right;
 	margin-right:100px;
+	z-index: 10;
 	/*padding: 1.5em 0;*/
 }
 

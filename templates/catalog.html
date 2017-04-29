@@ -2,20 +2,20 @@
 {% block content %}
 <!-- <hr> -->
 <form action = "/activities">
-<table class = "catalog_table">
-	<tr>
+<div class = "catalog-box">
+	<ul class = "list1">
 		
-		<td class = "dance">
+		<li class = "activity">
 			<a href="/activities?category=Dance">
 				<div class="container-dance">
-					<img src="/assets/images/dance.jpg" class = "image-dance"> 
+					<img src="/assets/images/music.jpg" class = "image-dance"> 
 					<div class="overlay-dance">
 				    	<div class="text-dance">Dance </div>
 				  	</div>
 				</div>
 			</a>
-		</td>
-		<td class = "music">
+		</li>
+		<li class = "activity">
 			<a href="/activities?category=Music">
 				<div class="container-music">
 					<img src="/assets/images/music.jpg" class = "image-music"> 
@@ -24,8 +24,8 @@
 				  	</div>
 				</div>
 			</a>
-		</td>
-		<td class = "theatre">
+		</li>
+		<li class = "activity">
 			<a href="/activities?category=Theatre">
 				<div class="container-theatre">
 					<img src="/assets/images/theatre.jpg" class = "image-theatre"> 
@@ -34,10 +34,10 @@
 				  	</div>
 				</div>
 			</a>
-		</td>
-	</tr>
-	<tr>
-		<td class = "literature">
+		</li>
+	</ul>
+	<ul class="list1">
+		<li class = "activity">
 			<a href="/activities?category=Literature">
 				<div class="container-literature">
 					<img src="/assets/images/literature.jpg" class = "image-literature"> 
@@ -46,8 +46,8 @@
 				  	</div>
 				</div>
 			</a>
-		</td>
-		<td class = "quiz">
+		</li>
+		<li class = "activity">
 			<a href="/activities?category=Quiz and Debate">
 				<div class="container-quiz">
 					<img src="/assets/images/quiz.png" class = "image-quiz"> 
@@ -56,8 +56,8 @@
 				  	</div>
 				</div>
 			</a>
-		</td>
-		<td class = "academia">
+		</li>
+		<li class = "activity">
 			<a href="/activities?category=Academia">
 				<div class="container-academia">
 					<img src="/assets/images/academia.jpg" class = "image-academia"> 
@@ -66,10 +66,11 @@
 				  	</div>
 				</div>
 			</a>
-		</td>
+		</li>
 			
 
-	</tr>
-</table>
+	</ul>
+</div>
+<!-- </table> -->
 </form>
 {% endblock %}
