@@ -31,7 +31,7 @@ body {
 {
 	color: #fff;
 	background: #003636;
-	padding: 1em 1.25em;
+	padding: 2em 1.25em;
 }
 
 .header-heading { 
@@ -41,86 +41,114 @@ body {
 .header-heading a { 
 	text-decoration: none;
 	color: white;
+	font-style: "Times New Roman";
 }
-
 
 .nav-bar
 {
 	background: #001a1a;
 	padding: 0;
 	margin: 0;
-	height: 2em;
+	height: 40px;
 
 }
 
-.headlist{ float: right; }
-/* -----------------------Nav------------------------*/
-
-.nav
+.primary_nav_wrap
 {
-
-	margin: 0.5em;
-	text-align: center;
+	/*margin-top:15px;*/
+	position: relative;
 	float: right;
+	margin-right:100px;
+	z-index: 10;
+	/*padding: 1.5em 0;*/
 }
 
-.nav li
+.primary_nav_wrap ul
 {
-	display: inline;
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
 }
 
-.nav a
+.primary_nav_wrap ul a
 {
-	padding: .4em 1.25em;
-	color: #fff;
-	text-decoration: none;
+	display:block;
+	color:white;
+	text-decoration:none;
+	font-weight:600;
+	font-size:15px;
+	line-height:40px;
+	padding:0 30px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+.profile-link:after {
+	background-image: url("/assets/images/user.png");
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    content:"";
+    margin-left: 10px;
 
 }
 
-/*.nav a:link { color: white; }*/
-/*.nav a:visited { color: white; }*/
-
-.nav a:focus
+/*.profile-link
 {
-	color: black;
-	background-color: white;
-}
-
-.nav a:hover
-{
-	color: white;
-	background-color: green;
-}
-
-/*.nav a:active
-{
-	color: white;
-	background-color: red;
+	padding-right:400px;
 }*/
 
-
-/*-----------------------horizontal menu-----------------------------*/
-ul#horiz_menu
+.primary_nav_wrap ul li
 {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-	text-align: center;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
 }
 
-ul#horiz_menu li { display: inline; }
-
-ul#horiz_menu li a
+/*.primary_nav_wrap ul li.current-menu-item
 {
-	text-decoration: none;
-	padding: .2em 1em;
-	color: #fff;
-	background-color: #036;
+	background:#ddd
+}
+*/
+.primary_nav_wrap ul li:hover
+{
+	background:green;
 }
 
-ul#horiz_menu li a:hover
+.primary_nav_wrap ul ul
 {
-	background-color: blue;
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#001a1a;
+	padding:0
 }
 
+.primary_nav_wrap ul ul li
+{
+	float:none;
+	width:150px
+}
 
+.primary_nav_wrap ul ul a
+{
+	line-height:120%;
+	padding:10px 15px
+}
+
+.primary_nav_wrap ul ul ul
+{
+	top:0;
+	left:100%
+}
+
+.primary_nav_wrap ul li:hover > ul
+{
+	display:block
+}

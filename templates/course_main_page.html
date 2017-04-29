@@ -1,5 +1,31 @@
 {% extends "course_base.html" %}
 
-{% block maincontent %}
+{% block script %}
+<script type="text/javascript">
+	function moduleClick(module_id){
+		var module_divs = document.getElementsByClassName("module");
+		var i;
+		for(i = 0;i<module_divs.length;i++)
+			module_divs[i].style.display = "none";
+		document.getElementById("module_"+module_id.toString()).style.display = "block";
+		document.getElementById("add_chapter").href = "/editcourse/{{course.code}}?module="+module_id.toString();
+	}
 
+	function lessonClick(module_id, lesson_id){
+		var contents = {{course.contents|tojson|safe}};
+		var video = document.getElementById("video");
+		var source = document.getElementById("video_src");
+		source.src = contents[module_id]["lessons"][lesson_id]["link"];
+		video.load();
+	}
+
+	function addModuleClick(){}
+</script>
+{% endblock %}
+
+
+{% block maincontent %}
+<video id="video" width="320" height="240" controls="controls">
+  <source id="video_src" src="{{course.contents[show_module].lessons[show_lesson].link}}">
+</video>
 {% endblock %}

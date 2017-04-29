@@ -17,11 +17,11 @@
     margin: 0px 0px 15px 0px;
 }
 .form-cc label > span{
-    width: 100px;
+    width: 200px;
     font-weight: bold;
     float: left;
     padding-top: 8px;
-    padding-right: 50px;
+    padding-right: 25px;
 }
 .form-cc span.required{
     color:red;

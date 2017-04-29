@@ -27,5 +27,6 @@ app = webapp2.WSGIApplication([
 	('/courses/?', CoursePage),
 	('/editcourse/(\w+)/?', EditCourse),
 	('/view_video/(.*)', ServeVideo),
-	('/discussion/(\w+)/?', DiscussionPage)
+	('/discussion/(\w+)/?', DiscussionPage),
+	('/forgotpassword', ForgotPasswordPage)
 	], debug = True)
