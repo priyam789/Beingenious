@@ -9,14 +9,8 @@ Organization : {{course_details.organization}} <br>
 
 Overview : {{course_details.overview}} <br>
 Duration : {{course_details.date_start}} to {{course_details.date_end}}
-{% if course_details.overview_video['type'] == blob %}
-<video width="320" height="240" controls>
-  <source src="{{course_details.overview_video['link']}}">
-</video>
-{% else %}
 <iframe width="420" height="345" src="{{course_details.overview_video['link']}}">
 </iframe>
-{% endif %}
 
 {% if tag == 'initiator' %}
 <a href="/courses/{{course_details.code}}?tag=initiator">Add Course Materials</a>
