@@ -1,4 +1,0 @@
-{% extends "course_base.html %"}
-{% block maincontent %}
-<center> 
-{% endblock %}

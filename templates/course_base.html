@@ -6,7 +6,6 @@
 <a id="add_chapter" href="#">Add a chapter</a><br>
 <a href="/discussion/{{course.code}}">Discussion Forum</a> <br>
 {% endif %}
-
 {% for module in course.contents %}
 <a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a>
 <div id="module_{{module.id}}" class="module">

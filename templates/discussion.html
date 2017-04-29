@@ -13,6 +13,14 @@
 		document.getElementById("query_form").style.display = "none";
 		document.getElementById("post_ques").style.display = "block";
 	}
+	function post_reply(clicked_id){
+		document.getElementById("reply_form_"+clicked_id.toString()).style.display = "block";
+		document.getElementById("reply_link_"+clicked_id.toString()).style.display = "none";
+	}
+	function cancel_reply(clicked_id){
+		document.getElementById("reply_link_"+clicked_id.toString()).style.display = "block";
+		document.getElementById("reply_form_"+clicked_id.toString()).style.display = "none";
+	}
 	
 </script>
 <div id = "post_ques" style="display:block">
@@ -31,6 +39,32 @@
 	<a href="#" onclick="cancel_question()">Cancel</a>
 	</div>
 </form>
+
+<center>
+	{% for query in course.discussion %}
+		{{query.title}}<br>
+		{{query.content}} <br>
+		<a href="#" id="reply_link_{{query.query_id}}" onclick="post_reply({{query.query_id}})">Reply</a>
+		{% for reply in query.reply %}
+			<div style="display:block"> {{reply.content}} </div>
+		{% endfor %}
+		<form id = "reply_form_{{query.query_id}}" name = "reply_form" value = {{query.query_id}} action = "#" method="post2" style="display:none">
+			
+<!-- </div> -->
+<!-- <div id = "query" style="display:none"> -->
+			<textarea name="reply_desc" type = "text" placeholder="Enter your reply"></textarea><br>
+<!-- </div> -->
+			<input type="submit" value="Post the reply" name ="post_R" > 
+			
+			<div id = "cancel_{{query.query_id}}" style="display: block">
+				<a href="#" onclick="cancel_reply({{query.query_id}})">Cancel</a>
+			</div>
+		</form>
+		
+		<hr>
+	{% endfor %}
+</center>
+
 		<!-- <td>Last Name</td>
 		<td>{{user.lname}}
 		<div id = "div2" style="display: block">
