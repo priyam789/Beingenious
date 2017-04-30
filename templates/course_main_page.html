@@ -43,7 +43,7 @@
 			if(lesson["quiz_format"] == "single")
 				html += '<input type="radio" required name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
 			else
-				html += '<input type="checkbox" required name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
+				html += '<input type="checkbox" name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
 			html += '<br>';
 		}
 		html +='<input type="submit" value="Submit Answers">';
@@ -71,7 +71,9 @@
 
 {% block maincontent %}
 <div id="maincontent">
+{% if show_module >= 0 and show_lesson >= 0 %}
 <iframe width="420" height="345" id="video" src="{{course.contents[show_module].lessons[show_lesson].link}}">
 </iframe>
+{% endif %}
 </div>
 {% endblock %}

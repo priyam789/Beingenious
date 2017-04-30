@@ -29,8 +29,14 @@ class CourseMainPage(Handler):
 			if course == None:
 				self.redirect('/dashboard')
 		
+
 			if(tag == 'benefitter'):
 				User_Course.enroll_user_course(user.email,course.code)
 
+			show_module = 0
+			show_lesson = 0
+			if(show_module >= len(course.contents) or show_lesson >= len(course.contents[0]['lessons'])):
+				show_module = -1
+				show_lesson = -1
 			self.render('course_main_page.html', course = course, tag = tag,
-					show_module = 0, show_lesson = 0)
+					show_module = show_module, show_lesson = show_lesson)

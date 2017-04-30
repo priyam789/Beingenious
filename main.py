@@ -11,6 +11,7 @@ from course_page import *
 from edit_course import *
 from video import *
 from discussion_page import *
+from participants import *
 
 app = webapp2.WSGIApplication([
 	('/', HomePage),
@@ -28,5 +29,6 @@ app = webapp2.WSGIApplication([
 	('/editcourse/(\w+)/?', EditCourse),
 	('/view_video/(.*)', ServeVideo),
 	('/discussion/(\w+)/?', DiscussionPage),
+	('/participants/(\w+)/?', ParticipantsPage),
 	('/forgotpassword', ForgotPasswordPage)
 	], debug = True)

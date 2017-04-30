@@ -128,6 +128,16 @@ for (i = 0; i < radios.length; i++) {
     }
 }
 
+function submitfunc2(){
+	var checkboxes = document.getElementsByName("multiple_correct");
+	for(var i = 0;i<checkboxes.length;i++){
+		if(checkboxes[i].clicked)
+			return true;
+	}
+	alert("Atleast one answer has to be correct");
+	return false;
+}
+
 function submitfunc(){
 	var form = document.getElementById("edit_form");
 	var edit_module = document.getElementById("edit_module").value;
@@ -175,8 +185,14 @@ function lessonClick(module_id, lesson_id){}
 
 function lessonFormatClick(){
 	var lesson_format = document.getElementById("lesson_format").value;
-	if(lesson_format != "lecture")
+	if(lesson_format != "lecture"){
 		document.getElementById("edit_form").action = "/editcourse/{{course.code}}";
+		document.getElementById("edit_form").onsubmit = "return submitfunc2()";
+	}
+	else{
+		document.getElementById("edit_form").onsubmit = "submitfunc()";
+	}
+
 	var divs = document.getElementsByClassName("lesson_format");
 	for(var i = 0;i<divs.length;i++)
 		divs[i].style.display = "none";
@@ -207,7 +223,11 @@ function numOptionsClick(){
 	for(var i = 1;i<=num_options;i++)
 	{
 		options_html = options_html+'<input type="text" class="quiz_inp" name="'+quiz_format+'_'+i.toString()+'" placeholder="Choice '+i.toString()+'" required><br>';
-		correct_html = correct_html+'<input type="'+correct_type+'" class="quiz_inp" name="'+quiz_format+'_correct" value="'+i.toString()+'" required>'+i.toString()+'<br>';
+		correct_html = correct_html+'<input type="'+correct_type+'" class="quiz_inp" name="'+quiz_format+'_correct" value="'+i.toString()+'"';
+		if(quiz_format == "single")
+			correct_html += ' required>'+i.toString()+'<br>';
+		else
+			correct_html += '>'+i.toString()+'<br>';
 	}
 	document.getElementById(quiz_format+"_options").innerHTML = options_html;
 	document.getElementById(quiz_format+"_correct").innerHTML = correct_html;
