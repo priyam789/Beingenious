@@ -4,8 +4,11 @@
 <hr>
 
 <div class = "form-cc">
-	<div class = "form-cc-heading"><h2> Fill the course Information </h2> </div>
 	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
+
+	<div class = "form-cc-heading"><h2> Fill the course Information </h2> </div>
+	<input type="radio" name="type1" value="course" checked> Course
+  	<input type="radio" name="type1" value="event"> Event
 	<!-- <table style = "width:100%"> -->
 		<label for = "feild1"><span>Title <span class = "required">*</span></span>
 			<input class = "inp-cc" type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}">
@@ -51,7 +54,7 @@
 				
 		<label for = "feild7"><span>Video</span>
 			<div class = "radio1-cc">
-				<input type="radio" id="upload" class="accordion" name="upload" value="file">Upload Overview Video
+				<input type="radio" id="upload" class="accordion" name="upload" value="file" required>Upload Overview Video
 				<div class="panel">
 					<input id = "x1" type="file" name="file">
 				</div>
@@ -60,7 +63,7 @@
 		
 		<label for = "feild7"><span></span>
 			<div class="radio2-cc">
-				<input type="radio" class="accordion" name="upload" value="link">Give video link
+				<input type="radio" class="accordion" name="upload" value="link" required>Give video link
 				<div class="panel">
 		 			<input id = "x2" type="text" name="link">
 				</div>
