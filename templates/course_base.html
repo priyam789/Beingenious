@@ -3,9 +3,12 @@
 
 <input type="hidden" name="tag" value="{{tag}}">
 {% if tag == 'initiator' %}
+{% if course.type_course == 'course' %}
 <a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a><br>
 
 <a id="add_chapter" href="#">Add a chapter</a><br>
+{% endif %}
+
 <a id="participants" href="/participants/{{course.code}}">View Participants</a><br>
 
 {% endif %}

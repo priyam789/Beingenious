@@ -11,9 +11,8 @@ class ParticipantsPage(Handler):
 		user = self.cookie_user()
 		if user is None:
 			self.redirect('/login?pane=signin')
-
+			return
 		else:
-
 			course = Course.verify_author(course_code, user.email)
 			if( course is None ):
 				self.redirect('/courses/%s' %course_code)
@@ -30,7 +29,6 @@ class ViewGradesPage(Handler):
 		user = self.cookie_user()
 		if user is None:
 			self.redirect('/login?pane=signin')
-
 		else:
 
 			course = Course.verify_author(course_code, user.email)

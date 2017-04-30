@@ -18,6 +18,7 @@ class Course(ndb.Model):
 	overview_video = ndb.JsonProperty()
 	contents = ndb.JsonProperty()
 	discussion = ndb.JsonProperty()
+	type_course = ndb.StringProperty()
 
 	@staticmethod
 	def parent_key():
@@ -51,3 +52,8 @@ class Course(ndb.Model):
 	def get_author_name(self):
 		author = User.get_by_email(self.author)
 		return ''.join([author.fname, ' ', author.lname])
+
+	def is_event(self):
+		if self.type_course == 'event':
+			return True
+		return False
