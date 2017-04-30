@@ -9,6 +9,9 @@ class ParticipantsPage(Handler):
 	def get(self,course_code):
 		# course_code = self.request.get('code')
 		user = self.cookie_user()
+		if user is None:
+			self.redirect('/login?pane=signin')
+			return
 		course = Course.verify_author(course_code, user.email)
 		course_detail = course
 		if( course is None ):
