@@ -17,7 +17,7 @@ class User_Course(ndb.Model):
 	
 	@classmethod
 	def enroll_user_course(cls,email,code):
-		course_registration = User_Course.query(User_Course.user == email, ancestor = User_Course.parent_key()).get()
+		course_registration = User_Course.query(User_Course.user == email, User_Course.code == code, ancestor = User_Course.parent_key()).get()
 		if course_registration == None:
 			user_course = cls(parent = User_Course.parent_key(), user = email,code = code,grades = 0)
 			user_course.put()

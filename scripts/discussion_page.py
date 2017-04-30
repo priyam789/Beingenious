@@ -12,15 +12,20 @@ class DiscussionPage(Handler):
 	def get(self,course_code):
 		# course_code = self.request.get('code')
 		user = self.cookie_user()
-		course = Course.verify_author(course_code, user.email)
-		course_detail = course
-		if( course is None ):
-			user_course = User_Course.verify_user(course_code,user.email)
-			if(user_course is None):
-				self.redirect('/courses/%s' %course_code)
+		if user is None:
+			self.redirect('/login?pane=signin')
+		else:
+			course = Course.verify_author(course_code, user.email)
+			course_detail = course
+			if( course is None ):
+				user_course = User_Course.verify_user(course_code,user.email)
+				if(user_course is None):
+					self.redirect('/courses?code=%s' %course_code)
+				else:
+					course_detail = user_course
+					self.render('discussion.html',course_code = course_code,course = course_detail)
 			else:
-				course_detail = user_course
-		self.render('discussion.html',course_code = course_code,course = course_detail)
+				self.render('discussion.html',course_code = course_code,course = course_detail)
 
 	def post(self,course_code):
 		form_name = self.request.get('post_R')

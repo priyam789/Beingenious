@@ -6,12 +6,12 @@
 <div class = "form-cc">
 	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
 
-	<div class = "form-cc-heading"><h2> Fill the course Information </h2> </div>
+	<div class = "form-cc-heading"><h2> Fill the Activity Information </h2> </div>
 	<input type="radio" name="type1" value="course" checked> Course
   	<input type="radio" name="type1" value="event"> Event
 	<!-- <table style = "width:100%"> -->
 		<label for = "feild1"><span>Title <span class = "required">*</span></span>
-			<input class = "inp-cc" type = "text" placeholder = "Title of the course" name = "title" value = "{{title}}">
+			<input class = "inp-cc" type = "text" placeholder = "Title of the Activity" name = "title" value = "{{title}}">
 			<div class = "error">{{empty_title}}</div>
 		</label>
 		
@@ -19,8 +19,8 @@
 			<input class = "inp-cc" type = "text" placeholder = "Organization/Institute Name (optional)" name = "organization" value = "{{organization}}">
 		</label>
 
-		<label for = "feild3"><span>Course Overview </span>
-			<textarea class = "ta-cc" name = "overview" rows="4" cols="50" placeholder = "Overview of the course">{{overview}}</textarea>
+		<label for = "feild3"><span>Activity Overview </span>
+			<textarea class = "ta-cc" name = "overview" rows="4" cols="50" placeholder = "Overview of the activity">{{overview}}</textarea>
 		</label>
 
 		<label for = "feild4"><span>Start Date <span class = "required">*</span></span>
@@ -32,7 +32,7 @@
 			<div class = "error">{{invalid_date}}</div>
 		</label>
 		
-		<label for = "feild6"><span>Course Discipline</span>
+		<label for = "feild6"><span>Activity Discipline</span>
 				<select class = "select-cc" name = "area">
 					<option value = "Dance"> Dance </option>
 					<option value = "Music"> Music </option>
@@ -43,7 +43,7 @@
 				</select>
 		</label>
 		
-		<label for = "feild7"><span>Course Level</span>
+		<label for = "feild7"><span>Activity Level</span>
 				<select class = "select-cc" name = "level">
 					<option value = "Beginner"> Beginner </option>
 					<option value = "Intermediate"> Intermediate </option>
@@ -72,7 +72,7 @@
 				
 		<!-- </table> -->
 			<div class="error">{{file_error}}</div>
-			<input type = "submit" value = "Float the course" name = "float">
+			<input type = "submit" value = "Float the Activity" name = "float">
 		</div>
 	</form>
 
