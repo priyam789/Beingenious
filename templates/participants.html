@@ -1,0 +1,42 @@
+{% extends "course_base.html" %}
+{% block maincontent %}
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<center>List of students enrolled - {{course_code}} </center>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Grades</th>
+  </tr>
+ 	{% set i = 0 %}
+	{% for (users,user_grade) in user_namelist %}
+  		<tr>
+  		  <td>{{users.fname}} {{users.lname}}</td>
+  		  <td>{{users.email}}</td>
+  		  <td>{{user_grade.grades}}</td>
+  		</tr>
+  		{% set i = i + 1 %}
+	{% endfor %}
+  
+</table>
+
+
+{% endblock %}
