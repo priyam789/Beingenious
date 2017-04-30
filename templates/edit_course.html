@@ -61,6 +61,11 @@
 			</select>
 	</label>
 	<br>
+	<label> Maximum marks
+			<input class="quiz_inp" name="max_marks" type = "number" placeholder="Max Marks" oninvalid="this.setCustomValidity('Quiz needs to have maximum marks')"
+    oninput="setCustomValidity('')" />
+	</label>
+	<br>
 	<label> Number of choices
 			<select id="num_options" name = "num_options" onchange="numOptionsClick()">
 					<option value = "1"> 1 </option>
@@ -94,6 +99,7 @@
 		<div class = "multiple" id = "multiple_correct">
 		</div>
 		</label>
+
 	</div>
 	</div>
 

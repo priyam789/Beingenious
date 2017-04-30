@@ -8,11 +8,13 @@
 		for(i = 0;i<module_divs.length;i++)
 			module_divs[i].style.display = "none";
 		document.getElementById("module_"+module_id.toString()).style.display = "block";
+		{% if tag == 'initiator' %}
 		document.getElementById("add_chapter").href = "/editcourse/{{course.code}}?module="+module_id.toString();
+		{% endif %}
 	}
 
 	function quizSubmit(){
-		var correct = JSON.parse(document.getElementsByName("correct")[0].value);
+		var correct = JSON.parse(document.getElementsByName("correct_ans")[0].value);
 		correct = correct.sort();
 		var ans = [];
 		var options = document.getElementsByName("answer");
@@ -21,12 +23,15 @@
 				ans.push(options[i].value);
 		}
 		ans = ans.sort();
-		if(ans.toString() == correct.toString())
+		if(ans.toString() == correct.toString()){
 			alert("Great Job!");
-		else
+			document.getElementById("correct").value = "1";
+		}
+		else{
 			alert("Try Again - Incorrect Answer");
+			document.getElementById("correct").value = "0";
+		}
 
-		return false;
 	}
 
 	function videoHTML(lesson){
@@ -35,9 +40,9 @@
 		return html
 	}
 
-	function quizHTML(lesson){
+	function quizHTML(lesson, module_id){
 		var html = "";
-		html += '<form method="quiz_post" onsubmit="return quizSubmit()">';
+		html += '<form method="post" onsubmit="return quizSubmit()">';
 		html += lesson["question"]+'<br>'
 		for(var i = 1;i<=lesson["options"].length;i++){
 			if(lesson["quiz_format"] == "single")
@@ -47,9 +52,13 @@
 			html += '<br>';
 		}
 		html +='<input type="submit" value="Submit Answers">';
+
+		html += '<input type="hidden" id="correct" name="correct" value="-1">';
+		html += '<input type="hidden" name="lesson_id" value="'+lesson["id"]+'">';
+		html += '<input type="hidden" name="module_id" value="'+module_id+'">';
 		html += '</form>';
 
-		html += '<input type="hidden" name="correct" value="['+lesson["correct"].toString()+']">';
+		html += '<input type="hidden" name="correct_ans" value="['+lesson["correct"].toString() + ']">';
 		return html;
 	}
 
@@ -60,7 +69,7 @@
 		if(lesson["type"] == "blob" || lesson["type"] == "link")
 			html = videoHTML(lesson);
 		else if(lesson["type"] == "quiz")
-			html = quizHTML(lesson);
+			html = quizHTML(lesson, module_id);
 		document.getElementById("maincontent").innerHTML = html;
 	}
 
