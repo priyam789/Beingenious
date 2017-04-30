@@ -1,3 +1,20 @@
 div.module{
 	display: none;
 }
+
+div#lecture{
+	display: block;
+}
+
+div#quiz{
+	display: none;
+}
+
+div#single{
+	display: block;
+}
+
+div#multiple{
+	display: none;
+}
+

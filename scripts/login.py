@@ -122,7 +122,7 @@ class Activate(Handler):
 		else:
 			response = User.activate(link)
 			if response is not None:
-				self.write('Signup successful')
+				self.redirect('/')
 			else:
 				self.error(404)
 				self.render('error.html', error = 'Activation link expired or Invalid activation link')

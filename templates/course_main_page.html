@@ -11,12 +11,57 @@
 		document.getElementById("add_chapter").href = "/editcourse/{{course.code}}?module="+module_id.toString();
 	}
 
+	function quizSubmit(){
+		var correct = JSON.parse(document.getElementsByName("correct")[0].value);
+		correct = correct.sort();
+		var ans = [];
+		var options = document.getElementsByName("answer");
+		for(var i = 0;i<options.length;i++){
+			if(options[i].checked)
+				ans.push(options[i].value);
+		}
+		ans = ans.sort();
+		if(ans.toString() == correct.toString())
+			alert("Great Job!");
+		else
+			alert("Try Again - Incorrect Answer");
+
+		return false;
+	}
+
+	function videoHTML(lesson){
+		var html = "";
+		html += '<iframe width="420" height="345" id="video" src="'+lesson.link+'"></iframe>';
+		return html
+	}
+
+	function quizHTML(lesson){
+		var html = "";
+		html += '<form method="quiz_post" onsubmit="return quizSubmit()">';
+		html += lesson["question"]+'<br>'
+		for(var i = 1;i<=lesson["options"].length;i++){
+			if(lesson["quiz_format"] == "single")
+				html += '<input type="radio" required name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
+			else
+				html += '<input type="checkbox" required name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
+			html += '<br>';
+		}
+		html +='<input type="submit" value="Submit Answers">';
+		html += '</form>';
+
+		html += '<input type="hidden" name="correct" value="['+lesson["correct"].toString()+']">';
+		return html;
+	}
+
 	function lessonClick(module_id, lesson_id){
 		var contents = {{course.contents|tojson|safe}};
-		var video = document.getElementById("video");
-		var source = document.getElementById("video_src");
-		source.src = contents[module_id]["lessons"][lesson_id]["link"];
-		video.load();
+		var lesson = contents[module_id]["lessons"][lesson_id];
+		var html;
+		if(lesson["type"] == "blob" || lesson["type"] == "link")
+			html = videoHTML(lesson);
+		else if(lesson["type"] == "quiz")
+			html = quizHTML(lesson);
+		document.getElementById("maincontent").innerHTML = html;
 	}
 
 	function addModuleClick(){}
@@ -25,7 +70,8 @@
 
 
 {% block maincontent %}
-<video id="video" width="320" height="240" controls="controls">
-  <source id="video_src" src="{{course.contents[show_module].lessons[show_lesson].link}}">
-</video>
+<div id="maincontent">
+<iframe width="420" height="345" id="video" src="{{course.contents[show_module].lessons[show_lesson].link}}">
+</iframe>
+</div>
 {% endblock %}
