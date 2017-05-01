@@ -12,8 +12,10 @@ Duration : {{course_details.date_start}} to {{course_details.date_end}}
 <iframe width="420" height="345" src="{{course_details.overview_video['link']}}">
 </iframe>
 
-{% if tag == 'initiator' %}
+{% if tag == 'initiator' and course_details.type_course == 'course' %}
 <a href="/courses/{{course_details.code}}?tag=initiator">Add Course Materials</a>
+{% elif tag == 'initiator' and course_details.type_course == 'event' %}
+<a href="/courses/{{course_details.code}}?tag=initiator">Go to Page</a>
 {% else %}
 <a href="/courses/{{course_details.code}}">Enroll in course</a>
 {% endif %}

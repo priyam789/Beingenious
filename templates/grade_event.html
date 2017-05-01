@@ -1,0 +1,45 @@
+{% extends "course_base.html" %}
+{% block maincontent %}
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<center>{{user_info.fname}} {{user_info.lname}} - Grades/Submissions </center>
+<table>
+  <tr>
+    <th>Grades</th>
+    <th>Submission</th>
+  </tr>
+
+    {% if course.contents != [] %}
+  		<tr>
+  		  {% if 'submission' in user_gradelist %}
+        <td>{{user_gradelist['marks']}}/100</td>
+        <td>
+        <a href="{{user_gradelist['submission']}}">View Submission</a>
+        </td>
+        {% else %}
+        <td> 0/100 </td>
+        <td> Not submitted </td>
+        {% endif %}
+      </tr>
+      {% endif %}
+  
+</table>
+
+{% endblock %}

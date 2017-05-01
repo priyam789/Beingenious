@@ -67,7 +67,6 @@ tr:nth-child(even) {
 
 <script type="text/javascript">
   function gradeClick(module_id, lesson_id){
-    var contents = {{course.contents|tojson|safe}};
     span_id = '('+module_id.toString()+', '+lesson_id.toString()+')';
     var html = '<form method="post">';
     html += '<input type="hidden" name="module_id" value="'+module_id.toString()+'">';

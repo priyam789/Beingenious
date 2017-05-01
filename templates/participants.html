@@ -20,6 +20,8 @@ tr:nth-child(even) {
 </style>
 </head>
 <center>List of students enrolled - {{course_code}} </center>
+
+{% if course.type_course == 'course' %}
 <table>
   <tr>
     <th>Name</th>
@@ -37,6 +39,47 @@ tr:nth-child(even) {
 	{% endfor %}
   
 </table>
+
+{% else %}
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Grades</th>
+    <th>Submissions</th>
+  </tr>
+  {% for (users,user_grade) in user_namelist %}
+      <tr>
+        <td>{{users.fname}} {{users.lname}}</td>
+        <td>{{users.email}}</td>
+        {% if 'submission' in user_grade.grades %}
+        <td>{{user_grade.grades['marks']}}/100</td>
+        <td>
+        <a href="{{user_grade.grades['submission']}}">View Submission</a>
+          <span id="{{users.email}}">
+          <button type="button" onclick='gradeClick("{{users.email}}", "{{user_grade.key.id()|string}}")'> Grade </button>
+          </span>
+          </td>
+        {% else %}
+        <td> 0/100 </td>
+        <td> Not submitted </td>
+        {% endif %}
+      </tr>
+  {% endfor %}
+
+{% endif %}
+
+<script type="text/javascript">
+  function gradeClick(user_email, user_course_key){
+    var html = '<form method="post">';
+    html += '<input type="hidden" name="key" value="'+user_course_key+'">';
+    html += '<input type="number" name="marks" min="0" max="100" value="0">';
+    html += '<input type="submit" value="submit">';
+    html += '</form>'
+
+    document.getElementById(user_email).innerHTML = html;
+  }
+</script>
 
 
 {% endblock %}

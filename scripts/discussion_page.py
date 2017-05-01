@@ -26,9 +26,9 @@ class DiscussionPage(Handler):
 					self.redirect('/courses?code=%s' %course_code)
 				else:
 					course_detail = user_course
-					self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag)
+					self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag, tag=tag)
 			else:
-				self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag)
+				self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag, tag=tag)
 
 	def post(self,course_code):
 		form_name = self.request.get('post_R')
@@ -50,7 +50,7 @@ class DiscussionPage(Handler):
 			single_query = self.construct_query(query_title,query_content,query_id,user,curr_time)
 			course_details.discussion.append(single_query)
 			course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag)
+			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag, tag=tag)
 		else:
 			q_id = self.request.get('reply_form_hidden')
 			reply_content = self.request.get('reply_desc_'+q_id)
@@ -63,7 +63,7 @@ class DiscussionPage(Handler):
 				single_reply = self.construct_reply(reply_content,reply_id,user,curr_time)
 				course_details.discussion[int(q_id)]['reply'].append(single_reply)
 				course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag)
+			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag, tag=tag)
 	
 	def construct_query(self,title,content,qid,user,time):
 		query = dict()

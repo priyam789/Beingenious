@@ -21,6 +21,22 @@ class ParticipantsPage(Handler):
 				
 			self.render('participants.html',course_code = course_code,course = course,user_namelist = zip(user_namelist,user_gradelist), dtag='initiator')
 
+	def post(self, course_code):
+		user = self.cookie_user()
+		if user is None:
+			self.redirect('/login?pane=signin')
+			return
+		else:
+			course = Course.verify_author(course_code, user.email)
+			if( course is None ):
+				self.redirect('/courses/%s' %course_code)
+			else:
+				user_course_key = self.request.get('key')
+				marks = int(self.request.get('marks'))
+				user_course = User_Course.get_by_id(int(user_course_key),parent=User_Course.parent_key())
+				user_course.grades['marks'] = marks
+				user_course.put()
+				self.redirect('/participants/%s' %(course_code))
 
 class ViewGradesPage(Handler):
 
@@ -30,17 +46,28 @@ class ViewGradesPage(Handler):
 		if user is None:
 			self.redirect('/login?pane=signin')
 		else:
+			tag = self.request.get('tag')
+			if(tag != 'initiator'):
+				tag = 'benefitter'
 
-			course = Course.verify_author(course_code, user.email)
-			
+			course = None
+
+			if(tag != 'initiator'):
+				course = User_Course.verify_user(course_code, user.email)
+			else:
+				course = Course.verify_author(course_code, user.email)
+
 			if( course is None ):
 				self.redirect('/courses/%s' %course_code)
+
+			elif (course.type_course == 'event' and tag == 'benefitter'):
+				user_course = User_Course.get_by_id(int(user_course_key),parent=User_Course.parent_key())
+				user_info = User.get_by_email(user_course.user)
+				self.render('grade_event.html',course_code = course_code,course = course, tag=tag, dtag=tag,
+							user_info = user_info,user_gradelist = user_course.grades)
 			else:
 				user_course = User_Course.get_by_id(int(user_course_key),parent=User_Course.parent_key())
 				user_info = User.get_by_email(user_course.user)
-				tag = self.request.get('tag')
-				if(tag != 'initiator'):
-					tag = 'benefitter'
 				self.render('grades.html',course_code = course_code,course = course, tag=tag, dtag=tag,
 							user_info = user_info,user_gradelist = user_course.grades)
 

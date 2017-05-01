@@ -30,6 +30,7 @@
 {% endif %}
 </ul>
 
+{% if course.type_course == 'course' %}
 		{% for module in course.contents %}
 		<li><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
 	</nav>
@@ -52,7 +53,7 @@
 
 {% endfor %}
 
-
+{% endif %}
 
 
 <h2>{{course.code}}: {{course.ctitle}}</h2>
