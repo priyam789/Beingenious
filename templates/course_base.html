@@ -1,31 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- using primary_nav_wrap style of base -->
+<!-- <div class="line-top-cb"></div> -->
 <input type="hidden" name="tag" value="{{tag}}">
-{% if tag == 'initiator' %}
-{% if course.type_course == 'course' %}
-<a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a><br>
+	
+<div class = "nav-bar-cb">	
+	<nav class = "primary_nav_wrap">
+		<ul>
 
-<a id="add_chapter" href="#">Add a chapter</a><br>
-{% endif %}
+		{% if tag == 'initiator' %}
+		{% if course.type_course == 'course' %}
+		<li><a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a></li>
 
-<a id="participants" href="/participants/{{course.code}}">View Participants</a><br>
+		<li><a id="add_chapter" href="#">Add a chapter</a></li>
+		{% endif %}
 
-{% endif %}
-<a href="/discussion/{{course.code}}">Discussion Forum</a> <br>
+		<li><a id="participants" href="/participants/{{course.code}}">View Participants</a></li>
 
-{% for module in course.contents %}
-<a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a>
-<div id="module_{{module.id}}" class="module">
-{% for lesson in module.lessons %}
-<a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a>
-<br>
-{% endfor %}
+		{% endif %}
+		<li><a href="/discussion/{{course.code}}">Discussion Forum</a> </li>
+		</ul>
+
+		{% for module in course.contents %}
+		<li><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
+	</nav>
 </div>
-<br>
+
+<div class = "nav-bar-cb">
+	<nav class = "primary_nav_wrap">
+		<li>
+			<div id="module_{{module.id}}" class="module">
+			{% for lesson in module.lessons %}
+			<a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a>
+
+			{% endfor %}
+			</div>
+		</li>
+	</nav>
+</div>
+
+
+
 {% endfor %}
 
-<br>
+
+
 
 <h2>{{course.code}}: {{course.ctitle}}</h2>
 {% block maincontent %}
