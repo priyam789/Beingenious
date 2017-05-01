@@ -12,6 +12,9 @@ class DiscussionPage(Handler):
 	def get(self,course_code):
 		# course_code = self.request.get('code')
 		user = self.cookie_user()
+		tag = self.request.get('tag')
+		if tag != 'initiator':
+			tag = 'benefitter'
 		if user is None:
 			self.redirect('/login?pane=signin')
 		else:
@@ -23,12 +26,15 @@ class DiscussionPage(Handler):
 					self.redirect('/courses?code=%s' %course_code)
 				else:
 					course_detail = user_course
-					self.render('discussion.html',course_code = course_code,course = course_detail)
+					self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag)
 			else:
-				self.render('discussion.html',course_code = course_code,course = course_detail)
+				self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag)
 
 	def post(self,course_code):
 		form_name = self.request.get('post_R')
+		tag = self.request.get('tag')
+		if tag != 'initiator':
+			tag = 'benefitter'
 		if form_name == "Post":
 			query_title = self.request.get('query_title')
 			query_content = self.request.get('query_desc')
@@ -44,7 +50,7 @@ class DiscussionPage(Handler):
 			single_query = self.construct_query(query_title,query_content,query_id,user,curr_time)
 			course_details.discussion.append(single_query)
 			course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details)
+			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag)
 		else:
 			q_id = self.request.get('reply_form_hidden')
 			reply_content = self.request.get('reply_desc_'+q_id)
@@ -57,7 +63,7 @@ class DiscussionPage(Handler):
 				single_reply = self.construct_reply(reply_content,reply_id,user,curr_time)
 				course_details.discussion[int(q_id)]['reply'].append(single_reply)
 				course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details)
+			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag)
 	
 	def construct_query(self,title,content,qid,user,time):
 		query = dict()

@@ -16,7 +16,10 @@
 <br>
 {% endif %}
 
-<a href="/discussion/{{course.code}}">Discussion Forum</a> <br>
+<a href="/discussion/{{course.code}}?tag={{tag}}">Discussion Forum</a> <br>
+{% if dtag %}
+<a href="/courses/{{course.code}}?tag={{dtag}}"> Go Back </a> <br>
+{% endif %}
 
 {% for module in course.contents %}
 <a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a>
