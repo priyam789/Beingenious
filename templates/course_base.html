@@ -30,17 +30,17 @@
 {% endif %}
 </ul>
 
-		{% for module in course.contents %}
-		<li><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
 	</nav>
 </div>
 
-<div class = "nav-bar-cb">
-	<nav class = "primary_nav_wrap">
+<div class = "left-bar-cb">
+	<nav> 
+		{% for module in course.contents %}
+		<li><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
 		<li>
 			<div id="module_{{module.id}}" class="module">
 			{% for lesson in module.lessons %}
-			<a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a>
+			<li><a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a></li>
 
 			{% endfor %}
 			</div>

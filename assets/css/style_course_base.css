@@ -5,98 +5,15 @@
 	height: 40px;
 }
 
-.hor-nav-bar-cb {
-	background: #34a46c;
-	padding: 0;
-	margin: 0;
-	height: 40px;
+.left-bar-cb {
+	width: 200px;
+	height: 400px;
+	border: 2px solid black;
 }
 
-
-..hor-nav-bar-cb
-{
-	/*margin-top:15px;*/
-	position: relative;
-	float: right;
-	margin-right:100px;
-	z-index: 10;
-	/*padding: 1.5em 0;*/
+.video-cmp{
+	width: 500px;
+	width: 500px;
+	border: 2px solid green;
 }
 
-..hor-nav-bar-cb ul
-{
-	list-style:none;
-	position:relative;
-	float:left;
-	margin:0;
-	padding:0
-}
-
-..hor-nav-bar-cb ul a
-{
-	display:block;
-	color:white;
-	text-decoration:none;
-	font-weight:600;
-	font-size:15px;
-	line-height:40px;
-	padding:0 30px;
-	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
-}
-
-..hor-nav-bar-cb ul li
-{
-	position:relative;
-	float:left;
-	margin:0;
-	padding:0
-}
-
-/*..hor-nav-bar-cb ul li.current-menu-item
-{
-	background:#ddd
-}
-*/
-..hor-nav-bar-cb ul li:hover
-{
-	background:green;
-}
-
-..hor-nav-bar-cb ul ul
-{
-	display:none;
-	position:absolute;
-	top:100%;
-	left:0;
-	background:#001a1a;
-	padding:0
-}
-
-..hor-nav-bar-cb ul ul li
-{
-	float:none;
-	width:150px
-}
-
-..hor-nav-bar-cb ul ul a
-{
-	line-height:120%;
-	padding:10px 15px
-}
-
-..hor-nav-bar-cb ul ul ul
-{
-	top:0;
-	left:100%
-}
-
-..hor-nav-bar-cb ul li:hover > ul
-{
-	display:block
-}
-/*.line-top-cb {
-    border-bottom: 2px solid black;
-    width: 100%;
-    display: inline-block;
-    box-shadow: 0px 0px 5px #888;
-}*/

@@ -1,32 +1,42 @@
 
 /*-----------------------Catalog ---------------------*/
+.catalog-box {
+	text-align: right;
+	/*border: 1px solid red;*/
+}
+
 
 .catalog-box ul {
 	list-style-type: none;
-	margin: 0;
+	margin: 0 auto;
 	padding: 0;
 	overflow: hidden;
-	margin-left: 40px;
+	width: 1200px;
+	/*border: 2px solid blue;*/
+	text-align: center;
+	/*margin-left: 40px;*/
+
 	/*background-color: #333333;*/
 }
 
 .catalog-box ul li {
-	display: inline;
+	display: inline-block;
+	margin: 0 auto;
+	/*border: 1px solid green;*/
+	/*float: left;*/
 }
 
 .catalog-box ul li a{
 	position: relative;
 	display:block;
-	float: left;
+	/*float: center;*/
 	margin: 35px;
-	width: 350px;
+	width: 300px;
 	height: auto;
-    /*height:100%;*/
-    /*width:100%;*/
 }
 
 .container-dance, .container-music, .container-theatre, .container-literature, .container-quiz, .container-academia {
-	position: relative;
+	/*position: relative;*/
 	width: 100%;
 	height: auto;
 	/*margin: 0px 20px;*/
