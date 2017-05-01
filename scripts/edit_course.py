@@ -104,7 +104,11 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 
 		elif(form_data['lesson_format'] == 'lecture' and form_data['upload'] == 'link'):
 			lesson['type'] = 'link'
-			lesson['link'] = form_data['link']
+			link_to_put = form_data['link']
+			if 'youtube.com' in link_to_put:
+				video_id = form_data['link'].split("v=")[1]
+				link_to_put = 'https://www.youtube.com/embed/' + video_id
+			lesson['link'] = link_to_put
 
 		elif(form_data['lesson_format'] == 'quiz'):
 			lesson['type'] = 'quiz'
