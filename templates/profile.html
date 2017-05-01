@@ -9,14 +9,15 @@
 		document.getElementById("div2").style.display = "none";
 		document.getElementById("form2").style.display = "block";
 	}
+
 </script>
 
 <div class = "box-profile">
 	<table id = "table-profile">
 		
-		<tr>
+		<tr >
 			<td>First Name</td>
-			<td><a id = "div1" style="display: block" href="#" onclick="jsfunc()">{{user.fname}} <i class="fa fa-pencil"></i></a>
+			<td id = "edit-tr-profile"><a id = "div1" style="display: block" href="#" onclick="jsfunc()">{{user.fname}} <!-- <i class="fa fa-pencil"></i> --></a>
 			<!-- <div id = "div1" style="display: block"> -->
 			
 			<!-- </div> -->
@@ -26,9 +27,9 @@
 				</form>
 			</td>
 		</tr>
-		<tr>
+		<tr >
 			<td>First Name</td>
-			<td><a id = "div2" style="display: block" href="#" onclick="jsfunc2()">{{user.lname}} <i class="fa fa-pencil"></i></a>
+			<td id = "edit-tr-profile"><a id = "div2" style="display: block" href="#" onclick="jsfunc2()">{{user.lname}} <!-- <i class="fa fa-pencil"></i> --></a>
 			<!-- <div id = "div1" style="display: block"> -->
 			
 			<!-- </div> -->
