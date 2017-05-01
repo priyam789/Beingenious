@@ -9,7 +9,7 @@
 	<nav class = "primary_nav_wrap">
 		<ul>
 
-		{% if tag == 'initiator' %}
+		{% if tag == 'initiator' and not(dtag) %}
 		{% if course.type_course == 'course' %}
 		<li><a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a></li>
 
@@ -17,10 +17,18 @@
 		{% endif %}
 
 		<li><a id="participants" href="/participants/{{course.code}}">View Participants</a></li>
+<!-- <a id="participants" href="/participants/{{course.code}}">View Participants</a><br> -->
+{% endif %}
 
-		{% endif %}
-		<li><a href="/discussion/{{course.code}}">Discussion Forum</a> </li>
-		</ul>
+{% if tag == 'benefitter' and user_course %}
+<li><a href="/view_grades/{{user_course.key.id()}}/{{course.code}}">View My Grades</a></li>
+{% endif %}
+
+<li><a href="/discussion/{{course.code}}?tag={{tag}}">Discussion Forum</a> </li>
+{% if dtag %}
+<li><a href="/courses/{{course.code}}?tag={{dtag}}"> Go Back </a> </li>
+{% endif %}
+</ul>
 
 		{% for module in course.contents %}
 		<li><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>

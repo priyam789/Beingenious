@@ -31,7 +31,7 @@ tr:nth-child(even) {
   		<tr>
   		  <td>{{users.fname}} {{users.lname}}</td>
   		  <td>{{users.email}}</td>
-  		  <td><a href="/view_grades/{{user_grade.key.id()}}/{{course_code}}">View Grades</a></td>
+  		  <td><a href="/view_grades/{{user_grade.key.id()}}/{{course_code}}?tag=initiator">View Grades</a></td>
   		</tr>
   		{% set i = i + 1 %}
 	{% endfor %}

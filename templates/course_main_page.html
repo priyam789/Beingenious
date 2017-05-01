@@ -37,6 +37,7 @@
 	function videoHTML(lesson){
 		var html = "";
 		html += '<iframe width="420" height="345" id="video" src="'+lesson.link+'"></iframe>';
+		html += '<br>'+lesson['description'];
 		return html
 	}
 
@@ -59,6 +60,13 @@
 		html += '</form>';
 
 		html += '<input type="hidden" name="correct_ans" value="['+lesson["correct"].toString() + ']">';
+		html += '<br>'+lesson['description'];
+		return html;
+	}
+
+	function submissionHTML(lesson){
+		var html = lesson['description']+'<br>';
+		html += '<a href="'+lesson['submit_url']+'">Make a Submission</a>';
 		return html;
 	}
 
@@ -70,6 +78,8 @@
 			html = videoHTML(lesson);
 		else if(lesson["type"] == "quiz")
 			html = quizHTML(lesson, module_id);
+		else if(lesson["type"] == "submission")
+			html = submissionHTML(lesson)
 		document.getElementById("maincontent").innerHTML = html;
 	}
 

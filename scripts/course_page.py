@@ -33,12 +33,13 @@ class CourseMainPage(Handler):
 			if(tag == 'benefitter'):
 				User_Course.enroll_user_course(user.email,course.code)
 
+			user_course = User_Course.check_user_enrolled(course_code, user.email)
 			show_module = 0
 			show_lesson = 0
 			if(show_module >= len(course.contents) or show_lesson >= len(course.contents[0]['lessons'])):
 				show_module = -1
 				show_lesson = -1
-			self.render('course_main_page.html', course = course, tag = tag,
+			self.render('course_main_page.html', course = course, tag = tag, user_course = user_course,
 					show_module = show_module, show_lesson = show_lesson)
 
 	def post(self, course_code):
@@ -62,3 +63,4 @@ class CourseMainPage(Handler):
 
 			else:
 				self.redirect('/courses?code=%s' %course_code)
+				

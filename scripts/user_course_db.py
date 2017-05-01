@@ -10,7 +10,6 @@ class User_Course(ndb.Model):
 	code = ndb.StringProperty(required = True)
 	grades = ndb.JsonProperty()
 
-
 	@staticmethod
 	def parent_key():
 		return ndb.Key('Course','Instructor')
@@ -52,12 +51,11 @@ class User_Course(ndb.Model):
 	@staticmethod
 	def add_grade_student(course_code,module_id,lesson_id,user_email,marks=0, submit=''):
 		user_spec = User_Course.query(User_Course.code == course_code, User_Course.user == user_email).get()
-		if(str((module_id,lesson_id)) not in user_spec.grades):
+		if(str((module_id,lesson_id)) not in user_spec.grades or submit != ''):
 			user_spec.grades[str((module_id,lesson_id))] = {}
 			user_spec.grades[str((module_id,lesson_id))]['obt_marks'] = marks
 			user_spec.grades[str((module_id,lesson_id))]['submit'] = submit
 			user_spec.put()
-
 
 	@staticmethod
 	def verify_user(code, email):
@@ -67,6 +65,11 @@ class User_Course(ndb.Model):
 		else:
 			course_detail = Course.get_details_course(user_course.code)
 			return course_detail
+
+	@staticmethod
+	def check_user_enrolled(code, email):
+		user_course = User_Course.query(User_Course.code == code, User_Course.user == email, ancestor=User_Course.parent_key()).get()
+		return user_course
 
 	# @staticmethod
 	# def get_num_courses():

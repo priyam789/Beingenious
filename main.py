@@ -30,6 +30,7 @@ app = webapp2.WSGIApplication([
 	('/view_video/(.*)', ServeVideo),
 	('/discussion/(\w+)/?', DiscussionPage),
 	('/participants/(\w+)/?', ParticipantsPage),
+	('/submit/(\w+)/(\w+)/(\w+)/?', SubmitPage),
 	('/view_grades/(.+)/(\w+)/?', ViewGradesPage), 
 	('/forgotpassword', ForgotPasswordPage)
 	], debug = True)

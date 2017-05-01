@@ -19,7 +19,7 @@ tr:nth-child(even) {
 }
 </style>
 </head>
-<center>{{user_info.fname}} {{user_info.lname}} - Grades </center>
+<center>{{user_info.fname}} {{user_info.lname}} - Grades/Submissions </center>
 <table>
   <tr>
     <th>Module</th>
@@ -44,7 +44,14 @@ tr:nth-child(even) {
         {% endif %}
         {% if lesson['type'] == 'submission' %}
         {% if c in user_gradelist %}
-        <td><a href="{{user_gradelist[c]['submit']}}">View Submission</a></td>
+        <td>
+        <a href="{{user_gradelist[c]['submit']}}">View Submission</a>
+          {% if tag == 'initiator' %}
+          <span id="{{c}}">
+          <button type="button" onclick="gradeClick({{module['id']}}, {{lesson['id']}})"> Grade </button>
+          </span>
+          {% endif %}
+        </td>
         {% else %}
         <td>Not submitted</td>
         {% endif %}
@@ -58,5 +65,19 @@ tr:nth-child(even) {
   
 </table>
 
+<script type="text/javascript">
+  function gradeClick(module_id, lesson_id){
+    var contents = {{course.contents|tojson|safe}};
+    span_id = '('+module_id.toString()+', '+lesson_id.toString()+')';
+    var html = '<form method="post">';
+    html += '<input type="hidden" name="module_id" value="'+module_id.toString()+'">';
+    html += '<input type="hidden" name="lesson_id" value="'+lesson_id.toString()+'">';
+    html += '<input type="number" name="marks" min="0" max="100" value="0">';
+    html += '<input type="submit" value="submit">';
+    html += '</form>'
+
+    document.getElementById(span_id).innerHTML = html;
+  }
+</script>
 
 {% endblock %}
