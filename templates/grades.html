@@ -1,0 +1,83 @@
+{% extends "course_base.html" %}
+{% block maincontent %}
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<center>{{user_info.fname}} {{user_info.lname}} - Grades/Submissions </center>
+<table>
+  <tr>
+    <th>Module</th>
+    <th>Assignment</th>
+    <th>Grades</th>
+    <th>Submissions</th>
+  </tr>
+	{% for module in course.contents %}
+    {% for lesson in module['lessons'] %}
+
+    {% if lesson['type'] == 'quiz' or lesson['type'] == 'submission' %}
+      
+  		<tr>
+  		  <td>Module {{module['id']+1}}: {{module['name']}} </td>
+  		  <td>{{lesson['name']}}</td>
+        {% set c = '(' %}
+        {% set c = c + module['id']|string +', ' + lesson['id']|string + ')' %}
+        {% if c in user_gradelist %}
+  		  <td>{{user_gradelist[c]['obt_marks']}}/{{lesson['max_marks']}}</td>
+        {% else %}
+        <td>0/{{lesson['max_marks']}}</td>
+        {% endif %}
+        {% if lesson['type'] == 'submission' %}
+        {% if c in user_gradelist %}
+        <td>
+        <a href="{{user_gradelist[c]['submit']}}">View Submission</a>
+          {% if tag == 'initiator' %}
+          <span id="{{c}}">
+          <button type="button" onclick="gradeClick({{module['id']}}, {{lesson['id']}})"> Grade </button>
+          </span>
+          {% endif %}
+        </td>
+        {% else %}
+        <td>Not submitted</td>
+        {% endif %}
+        {% else %}
+        <td>N/A</td>
+        {% endif %}
+  		</tr>
+      {% endif %}
+  	{% endfor %}
+	{% endfor %}
+  
+</table>
+
+<script type="text/javascript">
+  function gradeClick(module_id, lesson_id){
+    var contents = {{course.contents|tojson|safe}};
+    span_id = '('+module_id.toString()+', '+lesson_id.toString()+')';
+    var html = '<form method="post">';
+    html += '<input type="hidden" name="module_id" value="'+module_id.toString()+'">';
+    html += '<input type="hidden" name="lesson_id" value="'+lesson_id.toString()+'">';
+    html += '<input type="number" name="marks" min="0" max="100" value="0">';
+    html += '<input type="submit" value="submit">';
+    html += '</form>'
+
+    document.getElementById(span_id).innerHTML = html;
+  }
+</script>
+
+{% endblock %}

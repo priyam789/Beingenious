@@ -28,5 +28,6 @@ class SubmitPage(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		else:
 			upload = self.get_uploads()[0]
 			submit_url = '/view_video/%s' %(str(upload.key()))
-			User_Course.add_grade_student(course_code,module_id,lesson_id,user_email,marks=0, submit=submit_url)
+			User_Course.add_grade_student(course_code, int(module_id), int(lesson_id), user.email, marks=0, submit=submit_url)
+			self.redirect('/courses/%s?module=%s' %(course_code, module_id))
 

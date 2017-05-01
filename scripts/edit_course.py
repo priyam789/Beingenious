@@ -1,7 +1,7 @@
 from base import *
 
 class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
-	form_fields = ['edit_module', 'module_name', 'subtitle', 'lesson_format', 'description', 'upload', 'file', 'link', 'quiz_format', 'question', 'num_options']
+	form_fields = ['edit_module', 'module_name', 'subtitle', 'lesson_format', 'description', 'upload', 'file', 'link', 'quiz_format','max_marks', 'question', 'num_options']
 	def render_page(self, template, course_code, **kw):
 		current_url = '/editcourse/%s' %course_code
 		upload_url = blobstore.create_upload_url(current_url)
@@ -60,6 +60,7 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 
 		if(form_data['lesson_format'] == 'quiz'):
 			quiz_format = form_data['quiz_format']
+			form_data['max_marks'] = int(form_data['max_marks'])
 			form_data['num_options'] = int(form_data['num_options'])
 			form_data['options'] = []
 			for i in range(1, form_data['num_options']+1):
@@ -111,6 +112,8 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 			lesson['question'] = form_data['question']
 			lesson['options'] = form_data['options']
 			lesson['correct'] = form_data['correct']
+			lesson['max_marks'] = form_data['max_marks']
+
 
 		elif(form_data['lesson_format'] == 'submission'):
 			lesson['type'] = 'submission'

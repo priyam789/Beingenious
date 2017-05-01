@@ -4,6 +4,10 @@ from base import *
 
 class DashboardPage(Handler):	#TODO: will go in a separate file
 	def get(self):
+		user = self.cookie_user()
+		if user is None:
+			self.redirect('/login?pane=signin')
+			return
 		author = self.cookie_user()
 		# self.write(author.email)
 		course_floated = Course.get_courses_floated(author.email)

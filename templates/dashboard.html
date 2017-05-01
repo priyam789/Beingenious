@@ -1,18 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
-About us
+<script type="text/javascript">
+	function showcourse() {
+		document.getElementById('coursediv').style.display = 'block';
+		document.getElementById('eventdiv').style.display = 'none';
+		// body...
+	}
+	function showevents() {
+		document.getElementById('eventdiv').style.display = 'block';
+		document.getElementById('coursediv').style.display = 'none';
+		// body...
+	}
+</script>
+
 <hr>
+
+<center><a href="#" onclick="showcourse()"> Courses</a> |
+<a href="#" onclick="showevents()"> Events </a></center>
+
+<div id = 'coursediv' style="display: block;">
 <h2> You are a teacher </h2>
 {% for course_float in course_float_list %}
-	<li> {{course_float.ctitle}} <a href="/courses/{{course_float.code}}?tag=initiator"> Resume Teaching </a>
+	{% if course_float.type_course == 'course' %}
+	<li> {{course_float.code}}: {{course_float.ctitle}} <a href="/courses/{{course_float.code}}?tag=initiator"> Resume Teaching </a>
+	{% endif %}
 {% endfor %} </li>
 <form action = "/create_course">
-	<input type = "submit" name = "createcourse" value = "Add a course">
+	<input type = "submit" name = "createcourse" value = "Add an activity">
 </form>
 <hr>
 <h2> You are a learner </h2>
 {% for course in courses %}
-	<li> {{course.code}}:{{course.ctitle}} <a href="/courses/{{course.code}}"> Resume Learning </a>
+	{% if course.type_course == 'course' %}
+	<li> {{course.code}}: {{course.ctitle}} <a href="/courses/{{course.code}}"> Resume Learning </a>
+	{% endif %}
 {% endfor %} </li>
+</div>
+
+<div id = 'eventdiv' style="display: none;">
+<h2> You are an organizer </h2>
+{% for course_float in course_float_list %}
+	{% if course_float.type_course == 'event' %}
+	<li> {{course_float.code}}: {{course_float.ctitle}} <a href="/courses/{{course_float.code}}?tag=initiator"> Go to page </a>
+	{% endif %}
+{% endfor %} </li>
+<form action = "/create_course">
+	<input type = "submit" name = "createcourse" value = "Add an activity">
+</form>
+<hr>
+<h2> You are a participant </h2>
+{% for course in courses %}
+	{% if course.type_course == 'event' %}
+	<li> {{course.code}}: {{course.ctitle}} <a href="/courses/{{course.code}}"> Go to page </a>
+	{% endif %}
+{% endfor %} </li>
+</div>
 
 {% endblock %}

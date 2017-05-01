@@ -11,7 +11,7 @@ def generate_code(area):
 class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 	form_fields = ['title', 'organization', 'overview',
 					'start_date', 'end_date', 'area', 'level',
-					'upload', 'file', 'link']
+					'upload', 'file', 'link', 'type1']
 
 	def render_form(self, **kw):
 		upload_url = blobstore.create_upload_url('/create_course')
@@ -88,7 +88,7 @@ class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 						author = author.email, organization = form_data['organization'],
 						date_start = sdate_db, date_end = edate_db,
 						area = form_data['area'], level = form_data['level'],
-						contents = [],discussion = [])
+						contents = [],discussion = [], type_course = form_data['type1'])
 
 		if(form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]
