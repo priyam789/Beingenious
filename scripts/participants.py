@@ -19,7 +19,7 @@ class ParticipantsPage(Handler):
 			else:
 				(user_namelist,user_gradelist) = User_Course.get_users_enrolled(course_code)
 				
-			self.render('participants.html',course_code = course_code,course = course,user_namelist = zip(user_namelist,user_gradelist))
+			self.render('participants.html',course_code = course_code,course = course,user_namelist = zip(user_namelist,user_gradelist), dtag='initiator')
 
 
 class ViewGradesPage(Handler):
@@ -39,7 +39,9 @@ class ViewGradesPage(Handler):
 				user_course = User_Course.get_by_id(int(user_course_key),parent=User_Course.parent_key())
 				user_info = User.get_by_email(user_course.user)
 				tag = self.request.get('tag')
-				self.render('grades.html',course_code = course_code,course = course, tag=tag,
+				if(tag != 'initiator'):
+					tag = 'benefitter'
+				self.render('grades.html',course_code = course_code,course = course, tag=tag, dtag=tag,
 							user_info = user_info,user_gradelist = user_course.grades)
 
 	def post(self, user_course_key, course_code):
@@ -59,6 +61,6 @@ class ViewGradesPage(Handler):
 				user_course.put()
 
 				user_info = User.get_by_email(user_course.user)
-				self.render('grades.html',course_code = course_code,course = course, tag='initiator',
+				self.render('grades.html',course_code = course_code,course = course, tag='initiator', dtag='initiator',
 							user_info = user_info,user_gradelist = user_course.grades)
 

@@ -46,20 +46,21 @@ body {
 
 .nav-bar
 {
+	position: relative;
 	background: #001a1a;
 	padding: 0;
 	margin: 0;
 	height: 40px;
+	z-index: 10;
+
 
 }
 
 .primary_nav_wrap
 {
 	/*margin-top:15px;*/
-	position: relative;
 	float: right;
 	margin-right:100px;
-	z-index: 10;
 	/*padding: 1.5em 0;*/
 }
 

@@ -1,38 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if tag == 'initiator' %}
-{% if course.type_course == 'course' %}
-<a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a><br>
+<!-- using primary_nav_wrap style of base -->
+<!-- <div class="line-top-cb"></div> -->
+<input type="hidden" name="tag" value="{{tag}}">
+	
+<div class = "nav-bar-cb">	
+	<nav class = "primary_nav_wrap">
+		<ul>
 
-<a id="add_chapter" href="#">Add a chapter</a><br>
-{% endif %}
+		{% if tag == 'initiator' and not(dtag) %}
+		{% if course.type_course == 'course' %}
+		<li><a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a></li>
 
-<a id="participants" href="/participants/{{course.code}}">View Participants</a><br>
+		<li><a id="add_chapter" href="#">Add a chapter</a></li>
+		{% endif %}
+
+		<li><a id="participants" href="/participants/{{course.code}}">View Participants</a></li>
+<!-- <a id="participants" href="/participants/{{course.code}}">View Participants</a><br> -->
 {% endif %}
 
 {% if tag == 'benefitter' and user_course %}
-<a href="/view_grades/{{user_course.key.id()}}/{{course.code}}">View My Grades</a>
-<br>
+<li><a href="/view_grades/{{user_course.key.id()}}/{{course.code}}">View My Grades</a></li>
 {% endif %}
 
-<a href="/discussion/{{course.code}}?tag={{tag}}">Discussion Forum</a> <br>
+<li><a href="/discussion/{{course.code}}?tag={{tag}}">Discussion Forum</a> </li>
 {% if dtag %}
-<a href="/courses/{{course.code}}?tag={{dtag}}"> Go Back </a> <br>
+<li><a href="/courses/{{course.code}}?tag={{dtag}}"> Go Back </a> </li>
 {% endif %}
+</ul>
 
-{% for module in course.contents %}
-<a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a>
-<div id="module_{{module.id}}" class="module">
-{% for lesson in module.lessons %}
-<a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a>
-<br>
-{% endfor %}
+		{% for module in course.contents %}
+		<li><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
+	</nav>
 </div>
-<br>
+
+<div class = "nav-bar-cb">
+	<nav class = "primary_nav_wrap">
+		<li>
+			<div id="module_{{module.id}}" class="module">
+			{% for lesson in module.lessons %}
+			<a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a>
+
+			{% endfor %}
+			</div>
+		</li>
+	</nav>
+</div>
+
+
+
 {% endfor %}
 
-<br>
+
+
 
 <h2>{{course.code}}: {{course.ctitle}}</h2>
 {% block maincontent %}
