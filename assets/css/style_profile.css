@@ -14,7 +14,11 @@
 }
 
 #table-profile a{
+    background-image: url(/assets/images/pencil.png);
+    background-repeat:no-repeat;  
+    background-position:right center;
     text-decoration: none;
+    background-size: 15px 15px;
     color: black;
 }
 
@@ -25,7 +29,9 @@
 
 #table-profile tr:nth-child(even){background-color: #f2f2f2;}
 
-#table-profile tr:hover {background-color: #ddd;}
+#edit-tr-profile:hover {
+    background-color: #ddd;
+}
 
 #table-profile th {
     padding-top: 12px;
