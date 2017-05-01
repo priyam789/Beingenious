@@ -37,7 +37,7 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		elif form_data['edit_module'] == -1:
 			module_id = len(course.contents)
 			module = {'id':module_id, 'name':form_data['module_name'], 'lessons':[]}
-			lesson = self.construct_lesson(form_data)
+			lesson = self.construct_lesson(form_data, course_code=course_code, module_id=module_id)
 			module['lessons'].append(lesson)
 			course.contents.append(module)
 			course.put()
@@ -46,7 +46,7 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 		else:
 			module = course.contents[form_data['edit_module']]
 			lesson_id = len(module['lessons'])
-			lesson = self.construct_lesson(form_data, lesson_id)
+			lesson = self.construct_lesson(form_data, course_code=course_code, module_id=module['id'], lesson_id=lesson_id)
 			module['lessons'].append(lesson)
 			course.contents[form_data['edit_module']] = module
 			course.put()
@@ -93,7 +93,7 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 
 		return (error_present, error)
 
-	def construct_lesson(self, form_data, lesson_id=0):
+	def construct_lesson(self, form_data, course_code='', module_id=0, lesson_id=0):
 		lesson = {'id': lesson_id, 'name':form_data['subtitle'], 'description': form_data['description']}
 		if(form_data['lesson_format'] == 'lecture' and form_data['upload'] == 'file'):
 			upload = self.get_uploads()[0]
@@ -111,5 +111,10 @@ class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 			lesson['question'] = form_data['question']
 			lesson['options'] = form_data['options']
 			lesson['correct'] = form_data['correct']
+
+		elif(form_data['lesson_format'] == 'submission'):
+			lesson['type'] = 'submission'
+			lesson['submit_url'] = '/submit/%s/%s/%s' %(course_code, str(module_id), str(lesson_id))
+			lesson['max_marks'] = 100
 
 		return lesson

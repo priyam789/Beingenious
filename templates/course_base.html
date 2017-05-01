@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-<input type="hidden" name="tag" value="{{tag}}">
 {% if tag == 'initiator' %}
 <a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a><br>
 
 <a id="add_chapter" href="#">Add a chapter</a><br>
 <a id="participants" href="/participants/{{course.code}}">View Participants</a><br>
-
 {% endif %}
+
+{% if tag == 'benefitter' and user_course %}
+<a href="/view_grades/{{user_course.key.id()}}/{{course.code}}">View My Grades</a>
+<br>
+{% endif %}
+
 <a href="/discussion/{{course.code}}">Discussion Forum</a> <br>
 
 {% for module in course.contents %}

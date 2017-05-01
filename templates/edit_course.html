@@ -28,6 +28,7 @@
 			<select id="lesson_format" name = "lesson_format" onchange="lessonFormatClick()">
 					<option value = "lecture"> Video Lecture </option>
 					<option value = "quiz"> Quiz </option>
+					<option value = "submission"> Submission Assignment </option>
 			</select>
 	</label>
 
@@ -95,6 +96,10 @@
 		</div>
 		</label>
 	</div>
+	</div>
+
+	<div class = "lesson_format" id="submission">
+	Create a submission assignment with maximum marks 100.
 	</div>
 
 	<textarea name="description" placeholder="Instructor comments">{{description}}</textarea>
