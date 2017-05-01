@@ -37,7 +37,8 @@
 
 .form-cc input.inp-cc, 
 .form-cc .ta-cc, 
- .form-cc .select-cc{
+ .form-cc .select-cc,
+ .form-cc input#inp-cc{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

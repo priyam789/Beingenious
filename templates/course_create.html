@@ -7,8 +7,15 @@
 	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
 
 	<div class = "form-cc-heading"><h2> Fill the Activity Information </h2> </div>
-	<input type="radio" name="type1" value="course" checked> Course
-  	<input type="radio" name="type1" value="event"> Event
+		
+
+	  	<label for = "feild7"><span>Activity type</span>
+			<div class = "radio-cc">	
+				<input type="radio" name="type1" value="course" checked> Course
+		  		<input type="radio" name="type1" value="event"> Event
+			</div>
+		</label>
+
 	<!-- <table style = "width:100%"> -->
 		<label for = "feild1"><span>Title <span class = "required">*</span></span>
 			<input class = "inp-cc" type = "text" placeholder = "Title of the Activity" name = "title" value = "{{title}}">

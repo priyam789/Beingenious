@@ -2,116 +2,122 @@
 
 {% block maincontent %}
 <a href="/courses/{{course.code}}?tag=initiator">Go Back</a>
-{% if edit_module == -1 %}
-<h2 id="heading">Adding New Module</h2>
-{% else %}
-<h2 id="heading">Adding New Lesson to Module {{edit_module+1}}: {{course.contents[edit_module].name}}</h2>
-{% endif %}
 
-<form action = "/editcourse/{{course.code}}" method="post" id="edit_form" enctype="multipart/form-data" onsubmit="submitfunc()">
 
-	<label id="module_row"> 
+<div class="form-cc" >
+	
 	{% if edit_module == -1 %}
-		Module Name
-		<input type="text" name="module_name" placeholder="Name of module" required>
-		<div class="error">{{empty_title}}</div>
+	<div class = "form-cc-heading"><h2 id="heading">Adding New Module</h2> </div>
+	{% else %}
+	<div class = "form-cc-heading"><h2 id="heading">Adding New Lesson to Module {{edit_module+1}}: {{course.contents[edit_module].name}}</h2> </div>
 	{% endif %}
-	</label>
-	<input type="hidden" id="edit_module" name="edit_module" value="{{edit_module|string}}">
 
-	<label> Lesson Title
-		<input type="text" name="subtitle" placeholder="Title of lesson" required>
-		<div class="error">{{empty_subtitle}}</div>
-	</label>
+	<form action = "/editcourse/{{course.code}}" method="post" id="edit_form" enctype="multipart/form-data" onsubmit="submitfunc()">
 
-	<label> Lesson Format
-			<select id="lesson_format" name = "lesson_format" onchange="lessonFormatClick()">
-					<option value = "lecture"> Video Lecture </option>
-					<option value = "quiz"> Quiz </option>
-					<option value = "submission"> Submission Assignment </option>
-			</select>
-	</label>
-
-	<div class="lesson_format" id="lecture">
-	<label>
-	<input type="radio" id="upload" class = "accordion" name="upload" value="file">Upload Video
-		<div class="panel">
- 		<input type="file" name="file">
-		</div>
-	</label>
-
-	<label>
-		<input type="radio" class = "accordion" name="upload" value="link">Video link
-		<div class="panel">
- 		<input type="text" name="link" placeholder="Video link">
-		</div>
-	</label>
-	<div class="error">{{file_error}}</div>
-	</div>
-
-	<div class="lesson_format" id="quiz">
-	<label> Question
-	<input class="quiz_inp" type="text" name="question" placeholder="Question">
-	</label>
-
-	<br>
-	<label> Quiz Format
-			<select id="quiz_format" name = "quiz_format" onchange="numOptionsClick()"">
-					<option value = "single"> Single Correct </option>
-					<option value = "multiple"> Multiple Correct </option>
-			</select>
-	</label>
-	<br>
-	<label> Maximum marks
-			<input class="quiz_inp" name="max_marks" type = "number" placeholder="Max Marks" oninvalid="this.setCustomValidity('Quiz needs to have maximum marks')"
-    oninput="setCustomValidity('')" />
-	</label>
-	<br>
-	<label> Number of choices
-			<select id="num_options" name = "num_options" onchange="numOptionsClick()">
-					<option value = "1"> 1 </option>
-					<option value = "2"> 2 </option>
-					<option value = "3"> 3 </option>
-					<option value = "4"> 4 </option>
-					<option value = "5"> 5 </option>
-			</select>
-	</label>
-	<br>
-
-	<div class = "quiz" id = "single">
-		<label> Choices
-		<div class = "single" id = "single_options">
-			<input type="text" class="quiz_inp" name="single_1" placeholder="Choice 1">
-		</div>
+		<label id="module_row" for = "feild1"> 
+		{% if edit_module == -1 %}
+			Module Name
+			<input class = "inp-cc" type="text" name="module_name" placeholder="Name of module" required>
+			<div class="error">{{empty_title}}</div>
+		{% endif %}
 		</label>
-		<label> Correct Answers
-		<div class = "single" id = "single_correct">
-			<input type="radio" class="quiz_inp" name="single_correct" value="1"> 1
-		</div>
-		</label>
-	</div>
+		<input type="hidden" id="edit_module" name="edit_module" value="{{edit_module|string}}">
 
-	<div class = "quiz" id = "multiple">
-		<label> Choices
-		<div class ="multiple" id = "multiple_options">
-		</div>
-		</label>
-		<label> Correct Answers
-		<div class = "multiple" id = "multiple_correct">
-		</div>
+		<label> Lesson Title
+			<input class = "inp-cc" type="text" name="subtitle" placeholder="Title of lesson" required>
+			<div class="error">{{empty_subtitle}}</div>
 		</label>
 
-	</div>
-	</div>
+		<label> Lesson Format
+				<select class = "select-cc" id="lesson_format" name = "lesson_format" onchange="lessonFormatClick()">
+						<option value = "lecture"> Video Lecture </option>
+						<option value = "quiz"> Quiz </option>
+						<option value = "submission"> Submission Assignment </option>
+				</select>
+		</label>
 
-	<div class = "lesson_format" id="submission">
-	Create a submission assignment with maximum marks 100.
-	</div>
+		<div class="lesson_format" id="lecture">
+		<label> Video:
+		<input class = "radio1-cc" type="radio" id="upload" class = "accordion" name="upload" value="file">Upload Video
+			<div class="panel">
+	 		<input type="file" name="file">
+			</div>
+		</label>
 
-	<textarea name="description" placeholder="Instructor comments">{{description}}</textarea>
-	<br>
-	<input type="submit" value="Add">
-</form>
+		<label> Video:
+			<input class = "radio2-cc" type="radio" class = "accordion" name="upload" value="link">Video link
+			<div class="panel">
+	 		<input type="text" name="link" placeholder="Video link">
+			</div>
+		</label>
+		<div class="error">{{file_error}}</div>
+		</div>
+
+		<div class="lesson_format" id="quiz">
+		<label> Question
+		<input id="inp-cc" class="quiz_inp" type="text" name="question" placeholder="Question">
+		</label>
+
+		<br>
+		<label> Quiz Format
+				<select class = "select-cc" id="quiz_format" name = "quiz_format" onchange="numOptionsClick()"">
+						<option value = "single"> Single Correct </option>
+						<option value = "multiple"> Multiple Correct </option>
+				</select>
+		</label>
+		<br>
+		<label> Maximum marks
+				<input id="no-cc" class="quiz_inp" name="max_marks" type = "number" placeholder="Max Marks" oninvalid="this.setCustomValidity('Quiz needs to have maximum marks')"
+	    oninput="setCustomValidity('')" />
+		</label>
+		<br>
+		<label> Number of choices
+				<select class="select-cc" id="num_options" name = "num_options" onchange="numOptionsClick()">
+						<option value = "1"> 1 </option>
+						<option value = "2"> 2 </option>
+						<option value = "3"> 3 </option>
+						<option value = "4"> 4 </option>
+						<option value = "5"> 5 </option>
+				</select>
+		</label>
+		<br>
+
+		<div class = "quiz" id = "single">
+			<label> Choices
+			<div class = "single" id = "single_options">
+				<input id = "inp-cc" type="text" class="quiz_inp" name="single_1" placeholder="Choice 1">
+			</div>
+			</label>
+			<label> Correct Answers
+			<div id="radio1-cc" class = "single" id = "single_correct">
+				<input type="radio" class="quiz_inp" name="single_correct" value="1"> 1
+			</div>
+			</label>
+		</div>
+
+		<div class = "quiz" id = "multiple">
+			<label> Choices
+			<div class ="multiple" id = "multiple_options">
+			</div>
+			</label>
+			<label> Correct Answers
+			<div class = "multiple" id = "multiple_correct">
+			</div>
+			</label>
+
+		</div>
+		</div>
+
+		<div class = "lesson_format" id="submission">
+		<label>	Create a submission assignment with maximum marks 100.
+		</div>
+
+		<textarea class = "ta-cc" name="description" placeholder="Instructor comments">{{description}}</textarea>
+		</label>
+		<br>
+		<input type="submit" value="Add">
+	</form>
+</div>
 {% endblock %}
 
 {% block script %}

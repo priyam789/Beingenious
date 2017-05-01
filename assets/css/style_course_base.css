@@ -1,3 +1,11 @@
+.box-cb {
+	position: relative;
+	margin: 0 auto;
+	border: 5px solid blue;
+	width: 100%;
+	height: 1000px;
+}
+
 .nav-bar-cb {
 	background: #34a46c;
 	padding: 0;
@@ -6,14 +14,32 @@
 }
 
 .left-bar-cb {
-	width: 200px;
+	position: absolute;
+	left:0;
+	top: 40px;
+	width: 300px;
 	height: 400px;
 	border: 2px solid black;
 }
 
-.video-cmp{
-	width: 500px;
-	width: 500px;
-	border: 2px solid green;
+.left-bar-cb ul{
+	list-style-type: none;
 }
+
+.block-maincontent{
+	position: absolute;
+	top: 40px;
+	right: 0;
+	width: 1045px;
+	height:2000px;
+	border: 2px solid orange;
+}
+
+.video-cmp{
+	margin: 2px auto;
+	width: 850px;
+	height: 550px;
+	border: 2px solid red;
+}
+
 
