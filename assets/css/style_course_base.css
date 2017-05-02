@@ -112,11 +112,11 @@
 
 .block-maincontent::-webkit-scrollbar{
 	width: 20px;
+  	background:black;
 }
 
-.block-maincontent::-webkit-scrollbar * {
-  background:transparent;
-}
+/*.block-maincontent::-webkit-scrollbar * {
+}*/
 .block-maincontent::-webkit-scrollbar-thumb {
   background:#444 !important;
 }
