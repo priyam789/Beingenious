@@ -1,7 +1,10 @@
 {% extends "course_base.html" %}
 
+{% block course_navigation %}
+<li><a href="/courses/{{course.code}}?tag=initiator">Go Back</a></li>
+{% endblock %}
+
 {% block maincontent %}
-<a href="/courses/{{course.code}}?tag=initiator">Go Back</a>
 
 
 <div class="form-cc" >
@@ -16,105 +19,117 @@
 
 		<label id="module_row" for = "feild1"> 
 		{% if edit_module == -1 %}
-			Module Name
+			<span>Module Name<span class="required">*</span></span>
 			<input class = "inp-cc" type="text" name="module_name" placeholder="Name of module" required>
 			<div class="error">{{empty_title}}</div>
 		{% endif %}
 		</label>
 		<input type="hidden" id="edit_module" name="edit_module" value="{{edit_module|string}}">
 
-		<label> Lesson Title
+		<label>
+			<span>Lesson Title<span class="required">*</span></span>
 			<input class = "inp-cc" type="text" name="subtitle" placeholder="Title of lesson" required>
 			<div class="error">{{empty_subtitle}}</div>
 		</label>
 
-		<label> Lesson Format
-				<select class = "select-cc" id="lesson_format" name = "lesson_format" onchange="lessonFormatClick()">
-						<option value = "lecture"> Video Lecture </option>
-						<option value = "quiz"> Quiz </option>
-						<option value = "submission"> Submission Assignment </option>
-				</select>
+		<label>
+			<span>Lesson Format<span class="required">*</span></span>
+			<select class = "select-cc" id="lesson_format" name = "lesson_format" onchange="lessonFormatClick()">
+					<option value = "lecture"> Video Lecture </option>
+					<option value = "quiz"> Quiz </option>
+					<option value = "submission"> Submission Assignment </option>
+			</select>
 		</label>
 
 		<div class="lesson_format" id="lecture">
-		<label> Video:
-		<input class = "radio1-cc" type="radio" id="upload" class = "accordion" name="upload" value="file">Upload Video
+		<label>
+			<span>Video:<span class="required">*</span></span>
+			<input class = "radio1-cc accordion" type="radio" id="upload" name="upload" value="file">Upload Video
 			<div class="panel">
-	 		<input type="file" name="file">
+	 			<input id = "x1" type="file" name="file">
 			</div>
 		</label>
 
-		<label> Video:
-			<input class = "radio2-cc" type="radio" class = "accordion" name="upload" value="link">Video link
+		<label> 
+			<span></span>
+			<input class = "radio2-cc accordion" type="radio"  name="upload" value="link">Video link
 			<div class="panel">
-	 		<input type="text" name="link" placeholder="Video link">
+	 			<input id = "x2" type="text" name="link" placeholder="Video link">
 			</div>
 		</label>
 		<div class="error">{{file_error}}</div>
 		</div>
 
 		<div class="lesson_format" id="quiz">
-		<label> Question
-		<input id="inp-cc" class="quiz_inp" type="text" name="question" placeholder="Question">
+		<label>
+			<span>Question<span class="required">*</span></span>
+			<input class="inp-cc quiz_inp"  type="text" name="question" placeholder="Question">
 		</label>
 
-		<br>
-		<label> Quiz Format
-				<select class = "select-cc" id="quiz_format" name = "quiz_format" onchange="numOptionsClick()"">
-						<option value = "single"> Single Correct </option>
-						<option value = "multiple"> Multiple Correct </option>
-				</select>
+		
+		<label>
+			<span>Quiz Format<span class="required">*</span></span>
+			<select class = "select-cc" id="quiz_format" name = "quiz_format" onchange="numOptionsClick()"">
+					<option value = "single"> Single Correct </option>
+					<option value = "multiple"> Multiple Correct </option>
+			</select>
 		</label>
-		<br>
-		<label> Maximum marks
-				<input id="no-cc" class="quiz_inp" name="max_marks" type = "number" placeholder="Max Marks" oninvalid="this.setCustomValidity('Quiz needs to have maximum marks')"
+		
+		<label>
+			<span>Maximum marks<span class="required">*</span></span>
+				<input id="inp-cc quiz_inp"  name="max_marks" type = "number" placeholder="Max Marks" oninvalid="this.setCustomValidity('Quiz needs to have maximum marks')"
 	    oninput="setCustomValidity('')" />
 		</label>
-		<br>
-		<label> Number of choices
-				<select class="select-cc" id="num_options" name = "num_options" onchange="numOptionsClick()">
-						<option value = "1"> 1 </option>
-						<option value = "2"> 2 </option>
-						<option value = "3"> 3 </option>
-						<option value = "4"> 4 </option>
-						<option value = "5"> 5 </option>
-				</select>
+		
+		<label>
+			<span>Number of choices<span class="required">*</span></span>
+			<select class="select-cc" id="num_options" name = "num_options" onchange="numOptionsClick()">
+					<option value = "1"> 1 </option>
+					<option value = "2"> 2 </option>
+					<option value = "3"> 3 </option>
+					<option value = "4"> 4 </option>
+					<option value = "5"> 5 </option>
+			</select>
 		</label>
-		<br>
+		
 
 		<div class = "quiz" id = "single">
-			<label> Choices
-			<div class = "single" id = "single_options">
-				<input id = "inp-cc" type="text" class="quiz_inp" name="single_1" placeholder="Choice 1">
-			</div>
+			<label> 
+				<span>Choices<span class="required">*</span></span>
+				<div class = "single" id = "single_options">
+					<input class = "inp-cc quiz_inp" type="text"  name="single_1" placeholder="Choice 1">
+				</div>
 			</label>
 			<label> Correct Answers
-			<div id="radio1-cc" class = "single" id = "single_correct">
-				<input type="radio" class="quiz_inp" name="single_correct" value="1"> 1
-			</div>
+				<div class="radio1-cc single"  id = "single_correct">
+					<input type="radio" class="quiz_inp" name="single_correct" value="1"> 1
+				</div>
 			</label>
 		</div>
 
 		<div class = "quiz" id = "multiple">
-			<label> Choices
-			<div class ="multiple" id = "multiple_options">
-			</div>
+			<label>
+				<span>Choices<span class="required">*</span></span>
+				<div class ="multiple" id = "multiple_options">
+				</div>
 			</label>
-			<label> Correct Answers
-			<div class = "multiple" id = "multiple_correct">
-			</div>
+				<label> Correct Answers
+				<div class = "multiple" id = "multiple_correct">
+				</div>
 			</label>
 
 		</div>
 		</div>
 
 		<div class = "lesson_format" id="submission">
-		<label>	Create a submission assignment with maximum marks 100.
+			<label>
+				<span>Create a submission assignment with maximum marks 100.<span class="required">*</span></span>
+			</label>
 		</div>
-
-		<textarea class = "ta-cc" name="description" placeholder="Instructor comments">{{description}}</textarea>
+		<label><span>Description:<span class="required">*</span></span>
+			<textarea class = "ta-cc" name="description" placeholder="Instructor comments">{{description}}</textarea>
 		</label>
-		<br>
+		
 		<input type="submit" value="Add">
 	</form>
 </div>
@@ -239,12 +254,12 @@ function numOptionsClick(){
 
 	for(var i = 1;i<=num_options;i++)
 	{
-		options_html = options_html+'<input type="text" class="quiz_inp" name="'+quiz_format+'_'+i.toString()+'" placeholder="Choice '+i.toString()+'" required><br>';
+		options_html = options_html+'<input type="text" class="quiz_inp" name="'+quiz_format+'_'+i.toString()+'" placeholder="Choice '+i.toString()+'" required>';
 		correct_html = correct_html+'<input type="'+correct_type+'" class="quiz_inp" name="'+quiz_format+'_correct" value="'+i.toString()+'"';
 		if(quiz_format == "single")
-			correct_html += ' required>'+i.toString()+'<br>';
+			correct_html += ' required>'+i.toString()+'';
 		else
-			correct_html += '>'+i.toString()+'<br>';
+			correct_html += '>'+i.toString()+'';
 	}
 	document.getElementById(quiz_format+"_options").innerHTML = options_html;
 	document.getElementById(quiz_format+"_correct").innerHTML = correct_html;

@@ -31,7 +31,7 @@ body {
 {
 	color: #fff;
 	background: #003636;
-	padding: 2em 1.25em;
+	padding: 1em 1.25em;
 }
 
 .header-heading { 
@@ -60,7 +60,7 @@ body {
 {
 	/*margin-top:15px;*/
 	float: right;
-	margin-right:100px;
+	margin-right:5%;
 	/*padding: 1.5em 0;*/
 }
 

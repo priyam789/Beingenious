@@ -7,39 +7,142 @@
 }
 
 .nav-bar-cb {
-	background: #34a46c;
+	background: black;
 	padding: 0;
 	margin: 0px 0px;
 	height: 40px;
+	/*margin-left: 300px;*/
+	width: 100%;
+	float: right;
 }
 
+
+/*------------------left-bar-----------------*/
 .left-bar-cb {
 	position: absolute;
 	left:0;
-	top: 40px;
-	width: 300px;
-	height: 400px;
+	top: 0;
+	width: 25%;
+	height: 100%;
 	/*border: 2px solid black;*/
+	/*z-index: 1px;*/
+	background: black;
+	overflow-y: scroll;
+}
+.left-bar-cb::-webkit-scrollbar{
+	width: 20px;
+}
+
+.left-bar-cb::-webkit-scrollbar * {
+  background:transparent;
+}
+.left-bar-cb::-webkit-scrollbar-thumb {
+  background:#444 !important;
+}
+
+
+.left-bar-cb h2 {
+	width: 100%;
+	height: 35px;
+	background: black;
+	margin: 0;
+	padding: 0;
+	padding-top: 5px;
+	text-align: center;
+	color: white;
+	font-weight: 800;
+
+}
+
+.left-bar-cb #spec{
+	background: #003636;
 }
 
 .left-bar-cb ul{
 	list-style-type: none;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+
 }
 
+.left-bar-cb ul li{
+	background: #34a46c;
+	display:table;
+    margin: 0;
+    margin-bottom: 5px;
+    width: 100%;
+    /*border: 10px solid red;*/
+
+}
+
+.left-bar-cb ul li:hover {
+	opacity: 0.75;
+}
+
+.left-bar-cb ul a{
+	display: block;
+	color: white;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	width: 100%;
+	line-height: 40px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+	/*border: 2px solid violet;*/
+}
+
+
+/*---------------------------------------------*/
 .block-maincontent{
 	position: absolute;
-	top: 40px;
+	/*top: 40px;*/
 	right: 0;
-	width: 1045px;
-	height:2000px;
+	width: 75%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: #333;
+	color: white;
+	overflow-y: scroll;
+	/*background: #333;*/
+	/*height:2000px;*/
 	/*border: 2px solid orange;*/
 }
+
+.block-maincontent::-webkit-scrollbar{
+	width: 20px;
+}
+
+.block-maincontent::-webkit-scrollbar * {
+  background:transparent;
+}
+.block-maincontent::-webkit-scrollbar-thumb {
+  background:#444 !important;
+}
+
 
 .video-cmp{
 	margin: 2px auto;
 	width: 850px;
 	height: 550px;
 	/*border: 2px solid red;*/
+}
+
+#bm-h2 {
+	font-weight: bold;
+    /*font-style: italic;*/
+    /*border-bottom: 2px solid #ddd;*/
+    margin-bottom: 20px;
+    font-size: 25px;
+    padding-bottom: 3px;
+    margin-left: 7%;
+    margin-top: 5%;
+}
+
+iframe {
+	width: 850px;
+	height: 500px;
 }
 
 
