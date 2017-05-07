@@ -126,7 +126,35 @@
 	margin: 2px auto;
 	width: 850px;
 	height: 550px;
+
 	/*border: 2px solid red;*/
+}
+
+.desc-cmp {
+	font-family: 'Alef';
+	margin-top: 20px;
+}
+
+.desc-cmp a {
+	margin-top: 50px;
+	text-align: center;
+	display: block;
+	color: white;
+	text-decoration: none;
+	font-weight: 400;
+	font-size: 15px;
+	width: 200px;
+	line-height: 40px;
+	background: #003636;
+	line-height: 40px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+	box-shadow: 1px 1px 4px black;
+    -moz-box-shadow: 1px 1px 4px black;
+    -webkit-box-shadow: 1px 1px 4px black;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
 }
 
 #bm-h2 {
