@@ -2,7 +2,7 @@
 
 {% block content %}
 <hr>
-
+<div class = "box-dbd">
 <div class = "form-cc">
 	<form id="submission_form" action="/create_course" method = "post" enctype="multipart/form-data" onsubmit="submitfunc()">
 
@@ -80,8 +80,9 @@
 		<!-- </table> -->
 			<div class="error">{{file_error}}</div>
 			<input type = "submit" value = "Float the Activity" name = "float">
-		</div>
-	</form>
+		</form>
+	</div>
+</div>
 
 <script>
 var acc = document.getElementsByClassName("accordion");

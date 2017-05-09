@@ -71,6 +71,9 @@
 	}
 
 	function lessonClick(module_id, lesson_id){
+		var lessons = document.getElementsByName("lesson-click");
+		for(var i = 0;i<lessons.length;i++)
+			lessons[i].href = "#";
 		var contents = {{course.contents|tojson|safe}};
 		var lesson = contents[module_id]["lessons"][lesson_id];
 		var html;
@@ -81,6 +84,7 @@
 		else if(lesson["type"] == "submission")
 			html = submissionHTML(lesson)
 		document.getElementById("maincontent").innerHTML = html;
+		document.getElementById("bm-h2").innerHTML = lesson["name"];
 	}
 
 	function addModuleClick(){}

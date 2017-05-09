@@ -7,7 +7,7 @@
 {% block maincontent %}
 
 
-
+<div class="box-dbd" >
 <div class="form-cc" >
 	
 	{% if edit_module == -1 %}
@@ -134,6 +134,7 @@
 		<input type="submit" value="Add">
 	</form>
 </div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -214,7 +215,11 @@ function addModuleClick(){
 	document.getElementById("module_row").innerHTML = 'Module Name <input type="text" name="module_name" placeholder="Name of module" required> <div class="error">{{empty_title}}</div>';
 }
 
-function lessonClick(module_id, lesson_id){}
+function lessonClick(module_id, lesson_id){
+		var lessons = document.getElementsByName("lesson-click");
+		for(var i = 0;i<lessons.length;i++)
+			lessons[i].href = "/courses/{{course.code}}?tag={{tag}}";
+	}
 
 function lessonFormatClick(){
 	var lesson_format = document.getElementById("lesson_format").value;

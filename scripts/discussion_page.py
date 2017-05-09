@@ -18,18 +18,35 @@ class DiscussionPage(Handler):
 			tag = 'benefitter'
 		if user is None:
 			self.redirect('/login?pane=signin')
-		else:
+		elif tag == 'initiator':
 			course = Course.verify_author(course_code, user.email)
 			course_detail = course
-			if( course is None ):
-				user_course = User_Course.verify_user(course_code,user.email)
-				if(user_course is None):
-					self.redirect('/courses?code=%s' %course_code)
-				else:
-					course_detail = user_course
-					self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag, tag=tag)
+			if course is None:
+				self.redirect('/courses?code=%s' %course_code)
 			else:
 				self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag, tag=tag)
+		elif tag == 'benefitter':
+			user_course = User_Course.verify_user(course_code,user.email)
+			course_detail = user_course
+			if course_detail is None:
+				self.redirect('/courses?code=%s' %course_code)
+			else:
+				user_course = User_Course.check_user_enrolled(course_code, user.email)
+				self.render('discussion.html',course_code = course_code,course = course_detail, user_course = user_course, dtag=tag, tag=tag)
+
+		# else:
+		# 	course = Course.verify_author(course_code, user.email)
+		# 	course_detail = course
+		# 	if( course is None ):
+		# 		user_course = User_Course.verify_user(course_code,user.email)
+		# 		if(user_course is None):
+		# 			self.redirect('/courses?code=%s' %course_code)
+		# 		else:
+		# 			course_detail = user_course
+		# 			user_course = User_Course.check_user_enrolled(course_code, user.email)
+		# 			self.render('discussion.html',course_code = course_code,course = course_detail, user_course = user_course, dtag=tag, tag=tag)
+		# 	else:
+		# 		self.render('discussion.html',course_code = course_code,course = course_detail, dtag=tag, tag=tag)
 
 	def post(self,course_code):
 		form_name = self.request.get('post_R')
@@ -51,7 +68,8 @@ class DiscussionPage(Handler):
 			single_query = self.construct_query(query_title,query_content,query_id,user,curr_time)
 			course_details.discussion.append(single_query)
 			course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag, tag=tag)
+			user_course = User_Course.check_user_enrolled(course_code, user.email)
+			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag, tag=tag, user_course = user_course)
 		else:
 			q_id = self.request.get('reply_form_hidden')
 			reply_content = self.request.get('reply_desc_'+q_id)
@@ -64,7 +82,8 @@ class DiscussionPage(Handler):
 				single_reply = self.construct_reply(reply_content,reply_id,user,curr_time)
 				course_details.discussion[int(q_id)]['reply'].append(single_reply)
 				course_details.put()
-			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag, tag=tag)
+				user_course = User_Course.check_user_enrolled(course_code, user.email)
+			self.render('discussion.html',course_code = course_code,course = course_details, dtag=tag, tag=tag, user_course = user_course)
 	
 	def construct_query(self,title,content,qid,user,time):
 		query = dict()
