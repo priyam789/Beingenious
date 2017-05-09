@@ -14,6 +14,8 @@
 	/*margin-left: 300px;*/
 	width: 100%;
 	float: right;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 /*-----------------primary_nav_wrap-cb--------*/
@@ -110,6 +112,8 @@
 	/*z-index: 1px;*/
 	background: #d6d6d6;
 	overflow-y: scroll;
+
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .left-bar-cb::-webkit-scrollbar{
 	width: 20px;

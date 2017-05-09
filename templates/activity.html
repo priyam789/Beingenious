@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-About us
 <hr>
-<h2> {{category}}</h2>
-{% for category_event in categ_list %}
-	<li> {{category_event.ctitle}} <a href = "/courses?code={{category_event.code}}"> View Course</a> </li>
-{% endfor %}
+<h1 class = "heading-act"> {{category}}</h1>
+
+<div class = "box-act">
+	{% for category_event in categ_list %}
+		<div>
+			<p>{{category_event.ctitle}} <a href = "/courses?code={{category_event.code}}"> View Course</a></p>
+		</div>
+	{% endfor %}
+</div>
 {% endblock %}

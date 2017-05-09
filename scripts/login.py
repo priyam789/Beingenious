@@ -76,9 +76,10 @@ class LoginPage(Handler):
 
 		if valid_fname and valid_lname and valid_email and valid_pass and valid_verify:
 			verification_link = self.register_user(fname, lname, email, password)
-			self.write('Link is: %s' % verification_link)
-			# activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
-			# self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
+			# self.write('Link is: %s' % verification_link)
+			activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
+			message = 'Verification link sent to the mail: %s' % email
+			self.render('message.html', message=message)
 
 		else:
 			if not valid_pass:
