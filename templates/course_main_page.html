@@ -36,20 +36,20 @@
 
 	function videoHTML(lesson){
 		var html = "";
-		html += '<iframe width="420" height="345" id="video" src="'+lesson["link"]+'"> </iframe>';
-		html += '<br>'+lesson['description'];
+		html += '<iframe width="420" height="345" id="video" src="'+lesson["link"]+'"> </iframe>\n';
+		html += '<div class = "desc-cmp">'+lesson['description']+'</div>';
 		return html
 	}
 
 	function quizHTML(lesson, module_id){
 		var html = "";
-		html += '<form method="post" onsubmit="return quizSubmit()">';
+		html += '<form class="form-cc" method="post" onsubmit="return quizSubmit()">';
 		html += lesson["question"]+'<br>'
 		for(var i = 1;i<=lesson["options"].length;i++){
 			if(lesson["quiz_format"] == "single")
-				html += '<input type="radio" required name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
+				html += '<input class="radio1-cc" type="radio" required name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
 			else
-				html += '<input type="checkbox" name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
+				html += '<input class="radio1-cc" type="checkbox" name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
 			html += '<br>';
 		}
 		html +='<input type="submit" value="Submit Answers">';
@@ -65,8 +65,8 @@
 	}
 
 	function submissionHTML(lesson){
-		var html = lesson['description']+'<br>';
-		html += '<a href="'+lesson['submit_url']+'">Make a Submission</a>';
+		var html = '<div class="desc-cmp">' + lesson['description'];
+		html += '<a href="'+lesson['submit_url']+'">Make a Submission</a> </dev>';
 		return html;
 	}
 
@@ -110,6 +110,6 @@
 	{% endif %}
 
 	<div id="maincontent" class = "video-cmp">
-		<iframe width="850" height="500" id="video" src="{{course.overview_video['link']}}"></iframe>
+		<iframe id="video" src="{{course.overview_video['link']}}"></iframe>
 	</div>
 {% endblock %}

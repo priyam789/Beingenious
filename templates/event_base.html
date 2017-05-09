@@ -45,23 +45,6 @@
 		{% endblock %}
 	</div>
 
-	<div class = "left-bar-cb">
-		<h2 class = "left-bar-head">Modules</h2>
-		<nav> 
-			<ul>
-				{% if course.type_course == 'course' %}
-				{% for module in course.contents %}
-				<li id="spec"><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
-				<div id="module_{{module.id}}" class="module" >
-				{% for lesson in module.lessons %}
-				<li><a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a></li>
-				{% endfor %}
-				</div>
-				{% endfor %}
-				{% endif %}
-			</ul>
-		</nav>
-	</div>
 
 
 

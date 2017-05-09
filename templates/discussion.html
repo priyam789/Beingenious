@@ -37,49 +37,57 @@
 	
 </script>
 <div id = "post_ques" style="display:block">
-<a href="#" class = "button" onclick="post_question()">Post a Question</a>
+	<a href="#" class = "button" onclick="post_question()">Post a Question</a>
 </div>
 
-<form id = "query_form" action = "#" method="post" style="display:none">
-	<input name="query_title" type = "text" placeholder="Title" required oninvalid="this.setCustomValidity('Query cannot be posted without a title')"
+<form class = "form-disc" id = "query_form" action = "#" method="post"  style="display:none">
+	<input class = "input-disc" name="query_title" type = "text" placeholder="Title" required oninvalid="this.setCustomValidity('Query cannot be posted without a title')"
     oninput="setCustomValidity('')" /><br>
 <!-- </div> -->
 <!-- <div id = "query" style="display:none"> -->
-	<textarea name="query_desc" type = "text" placeholder="Enter your query"></textarea><br>
+	<textarea class = "ta-disc" name="query_desc" type = "text" placeholder="Enter your query"></textarea><br>
 <!-- </div> -->
-	<input type="submit" value="Post" name ="post_R" > 
-	<div id = "div2" style="display: block">
-	<a href="#" onclick="cancel_question()">Cancel</a>
-	</div>
+	<!-- <div> -->
+		<input class = "submit-disc" type="submit" value="Post" name ="post_R" >
+		<a href="#" onclick="cancel_question()">Cancel</a>
+	<!-- </div> -->
 </form>
 
-<center>
-	{% for query in course.discussion %}
-		Title : {{query.title}} <br>
-		Content : {{query.content}} <br>
-		<div align = "center"> Posted by {{query.user}} on {{query.time}} </div>
-		<a href="#" id="reply_link_{{query.query_id}}" name = "reply_link" onclick="post_reply({{query.query_id}})">Reply</a>
-		
-		<form id = "reply_form_{{query.query_id}}" name = "reply_form" action = "#" method="post" style="display:none">
-			<input type = "hidden" name = "reply_form_hidden" value = {{query.query_id}}>
-<!-- </div> -->
-<!-- <div id = "query" style="display:none"> -->
-			<textarea name="reply_desc_{{query.query_id}}" type = "text" placeholder="Enter your reply"></textarea><br>
-<!-- </div> -->
-			<input type="submit" value="Post the reply" name ="post_R" > 
-			
-			<div id = "cancel_{{query.query_id}}" style="display: block">
-				<a href="#" onclick="cancel_reply({{query.query_id}})">Cancel</a>
+{% for query in course.discussion %}
+	<div class = "query">
+		<div class = "ques">
+			<h2 style="padding: 10px 30px">{{query.title}} </h2>
+			<div style="margin-left: 30px">{{query.content}}</div>
+			<div class = "posted-by">Posted by {{query.user}} on {{query.time}}</div>
+			<div class = "reply-button">
+				<a class = "reply-button-link" href="#" id="reply_link_{{query.query_id}}" name = "reply_link" onclick="post_reply({{query.query_id}})">Reply</a>
 			</div>
-		</form>
-		<div align = "right">Comments :</div>
-		{% for reply in query.reply %}
-			<div align = "right">{{reply.content}}</div>
-			<div align = "right"> Posted by {{reply.user}} on {{reply.time}} </div>
-		{% endfor %}
+		</div>
+			
+		<div class = "reply-box">
+			<form class = "form-disc" id = "reply_form_{{query.query_id}}" name = "reply_form" action = "#" method="post" style="display:none">
+				<input type = "hidden" name = "reply_form_hidden" value = {{query.query_id}}>
+	<!-- </div> -->
+	<!-- <div id = "query" style="display:none"> -->
+				<textarea class="ta-disc" name="reply_desc_{{query.query_id}}" type = "text" placeholder="Enter your reply"></textarea><br>
+	<!-- </div> -->
+				<input class = "submit-disc" type="submit" value="Post the reply" name ="post_R" > 
+				
+				<div id = "cancel_{{query.query_id}}" style="display: block">
+					<a href="#" onclick="cancel_reply({{query.query_id}})">Cancel</a>
+				</div>
+			</form>
+			<h3>Comments :</h3>
+			{% for reply in query.reply %}
+				<div class = "reply">
+					<p style="padding: 15px">{{reply.content}}</p>
+					<div class = "posted-by"> Posted by {{reply.user}} on {{reply.time}}</div>
+				</div>
+			{% endfor %}
+		</div>
 		<hr>
-	{% endfor %}
-</center>
+	</div>
+{% endfor %}
 
 		<!-- <td>Last Name</td>
 		<td>{{user.lname}}

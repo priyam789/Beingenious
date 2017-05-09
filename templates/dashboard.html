@@ -4,56 +4,108 @@
 	function showcourse() {
 		document.getElementById('coursediv').style.display = 'block';
 		document.getElementById('eventdiv').style.display = 'none';
+
+		document.getElementById('event_pane').className = "event";
+		document.getElementById("course_pane").className = "focussed"
 		// body...
 	}
 	function showevents() {
 		document.getElementById('eventdiv').style.display = 'block';
 		document.getElementById('coursediv').style.display = 'none';
+		
+		document.getElementById('course_pane').className = 'course';
+		document.getElementById('event_pane').className = 'focussed';
+
 		// body...
 	}
+	
 </script>
 
 <hr>
 
-<center><a href="#" onclick="showcourse()"> Courses</a> |
-<a href="#" onclick="showevents()"> Events </a></center>
 
-<div id = 'coursediv' style="display: block;">
-<h2> You are a teacher </h2>
-{% for course_float in course_float_list %}
-	{% if course_float.type_course == 'course' %}
-	<li> {{course_float.code}}: {{course_float.ctitle}} <a href="/courses/{{course_float.code}}?tag=initiator"> Resume Teaching </a>
-	{% endif %}
-{% endfor %} </li>
-<form action = "/create_course">
-	<input type = "submit" name = "createcourse" value = "Add an activity">
-</form>
-<hr>
-<h2> You are a learner </h2>
-{% for course in courses %}
-	{% if course.type_course == 'course' %}
-	<li> {{course.code}}: {{course.ctitle}} <a href="/courses/{{course.code}}"> Resume Learning </a>
-	{% endif %}
-{% endfor %} </li>
-</div>
+<div class = "box-dbd">
 
-<div id = 'eventdiv' style="display: none;">
-<h2> You are an organizer </h2>
-{% for course_float in course_float_list %}
-	{% if course_float.type_course == 'event' %}
-	<li> {{course_float.code}}: {{course_float.ctitle}} <a href="/courses/{{course_float.code}}?tag=initiator"> Go to page </a>
-	{% endif %}
-{% endfor %} </li>
-<form action = "/create_course">
-	<input type = "submit" name = "createcourse" value = "Add an activity">
-</form>
-<hr>
-<h2> You are a participant </h2>
-{% for course in courses %}
-	{% if course.type_course == 'event' %}
-	<li> {{course.code}}: {{course.ctitle}} <a href="/courses/{{course.code}}"> Go to page </a>
-	{% endif %}
-{% endfor %} </li>
+	<div class = "pane">
+		<ul>
+			<li><a id="course_pane" class = "focussed" href="#" onclick="showcourse()"> Courses</a></li><li><a id = "event_pane" class = event href="#" onclick="showevents()"> Events </a></li>
+		</ul>
+	</div>
+
+	<div class = "dashboard" id = 'coursediv' style="display: block;">
+		<h2> You are a teacher </h2>
+		<ul>
+			{% for course_float in course_float_list %}
+				{% if course_float.type_course == 'course' %}
+				<div class = act>
+					<li>
+						<div> {{course_float.code}}: {{course_float.ctitle}} </div><a href="/courses/{{course_float.code}}?tag=initiator"> Resume Teaching </a>
+						<span>Starts: {{course_float.date_start}}</span></br>
+						<span>Ends: {{course_float.date_end}}</span>
+
+					</li>
+				</div>
+				{% endif %}
+			{% endfor %} 
+			<li>
+				<form  action = "/create_course">
+					<input type = "submit" name = "createcourse" value = "Add an activity">
+				</form>
+			</li>
+		</ul>
+		<hr>
+		<h2> You are a learner </h2>
+		<ul>
+			{% for course in courses %}
+				{% if course.type_course == 'course' %}
+				<div class = act>
+					<li>
+						<div> {{course.code}}: {{course.ctitle}} </div><a href="/courses/{{course.code}}"> Resume Learning </a>
+						<span>Starts: {{course.date_start}}</span></br>
+						<span>Ends: {{course.date_end}}</span>
+					</li>
+				</div>
+				{% endif %}
+			{% endfor %} 
+		</ul>
+	</div>
+
+	<div class = "dashboard" id = 'eventdiv' style="display: none;">
+		<h2> You are an organizer </h2>
+		<ul>
+			{% for course_float in course_float_list %}
+				{% if course_float.type_course == 'event' %}
+				<div class = act>
+					<li>
+						<div> {{course_float.code}}: {{course_float.ctitle}} </div><a href="/courses/{{course_float.code}}?tag=initiator"> Go to page </a>
+						<span>Starts: {{course_float.date_start}}</span></br>
+						<span>Ends: {{course_float.date_end}}</span>
+					</li>
+				</div>
+				{% endif %}
+			{% endfor %} 
+			<li>
+				<form  action = "/create_course">
+					<input type = "submit" name = "createcourse" value = "Add an activity">
+				</form>
+			</li>
+		</ul>
+		<hr>
+		<h2> You are a participant </h2>
+		<ul>
+			{% for course in courses %}
+				{% if course.type_course == 'event' %}
+				<div class = act>
+					<li>
+						<div> {{course.code}}: {{course.ctitle}} </div><a href="/courses/{{course.code}}"> Go to page </a>
+						<span>Starts: {{course.date_start}}</span></br>
+						<span>Ends: {{course.date_end}}</span>
+					</li>
+				</div>
+				{% endif %}
+			{% endfor %} 
+		</ul>
+	</div>
 </div>
 
 {% endblock %}
