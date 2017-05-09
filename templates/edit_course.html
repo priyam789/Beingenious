@@ -101,7 +101,7 @@
 					<input class = "inp-cc quiz_inp" type="text"  name="single_1" placeholder="Choice 1">
 				</div>
 			</label>
-			<label> Correct Answers
+			<label> <span>Correct Answers<span class="required">*</span></span>
 				<div class="radio1-cc single"  id = "single_correct">
 					<input type="radio" class="quiz_inp" name="single_correct" value="1"> 1
 				</div>
@@ -114,7 +114,7 @@
 				<div class ="multiple" id = "multiple_options">
 				</div>
 			</label>
-				<label> Correct Answers
+				<label> <span>Correct Answers<span class="required">*</span></span>
 				<div class = "multiple" id = "multiple_correct">
 				</div>
 			</label>
@@ -127,7 +127,7 @@
 				<span>Create a submission assignment with maximum marks 100.<span class="required">*</span></span>
 			</label>
 		</div>
-		<label><span>Description:<span class="required">*</span></span>
+		<label><span>Description</span>
 			<textarea class = "ta-cc" name="description" placeholder="Instructor comments">{{description}}</textarea>
 		</label>
 		
@@ -260,7 +260,7 @@ function numOptionsClick(){
 
 	for(var i = 1;i<=num_options;i++)
 	{
-		options_html = options_html+'<input type="text" class="quiz_inp" name="'+quiz_format+'_'+i.toString()+'" placeholder="Choice '+i.toString()+'" required>';
+		options_html = options_html+'<label><span> </span><input type="text" class="quiz_inp inp-cc" name="'+quiz_format+'_'+i.toString()+'" placeholder="Choice '+i.toString()+'" required></label>';
 		correct_html = correct_html+'<input type="'+correct_type+'" class="quiz_inp" name="'+quiz_format+'_correct" value="'+i.toString()+'"';
 		if(quiz_format == "single")
 			correct_html += ' required>'+i.toString()+'';
