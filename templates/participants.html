@@ -79,6 +79,23 @@ tr:nth-child(even) {
 
     document.getElementById(user_email).innerHTML = html;
   }
+
+  function moduleClick(module_id){
+		var module_divs = document.getElementsByClassName("module");
+		var i;
+		for(i = 0;i<module_divs.length;i++)
+			module_divs[i].style.display = "none";
+		document.getElementById("module_"+module_id.toString()).style.display = "block";
+		{% if tag == 'initiator' %}
+		document.getElementById("add_chapter").href = "/editcourse/{{course.code}}?module="+module_id.toString();
+		{% endif %}
+	}
+
+function lessonClick(module_id, lesson_id){
+		var lessons = document.getElementsByName("lesson-click");
+		for(var i = 0;i<lessons.length;i++)
+			lessons[i].href = "/courses/{{course.code}}?tag={{tag}}";
+	}
 </script>
 
 

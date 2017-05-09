@@ -3,7 +3,7 @@ from datetime import date
 from datetime import datetime
 from base import *
 
-
+# This class handles the display of the enrolled participants' information
 class ParticipantsPage(Handler):
 
 	def get(self,course_code):
@@ -19,7 +19,7 @@ class ParticipantsPage(Handler):
 			else:
 				(user_namelist,user_gradelist) = User_Course.get_users_enrolled(course_code)
 				
-			self.render('participants.html',course_code = course_code,course = course,user_namelist = zip(user_namelist,user_gradelist), dtag='initiator')
+			self.render('participants.html',course_code = course_code,course = course,user_namelist = zip(user_namelist,user_gradelist),tag='initiator', dtag='initiator')
 
 	def post(self, course_code):
 		user = self.cookie_user()
@@ -38,6 +38,7 @@ class ParticipantsPage(Handler):
 				user_course.put()
 				self.redirect('/participants/%s' %(course_code))
 
+# This class handles the display and editing of the enrolled participants' grades
 class ViewGradesPage(Handler):
 
 	def get(self, user_course_key, course_code):
@@ -64,12 +65,12 @@ class ViewGradesPage(Handler):
 				user_course = User_Course.get_by_id(int(user_course_key),parent=User_Course.parent_key())
 				user_info = User.get_by_email(user_course.user)
 				self.render('grade_event.html',course_code = course_code,course = course, tag=tag, dtag=tag,
-							user_info = user_info,user_gradelist = user_course.grades)
+							user_info = user_info,user_gradelist = user_course.grades, user_course = user_course)
 			else:
 				user_course = User_Course.get_by_id(int(user_course_key),parent=User_Course.parent_key())
 				user_info = User.get_by_email(user_course.user)
 				self.render('grades.html',course_code = course_code,course = course, tag=tag, dtag=tag,
-							user_info = user_info,user_gradelist = user_course.grades)
+							user_info = user_info,user_gradelist = user_course.grades, user_course = user_course)
 
 	def post(self, user_course_key, course_code):
 		user = self.cookie_user()
@@ -89,5 +90,5 @@ class ViewGradesPage(Handler):
 
 				user_info = User.get_by_email(user_course.user)
 				self.render('grades.html',course_code = course_code,course = course, tag='initiator', dtag='initiator',
-							user_info = user_info,user_gradelist = user_course.grades)
+							user_info = user_info,user_gradelist = user_course.grades, user_course = user_course)
 

@@ -12,7 +12,7 @@
 			<nav class = "primary_nav_wrap-cb">
 				<ul>
 
-					{% if tag == 'initiator' and not(dtag) %}
+					{% if tag == 'initiator' %}
 					{% if course.type_course == 'course' %}
 					<li><a id="add_module" href="/editcourse/{{course.code}}" onclick="addModuleClick()">Add Module</a></li>
 
@@ -55,7 +55,7 @@
 				<li id="spec"><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
 				<div id="module_{{module.id}}" class="module" >
 				{% for lesson in module.lessons %}
-				<li><a href="#" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a></li>
+				<li><a name="lesson-click" href="/courses/{{course.code}}?tag={{tag}}" onclick="lessonClick({{module.id}}, {{lesson.id}})">{{lesson.name}}</a></li>
 				{% endfor %}
 				</div>
 				{% endfor %}

@@ -45,6 +45,7 @@ def match_passwords(s1, s2):
 	else:
 		return (False, "Passwords don't match")
 
+# This class handles the login and signup of users
 class LoginPage(Handler):
 	def render_page(self, pane, **kw):
 		self.render('login.html', pane = pane, **kw)
@@ -111,6 +112,7 @@ class LoginPage(Handler):
 			self.set_cookie(user_id)		
 			self.redirect('/dashboard/')	#TODO: redirect to the dashboard
 
+# This class handles the activation of account on clicking the link sent on email id
 class Activate(Handler):
 	def get(self):
 		link = self.request.get('link')
@@ -176,7 +178,7 @@ class HomePage(Handler):
 	def get(self):
 		self.render('home.html')
 
-
+# This class handles the display of the user's profile
 class ProfilePage(Handler):
 	def get(self):
 		# user = self.cookie_user()
@@ -193,6 +195,7 @@ class ProfilePage(Handler):
 		user.put()
 		self.redirect('/profile/')
 	
+# This class handles the changing of password by a user
 class ChangePassword(Handler):
 	def render_form(self, **kw):
 		self.render('password.html', **kw)
@@ -245,7 +248,7 @@ class ChangePassword(Handler):
 							pass_error=pass_error,
 							verify_error=verify_error)
 
-
+# This class handles the resetting of password in case of forgetting
 class ForgotPasswordPage(Handler):
 	def get(self):
 		self.render('forgot_password.html')
@@ -257,9 +260,10 @@ class ForgotPasswordPage(Handler):
 			self.render('forgot_password.html', email=emailid, email_error=login_error)
 		else:
 			verification_link = ''.join(['be-ingenious.appspot.com/activate?link=',user.email_pw_salt,'&forgot=1'])
-			self.write('Link is: %s' % verification_link)
-			# activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
-			# self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
+			# self.write('Link is: %s' % verification_link)
+			forgotpass_mail(email = emailid, fname = user.fname, lname = user.lname, link = verification_link)
+			message = 'Password reset link sent to the mail: %s' % emailid
+			self.render('message.html', message=message)	#TODO: mail activation and redirection
 
 
 
