@@ -1,7 +1,8 @@
 import re
 from datetime import date
 from base import *
-class ActivityPage(Handler):	#TODO: will go in a separate file
+# This class handles the display of the list of activities in the catalog
+class ActivityPage(Handler):	
 	def get(self):
 		category = self.request.get('category')
 		

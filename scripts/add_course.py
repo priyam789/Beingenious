@@ -3,11 +3,13 @@ from datetime import date
 from base import *
 
 area_code_map = {'Dance':'DAL', 'Music':'MUL', 'Theatre':'THL', 'Literature':'LIT', 'Quiz and Debate':'QDL', 'Academia':'ACL'}
+# This function generates the course code for a new activity
 def generate_code(area):
 		total_courses = Course.get_num_courses()
 		answer = area_code_map[area]+str(100+total_courses)
 		return answer
 
+# This class handles the addition of a new course 
 class AddCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 	form_fields = ['title', 'organization', 'overview',
 					'start_date', 'end_date', 'area', 'level',

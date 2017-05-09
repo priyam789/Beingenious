@@ -2,7 +2,8 @@ import re
 from datetime import date
 from base import *
 
-class DashboardPage(Handler):	#TODO: will go in a separate file
+# This class handles the display of the dashboard
+class DashboardPage(Handler):	
 	def get(self):
 		user = self.cookie_user()
 		if user is None:

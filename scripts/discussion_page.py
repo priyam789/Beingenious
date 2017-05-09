@@ -7,6 +7,7 @@ def format_time(time):
 	date_string = str(time.day)+"/"+str(time.month)+"/"+str(time.year)+"   "+str(time.hour)+":"+str(time.minute)
 	return date_string
 
+# This class handles the discussion forum for activities
 class DiscussionPage(Handler):
 
 	def get(self,course_code):
