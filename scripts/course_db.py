@@ -5,7 +5,7 @@ import hashlib
 from google.appengine.ext import ndb
 from user_db import *
 
-# This is the model class for courses db
+# This is the model class for courses database
 class Course(ndb.Model):
 	code = ndb.StringProperty(required = True)
 	ctitle = ndb.StringProperty(required = True)
