@@ -257,9 +257,10 @@ class ForgotPasswordPage(Handler):
 			self.render('forgot_password.html', email=emailid, email_error=login_error)
 		else:
 			verification_link = ''.join(['be-ingenious.appspot.com/activate?link=',user.email_pw_salt,'&forgot=1'])
-			self.write('Link is: %s' % verification_link)
-			# activation_mail(email = email, fname = fname, lname = lname, link = verification_link)
-			# self.write('Verification link sent to the mail: %s' % email)	#TODO: mail activation and redirection
+			# self.write('Link is: %s' % verification_link)
+			forgotpass_mail(email = emailid, fname = user.fname, lname = user.lname, link = verification_link)
+			message = 'Password reset link sent to the mail: %s' % emailid
+			self.render('message.html', message=message)	#TODO: mail activation and redirection
 
 
 
