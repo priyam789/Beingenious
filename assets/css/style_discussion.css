@@ -1,3 +1,9 @@
+.center-disc {
+	margin: 30px;
+	font-weight: 600;
+	font-size: 22px;
+}
+
 .form-disc {
 	width: 95%;
 	margin: 20px auto;
@@ -57,7 +63,7 @@
 #post_ques {
 	width: 200px;
 	text-align: center;
-	margin: 0 auto;
+	margin: 30px auto;
 }
 
 #post_ques a{
