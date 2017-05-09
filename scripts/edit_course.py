@@ -1,5 +1,6 @@
 from base import *
 
+# This class handles the editing of a course
 class EditCourse(Handler, blobstore_handlers.BlobstoreUploadHandler):
 	form_fields = ['edit_module', 'module_name', 'subtitle', 'lesson_format', 'description', 'upload', 'file', 'link', 'quiz_format','max_marks', 'question', 'num_options']
 	def render_page(self, template, course_code, **kw):

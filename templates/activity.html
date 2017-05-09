@@ -1,9 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
-About us
+<script type="text/javascript">
+	function showcourse() {
+		document.getElementById('coursediv').style.display = 'block';
+		document.getElementById('eventdiv').style.display = 'none';
+
+		document.getElementById('event_pane').className = "event";
+		document.getElementById("course_pane").className = "focussed"
+		// body...
+	}
+	function showevents() {
+		document.getElementById('eventdiv').style.display = 'block';
+		document.getElementById('coursediv').style.display = 'none';
+		
+		document.getElementById('course_pane').className = 'course';
+		document.getElementById('event_pane').className = 'focussed';
+
+		// body...
+	}
+	
+</script>
+
 <hr>
-<h2> {{category}}</h2>
-{% for category_event in categ_list %}
-	<li> {{category_event.ctitle}} <a href = "/courses?code={{category_event.code}}"> View Course</a> </li>
-{% endfor %}
+<h1 class = "heading-act"> {{category}}</h1>
+
+
+<div class = "box-dbd">
+
+	<div class = "pane">
+		<ul>
+			<li><a id="course_pane" class = "focussed" href="#" onclick="showcourse()"> Courses</a></li><li><a id = "event_pane" class = event href="#" onclick="showevents()"> Events </a></li>
+		</ul>
+	</div>
+
+	<div id = 'coursediv' style="display: block;">
+		{% for course_float in categ_list %}
+			{% if course_float.type_course == 'course' %}
+				<div>
+					<p>{{course_float.ctitle}} <a href = "/courses?code={{course_float.code}}"> View Course</a>	</p>
+				</div>
+
+			{% endif %}
+		{% endfor %} 
+	</div>
+
+	<div id = 'eventdiv' style="display: none;">
+		{% for course_float in categ_list %}
+			{% if course_float.type_course == 'event' %}
+				<div>
+					<p>{{course_float.ctitle}} <a href = "/courses?code={{course_float.code}}"> View Course</a>	</p>
+				</div>
+
+			{% endif %}
+		{% endfor %} 
+
+	</div>
+</div>
+
+
 {% endblock %}

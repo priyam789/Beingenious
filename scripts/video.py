@@ -4,6 +4,7 @@ class ServeVideo(blobstore_handlers.BlobstoreDownloadHandler):
 	def get(self, blob_key):
 		self.send_blob(blob_key)
 
+# This class handles the submission for an activity 
 class SubmitPage(Handler, blobstore_handlers.BlobstoreUploadHandler):
 	def get(self, course_code, module_id, lesson_id):
 		user = self.cookie_user()

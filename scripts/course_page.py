@@ -1,7 +1,7 @@
 from datetime import date
 from base import *
 
-
+# These classes handle the pages for activities
 class CoursePage(Handler):
 	def get(self):
 		course_code = self.request.get('code')

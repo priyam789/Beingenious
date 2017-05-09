@@ -15,6 +15,7 @@ def hash_email_pw(email, pw, salt=None):
 		salt = make_salt()
 	return ''.join([hashlib.sha256(email+pw+salt).hexdigest(),DELIM,salt])
 
+# This is the model class for candidates database
 class Candidate(db.Model):
 	fname = db.StringProperty(required = True)
 	lname = db.StringProperty(required = True)
@@ -41,6 +42,7 @@ class Candidate(db.Model):
 		candidate = db.GqlQuery("SELECT * FROM Candidate WHERE email_pw_salt = '%s'" % link).get()
 		return candidate
 
+# This is the model class for users database
 class User(db.Model):
 	fname = db.StringProperty(required = True)
 	lname = db.StringProperty(required = True)

@@ -19,6 +19,7 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), a
 jinja_env.filters['tojson'] = tojson
 
 
+# This is the base class for all the controller classes in the application
 class Handler(webapp2.RequestHandler):
 	secret = 'davinciscode'
 	cookie_delim = '|'

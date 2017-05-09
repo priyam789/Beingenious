@@ -3,7 +3,7 @@ from datetime import date
 from datetime import datetime
 from base import *
 
-
+# This class handles the display of the enrolled participants' information
 class ParticipantsPage(Handler):
 
 	def get(self,course_code):
@@ -38,6 +38,7 @@ class ParticipantsPage(Handler):
 				user_course.put()
 				self.redirect('/participants/%s' %(course_code))
 
+# This class handles the display and editing of the enrolled participants' grades
 class ViewGradesPage(Handler):
 
 	def get(self, user_course_key, course_code):

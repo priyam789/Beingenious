@@ -1,0 +1,36 @@
+.heading-act {
+	margin: 20px auto;
+	text-align: center;
+}
+
+.box-act div{
+	background: white;
+	width: 75%;
+	height: 100px;
+	margin: 20px auto;
+	border: 2px solid #e0e0e0;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.box-act p{
+	font-family: "Open Sans";
+	margin: 20px;
+}
+
+.box-act a{
+	float: right;
+	margin: 20px ;
+	text-align: center;
+	color: white;
+	background: #003636;
+	list-style-type: none;
+	text-decoration: none;
+	display: block;
+	width: 20%;
+	line-height: 30px;
+	box-shadow: 0 6px 20px 0 #637a55, 4px 4px 8px 0 #637a55;
+}
+
+.box-act a:hover {
+	opacity: 0.75;
+}
