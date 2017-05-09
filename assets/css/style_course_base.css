@@ -102,7 +102,7 @@
 }
 
 /*------------------left-bar-----------------*/
-.left-bar-cb {
+.left-bar-cb{
 	position: absolute;
 	left:0;
 	top: 0;
@@ -119,15 +119,15 @@
 	width: 20px;
 }
 
-.left-bar-cb::-webkit-scrollbar * {
+.left-bar-cb::-webkit-scrollbar *{
   background:transparent;
 }
-.left-bar-cb::-webkit-scrollbar-thumb {
+.left-bar-cb::-webkit-scrollbar-thumb{
   background:#444 !important;
 }
 
 
-.left-bar-cb h2 {
+.left-bar-cb h2, .left-bar-cib h2 {
 	width: 100%;
 	height: 35px;
 	background: #d6d6d6;
@@ -140,11 +140,11 @@
 
 }
 
-.left-bar-cb #spec{
+.left-bar-cb #spec, .left-bar-cib #spec{
 	background: #003636;
 }
 
-.left-bar-cb ul{
+.left-bar-cb ul, .left-bar-cib ul{
 	list-style-type: none;
 	text-align: center;
 	margin: 0;
@@ -176,6 +176,33 @@
 	line-height: 40px;
 	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
 	/*border: 2px solid violet;*/
+}
+
+/*------for course_intro_base.html left bar----*/
+/* some of the prop are same as leftbarcb only */
+/*          diff are listed here               */
+.left-bar-cib {
+	position: absolute;
+	left:0;
+	top: 0;
+	width: 25%;
+	height: 100%;
+	/*border: 2px solid black;*/
+	/*z-index: 1px;*/
+	background: #d6d6d6;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.left-bar-cib ul li{
+	display: block;
+	background: #34a46c;
+	margin: 2px auto; 
+	color: white;
+	font-weight: 400;
+	font-size: 15px;
+	width: 100%;
+	line-height: 40px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
 }
 
 
@@ -216,12 +243,14 @@
 	/*border: 2px solid red;*/
 }
 
+
+
 .desc-cmp {
 	font-family: 'Alef';
 	margin-top: 20px;
 }
 
-.desc-cmp a {
+.desc-cmp a, .video-cmp a{
 	margin-top: 50px;
 	text-align: center;
 	display: block;
@@ -244,6 +273,7 @@
 }
 
 #bm-h2 {
+	text-align: center;
 	font-weight: bold;
     /*font-style: italic;*/
     /*border-bottom: 2px solid #ddd;*/
@@ -258,5 +288,3 @@ iframe {
 	width: 850px;
 	height: 500px;
 }
-
-

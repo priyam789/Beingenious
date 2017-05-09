@@ -1,7 +1,6 @@
-{% extends "base.html" %}
-{% block content %}
-<hr>
-<center> <h2> {{course_details.ctitle}} </h2> </center>
+{% extends "course_intro_base.html" %}
+{% block intro_content %}
+<!-- 
 Teacher : {{course_details.get_author_name()}} <br>
 {% if course_details.organization != '' %}
 Organization : {{course_details.organization}} <br>
@@ -9,16 +8,25 @@ Organization : {{course_details.organization}} <br>
 
 Overview : {{course_details.overview}} <br>
 Duration : {{course_details.date_start}} to {{course_details.date_end}}
-<iframe src="{{course_details.overview_video['link']}}">
-</iframe>
 
-{% if tag == 'initiator' and course_details.type_course == 'course' %}
-<a href="/courses/{{course_details.code}}?tag=initiator">Add Course Materials</a>
-{% elif tag == 'initiator' and course_details.type_course == 'event' %}
-<a href="/courses/{{course_details.code}}?tag=initiator">Go to Page</a>
-{% else %}
-<a href="/courses/{{course_details.code}}">Enroll in course</a>
-{% endif %}
+ -->
+<div class = "block-maincontent">
+	<center> <h2> {{course_details.code}} - {{course_details.ctitle}} </h2> </center>
+	<hr>
+	<center> <h3>Overview Video</h3> </center>
+	<div class = "video-cmp">
+		<iframe  src="{{course_details.overview_video['link']}}"></iframe>
+		<div class = "desc-cmp"><b>Overview:</b> {{course_details.overview}}</div>
+		{% if tag == 'initiator' and course_details.type_course == 'course' %}
+		<a href="/courses/{{course_details.code}}?tag=initiator">Add Course Materials</a>
+		{% elif tag == 'initiator' and course_details.type_course == 'event' %}
+		<a href="/courses/{{course_details.code}}?tag=initiator">Go to Page</a>
+		{% else %}
+		<a href="/courses/{{course_details.code}}">Enroll in course</a>
+		{% endif %}
+	</div>
+</div>
+
 
 {% endblock %}
 

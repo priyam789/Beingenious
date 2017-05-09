@@ -41,15 +41,16 @@
 
 	
 		<h2 id = bm-h2>{{course.code}}: {{course.ctitle}}</h2>
+		<hr>
 		{% block maincontent %}
 		{% endblock %}
 	</div>
 
+	{% if course.type_course == 'course' %}
 	<div class = "left-bar-cb">
 		<h2 class = "left-bar-head">Modules</h2>
 		<nav> 
 			<ul>
-				{% if course.type_course == 'course' %}
 				{% for module in course.contents %}
 				<li id="spec"><a href="#" onclick="moduleClick({{module.id}})">Module {{module.id|int + 1}}: {{module.name}}</a></li>
 				<div id="module_{{module.id}}" class="module" >
@@ -58,10 +59,31 @@
 				{% endfor %}
 				</div>
 				{% endfor %}
-				{% endif %}
-			</ul>
+
+			</ul> 
 		</nav>
 	</div>
+	{% else %}
+	<input type="hidden" name="tag" value="{{tag}}">
+
+
+	<div class = "left-bar-cib">
+		<h2 class = "left-bar-head">Event Info</h2>
+		<nav> 
+			<ul>
+				<li>Teacher : {{course.get_author_name()}} </li>
+				{% if course.organization != '' %}
+				<li>Organization : {{course.organization}} </li>
+				{% endif %}
+				<li>Duration : {{course.date_start}} to {{course.date_end}}</li>
+			</ul>
+		</nav>
+
+	
+
+
+	</div>
+	{% endif %}
 
 
 

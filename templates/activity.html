@@ -36,8 +36,8 @@
 	<div id = 'coursediv' style="display: block;">
 		{% for course_float in categ_list %}
 			{% if course_float.type_course == 'course' %}
-				<div>
-					<p>{{course_float.ctitle}} <a href = "/courses?code={{course_float.code}}"> View Course</a>	</p>
+				<div class = "box-act">
+					<p><b>{{course_float.ctitle}}</b> <a href = "/courses?code={{course_float.code}}"> View Course</a>	</p>
 				</div>
 
 			{% endif %}
@@ -47,8 +47,8 @@
 	<div id = 'eventdiv' style="display: none;">
 		{% for course_float in categ_list %}
 			{% if course_float.type_course == 'event' %}
-				<div>
-					<p>{{course_float.ctitle}} <a href = "/courses?code={{course_float.code}}"> View Course</a>	</p>
+				<div class = "box-act">
+					<p><b>{{course_float.ctitle}}</b> <a href = "/courses?code={{course_float.code}}"> View Course</a>	</p>
 				</div>
 
 			{% endif %}

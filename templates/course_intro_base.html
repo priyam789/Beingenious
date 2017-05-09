@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- using primary_nav_wrap style of base -->
+<!-- <div class="line-top-cb"></div> -->
+<input type="hidden" name="tag" value="{{tag}}">
+
+<div class = "box-cb">
+
+	<div class = "left-bar-cib">
+		<h2 class = "left-bar-head">Course Info</h2>
+		<nav> 
+			<ul>
+				<li>Teacher : {{course_details.get_author_name()}} </li>
+				{% if course_details.organization != '' %}
+				<li>Organization : {{course_details.organization}} </li>
+				{% endif %}
+				<li>Duration : {{course_details.date_start}} to {{course_details.date_end}}</li>
+			</ul>
+		</nav>
+	</div>
+
+	{% block intro_content %}
+	{% endblock %}
+
+
+</div>
+
+
+{% endblock %}

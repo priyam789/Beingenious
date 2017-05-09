@@ -48,24 +48,33 @@ class CourseMainPage(Handler):
 			self.redirect('/login?pane=signin')
 
 		else:
-			course_details = User_Course.verify_user(course_code,user.email)
+			course_details = Course.get_details_course(course_code)
 			if not course_details:
 				self.redirect('/courses?code=%s' %course_code)
 			
-			elif course_details.type_course == 'course':
-				correct = self.request.get("correct")
-				module_id = int(self.request.get('module_id'))
-				lesson_id = int(self.request.get("lesson_id"))
-				if correct =="0":
-					User_Course.add_grade_student(course_code,module_id,lesson_id,user.email,marks=0)
-				elif correct == "1":
-					User_Course.add_grade_student(course_code,module_id,lesson_id,user.email,marks=course_details.contents[module_id]['lessons'][lesson_id]['max_marks'])
-				self.redirect('/courses/%s' %course_code)
+			if course_details.type_course == 'course':
+				course_details = User_Course.verify_user(course_code,user.email)
+				if not course_details:
+					self.redirect('/courses?code=%s' %course_code)
+				
+				else:
+					correct = self.request.get("correct")
+					module_id = int(self.request.get('module_id'))
+					lesson_id = int(self.request.get("lesson_id"))
+					if correct =="0":
+						User_Course.add_grade_student(course_code,module_id,lesson_id,user.email,marks=0)
+					elif correct == "1":
+						User_Course.add_grade_student(course_code,module_id,lesson_id,user.email,marks=course_details.contents[module_id]['lessons'][lesson_id]['max_marks'])
+					self.redirect('/courses/%s' %course_code)
 			
 			else:
-				submit_url = '/submit/%s' %(course_details.code)
-				course_details.contents = [{'submit_link': submit_url}]
-				course_details.put()
-				self.redirect('/courses/%s' %course_code)
+				course_details = Course.verify_author(course_code, user.email)
+				if not course_details:
+					self.redirect('/courses?code=%s' %course_code)
+				else:
+					submit_url = '/submit/%s' %(course_details.code)
+					course_details.contents = [{'submit_link': submit_url}]
+					course_details.put()
+					self.redirect('/courses/%s?tag=initiator' %course_code)
 
 

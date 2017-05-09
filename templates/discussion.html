@@ -56,12 +56,13 @@
 
 {% for query in course.discussion %}
 	<div class = "query">
-		<div class = "ques">
+		<div class = "ques" style="background: #e8e8e8">
 			<h2 style="padding: 10px 30px">{{query.title}} </h2>
 			<div style="margin-left: 30px">{{query.content}}</div>
 			<div class = "posted-by">Posted by {{query.user}} on {{query.time}}</div>
 			<div class = "reply-button">
 				<a class = "reply-button-link" href="#" id="reply_link_{{query.query_id}}" name = "reply_link" onclick="post_reply({{query.query_id}})">Reply</a>
+
 			</div>
 		</div>
 			
@@ -72,9 +73,8 @@
 	<!-- <div id = "query" style="display:none"> -->
 				<textarea class="ta-disc" name="reply_desc_{{query.query_id}}" type = "text" placeholder="Enter your reply"></textarea><br>
 	<!-- </div> -->
-				<input class = "submit-disc" type="submit" value="Post the reply" name ="post_R" > 
-				
-				<div id = "cancel_{{query.query_id}}" style="display: block">
+				<div class = "button-disc" id = "cancel_{{query.query_id}}" style="display: block">
+					<input class = "submit-disc" type="submit" value="Post the reply" name ="post_R" > 
 					<a href="#" onclick="cancel_reply({{query.query_id}})">Cancel</a>
 				</div>
 			</form>

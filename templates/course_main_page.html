@@ -37,13 +37,13 @@
 	function videoHTML(lesson){
 		var html = "";
 		html += '<iframe width="420" height="345" id="video" src="'+lesson["link"]+'"> </iframe>\n';
-		html += '<div class = "desc-cmp">'+lesson['description']+'</div>';
+		html += '<div class = "desc-cmp"> <b>Description: </b>'+lesson['description']+'</div>';
 		return html
 	}
 
 	function quizHTML(lesson, module_id){
 		var html = "";
-		html += '<form class="form-cc" method="post" onsubmit="return quizSubmit()">';
+		html += '<form method="post" onsubmit="return quizSubmit()">';
 		html += lesson["question"]+'<br>'
 		for(var i = 1;i<=lesson["options"].length;i++){
 			if(lesson["quiz_format"] == "single")
@@ -52,7 +52,7 @@
 				html += '<input class="radio1-cc" type="checkbox" name="answer" value="'+i.toString()+'"> '+lesson["options"][i-1];
 			html += '<br>';
 		}
-		html +='<input type="submit" value="Submit Answers">';
+		html +='<input class = "submit-disc" type="submit" value="Submit Answers">';
 
 		html += '<input type="hidden" id="correct" name="correct" value="-1">';
 		html += '<input type="hidden" name="lesson_id" value="'+lesson["id"]+'">';
@@ -89,27 +89,27 @@
 
 
 {% block maincontent %}
-	{% if course.type_course == 'event' %}
-	Teacher : {{course.get_author_name()}} <br>
-	{% if course.organization != '' %}
-	Organization : {{course.organization}} <br>
-	{% endif %}
-
-	Overview : {{course.overview}} <br>
-	Duration : {{course.date_start}} to {{course.date_end}}
-
-	{% if course.contents == [] and tag == 'initiator' %}
-	<form method = "post">
-		<input type="submit" value="Create a Submission Link for Participants">
-	</form>
-	{% elif tag == 'initiator' %}
-	Submission link has been opened.
-	{% elif tag != 'initiator' and course.contents != [] %}
-	<a href="{{course.contents[0]['submit_link']}}">Make a Submission </a>
-	{% endif %}
-	{% endif %}
-
 	<div id="maincontent" class = "video-cmp">
+		{% if course.type_course == 'event' %}
+<!-- 		Teacher : {{course.get_author_name()}} <br>
+		{% if course.organization != '' %}
+		Organization : {{course.organization}} <br>
+		{% endif %}
+
+		Overview : {{course.overview}} <br>
+		Duration : {{course.date_start}} to {{course.date_end}} -->
+
+		{% if course.contents == [] and tag == 'initiator' %}
+		<form method = "post">
+			<input type="submit" value="Create a Submission Link for Participants">
+		</form>
+		{% elif tag == 'initiator' %}
+		<i>Submission link has been opened!</i>
+		{% elif tag != 'initiator' and course.contents != [] %}
+		<a href="{{course.contents[0]['submit_link']}}">Make a Submission </a>
+		{% endif %}
+		{% endif %}
+	
 		<iframe id="video" src="{{course.overview_video['link']}}"></iframe>
 	</div>
 {% endblock %}
